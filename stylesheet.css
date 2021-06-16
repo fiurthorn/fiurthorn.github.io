@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+body {
+    font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+    color: #555;
+    background-color: #8694A8;
+}
+
+a {
+    color: #555;
+    text-decoration: none;
+}
+
+pre, code {
+    font-family: 'PT Mono', monospace;
+}
+
+.title {
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-size: 60px;
+    font-weight: normal;
+}
+
+.blog-description {
+    font-size: 20px;
+    color: #999;
+}
+
+.lead {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+span.unbreakable {
+    white-space: nowrap;
+}
+
+@media (min-width: 800px) {
+    #cvimg {
+        position: absolute;
+        top: 145px;
+        right: 80px;
+        width: 200px;
+    }
+}
+
+h2, h3 {
+    margin: 1.5em -20px 7px -25px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid #eee;
+    border-left: 3px solid #2C4870;
+}
+
+body {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2C4870;
+}
+
+ul.topnav li {
+    float: left;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {
+    background-color: #3b5d8b;
+}
+
+ul.topnav li a.active {
+    background-color: #8694A8;
+    background-color: #3b5d8b;
+}
+
+ul.topnav>li>a.active:after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    vertical-align: middle;
+    content: " ";
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid;
+    border-left: 5px solid transparent;
+    border-color: #fff;
+}
+
+ul.topnav li.right {
+    float: right;
+}
+
+dl {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+dt {
+    font-weight: 700;
+}
+
+dd, dt {
+    line-height: 1.42857143;
+}
+
+dd {
+    margin-left: 0;
+}
+
+#solution {
+    display: none;
+}
+
+@media print {
+    a.hreflink:after {
+        content: " [fiurthorn.github.io"attr(href) "]";
+    }
+    a.maillink:after {
+        content: " ["attr(href) "]";
+    }
+    #solution {
+        display: inline
+    }
+    ul.topnav {
+        display: none;
+    }
+    h2 {
+        page-break-before: always;
+    }
+    .page-break {
+        page-break-after: always;
+    }
+    h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+    pre, blockquote {
+        page-break-inside: avoid;
+    }
+    .cv-section {
+        page-break-inside: avoid;
+    }
+    .cv-newpage {
+        page-break-before: always;
+        page-break-inside: avoid;
+    }
+}
+
+@media screen {
+    .letter {
+        background: #f7f7f7;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        margin: 26px auto 26px;
+        max-width: 1000px;
+        padding: 50px 100px 50px 100px;
+        position: relative;
+        width: 80%;
+    }
+    h2 {
+        border-bottom: 1px solid rgba(102, 102, 102, 0.678);
+        padding-top: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right, ul.topnav li {
+        float: none;
+    }
+    .letter {
+        width: 100%;
+        padding: 10 20 10 20;
+        margin: 0 0 0 0;
+    }
+}

@@ -1,0 +1,148 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <title>Längenumrechnungen | fiurthorn</title>
+</head>
+
+<body>
+
+    <ul class="topnav">
+        <li><a href="index.html">Home</a></li>
+        <li><a target="_blank" href="8-queens/index.html">8-queens</a></li>
+        <li><a class="active" href="jobInterview.html">job interview</a></li>
+        <li class="right"><a target="_blank" href="https://github.com/fiurthorn">github</a></li>
+        <li class="right"><a target="_blank" href="https://gist.github.com/fiurthorn">gist</a></li>
+    </ul>
+
+    <div class="letter">
+
+        <script>
+            function changed(e) {
+                var input = document.getElementById('input').value;
+                var inOpt = document.getElementById('inOpt').value;
+                var outOpt = document.getElementById('outOpt').value;
+                var output = document.getElementById('output');
+                output.value = (input * inOpt / outOpt).toFixed(10);
+            }
+        </script>
+
+        <h1>Längenumrechnungen</h1>
+
+        <h2>Umrechungen</h2>
+
+        <table>
+            <tr>
+                <td><input type="decimal" id="input" onkeyup="changed();" value="0"></input>
+                </td>
+                <td><select id="inOpt" onchange="changed();">
+                        <option value="1">m - Meter</option>
+                        <option value="1000">km - Kilometer</option>
+                        <option value="1609.3440">Meile(n)</option>
+                        <option value="1852.216">Seemeile(n)</option>
+                        <option value="0.0254">Zoll / Inch</option>
+                        <option value="0.9144">yard</option>
+                        <option value="9460730472580800">Lichtjahr(e)</option>
+                        <option value="17987547480">Lichtminute(n)</option>
+                        <option value="299792458">Lichtsekunde(n)</option>
+                        <option value="30856775800000000">parsec</option>
+                        <option value="149597870700">AE / AU</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>entsprechen</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="output" readonly="readonly" value="0"></input>
+                </td>
+                <td><select id="outOpt" onchange="changed();">
+                        <option value="1">m - Meter</option>
+                        <option value="1000">km - Kilometer</option>
+                        <option value="1609.3440">Meile(n)</option>
+                        <option value="1852.216">Seemeile(n)</option>
+                        <option value="0.0254">Zoll / Inch</option>
+                        <option value="0.9144">yard</option>
+                        <option value="9460730472580800">Lichtjahr(e)</option>
+                        <option value="17987547480">Lichtminute(n)</option>
+                        <option value="299792458">Lichtsekunde(n)</option>
+                        <option value="30856775800000000">parsec</option>
+                        <option value="149597870700">AE / AU</option>
+                    </select></td>
+            </tr>
+        </table>
+
+        <h2>Aufgabe</h2>
+
+        <ol>
+            <li>Erstellen Sie bitte eine HTML-Seite, die in der Lage ist, vom Benutzer eingegebene Längenangaben in
+                verschiedenen Einheiten anzugeben (z.B. m, km mile, etc.).</li>
+            <li>Desweitern soll es dem Benutzer möglich sein eine Maßeinheit anzugeben, in die umgerechnet werden soll.
+            </li>
+            <li>Die Ausgabe soll innerhalb der HTML-Seite erfolgen (keine MessageBox).</li>
+            <li>Die Berechnung soll nicht durch einen Button ausgelöst werden.</li>
+            </li>
+        </ol>
+
+        <h2 style="cursor: pointer;" id="solutionHeader"
+            onclick="var e=document.getElementById('solution'); s=e.style.display; e.style.display = 'inline';">
+            Lösung</h2>
+        <div id="solution">
+            <pre>&lt;html&gt;
+    &lt;head&gt;
+    &lt;title&gt;Umrechnungen&lt;/title&gt;
+    &lt;script&gt;
+    function changed(e) {
+        var input = document.getElementById('input').value;
+        var inOpt = document.getElementById('inOpt').value;
+        var outOpt = document.getElementById('outOpt').value;
+        var output = document.getElementById('output');
+        output.value = (input * inOpt / outOpt).toFixed(10);
+    }
+    &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;h1&gt;Umrechnungen&lt;/h1&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+        &lt;td&gt;&lt;input type="decimal" id="input" onkeyup="changed();" value="0"&gt;&lt;/input&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;select id="inOpt" onchange="changed();"&gt;
+            &lt;option value="1"&gt;m - Meter&lt;/option&gt;
+            &lt;option value="1000"&gt;km - Kilometer&lt;/option&gt;
+            &lt;option value="1609.3440"&gt;Meile(n)&lt;/option&gt;
+            &lt;option value="1852.216"&gt;Seemeile(n)&lt;/option&gt;
+            &lt;option value="0.0254"&gt;Zoll / Inch&lt;/option&gt;
+            &lt;option value="0.9144"&gt;yard&lt;/option&gt;
+            &lt;option value="9460730472580800"&gt;Lichtjahr(e)&lt;/option&gt;
+            &lt;option value="17987547480"&gt;Lichtminute(n)&lt;/option&gt;
+            &lt;option value="299792458"&gt;Lichtsekunde(n)&lt;/option&gt;
+            &lt;option value="30856775800000000"&gt;parsec&lt;/option&gt;
+            &lt;option value="149597870700"&gt;AE / AU&lt;/option&gt;
+        &lt;/select&gt;&lt;/td&gt;
+        &lt;td&gt;entsprechen&lt;/td&gt;
+        &lt;td&gt;&lt;input type="text" id="output" readonly="readonly" value="0"&gt;&lt;/input&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;select id="outOpt" onchange="changed();"&gt;
+            &lt;option value="1"&gt;m - Meter&lt;/option&gt;
+            &lt;option value="1000"&gt;km - Kilometer&lt;/option&gt;
+            &lt;option value="1609.3440"&gt;Meile(n)&lt;/option&gt;
+            &lt;option value="1852.216"&gt;Seemeile(n)&lt;/option&gt;
+            &lt;option value="0.0254"&gt;Zoll / Inch&lt;/option&gt;
+            &lt;option value="0.9144"&gt;yard&lt;/option&gt;
+            &lt;option value="9460730472580800"&gt;Lichtjahr(e)&lt;/option&gt;
+            &lt;option value="17987547480"&gt;Lichtminute(n)&lt;/option&gt;
+            &lt;option value="299792458"&gt;Lichtsekunde(n)&lt;/option&gt;
+            &lt;option value="30856775800000000"&gt;parsec&lt;/option&gt;
+            &lt;option value="149597870700"&gt;AE / AU&lt;/option&gt;
+        &lt;/select&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
