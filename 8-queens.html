@@ -1,0 +1,2307 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <script src="js/math.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+
+    <title>8-queens | fiurthorn</title>
+
+    <style>
+        span.solutionButton:hover,
+        p.solutionButton:hover {
+            cursor: pointer;
+            background: #000;
+            color: #ccc;
+            white-space: nowrap;
+        }
+
+        .head_button {
+            cursor: pointer;
+            background: #fff;
+            border-width: 1px;
+            border-color: #333;
+            padding: 3px;
+            margin: 3px;
+        }
+
+        .head_button:hover {
+            background: #000;
+            color: #ccc;
+        }
+
+        .head_button:active {
+            background: rgb(141, 140, 140);
+            color: #ccc;
+        }
+
+        table#chess_board.array td {
+            color: rgb(141, 140, 140)
+        }
+
+        section:nth-child(odd) {
+            background-color: #eeeeee;
+        }
+
+        section:nth-child(even) {
+            background-color: #fefefe;
+        }
+
+        section {
+            aspect-ratio: 16 / 9;
+            height: 80vh !important;
+        }
+
+        table#chess_board {
+            margin: 0 auto;
+            text-align: center;
+            width: 75vmin;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            table-layout: fixed;
+        }
+
+        span.queen.black {
+            color: #000;
+            font-size: 40px;
+        }
+
+        #chess_board td {
+            background: #fff;
+            /* max-height: 80px;
+            max-width: 80px; */
+            max-height: 8vmin;
+            min-height: 8vmin;
+            height: 8vmin;
+            width: auto;
+            aspect-ratio: 1 / 1;
+            vertical-align: middle;
+            border-width: 1px !important;
+            border-style: solid !important;
+            border-color: #777 !important;
+        }
+
+        #chess_board td span {
+            margin-left: -4px !important;
+            margin-top: 4px !important;
+        }
+
+        #chess_board tr:nth-child(odd) td:nth-child(even),
+        #chess_board tr:nth-child(even) td:nth-child(odd) {
+            background: #ccc;
+        }
+
+        #chess_board tr td:first-child,
+        #chess_board tr:last-child td:nth-child(even),
+        #chess_board tr:last-child td:nth-child(odd),
+        #chess_board tr:last-child td {
+            background: #ffcd9b !important;
+        }
+
+        #chess_board tr td:first-child {
+            border-right-width: 3px !important;
+            border-right-color: #000 !important;
+        }
+
+        #chess_board tr:last-child td {
+            border-top-width: 3px !important;
+            border-top-color: #000 !important;
+        }
+
+        table#arrayTable th {
+            background: #ffcd9b !important;
+        }
+
+        table#arrayTable td:nth-child(even) {
+            background: #ccc;
+        }
+
+        table#arrayTable td:nth-child(odd) {
+            background: #fff;
+        }
+
+        table#arrayTable {
+            width: 75vmin;
+            height: auto;
+            background-color: #fefefe;
+        }
+
+        .formular {
+            background: #fff;
+            font-family: 'Cousine', monospace;
+            border: 1px solid rgba(0, 20, 80, 0.1);
+            -webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);
+            /* font-size: 2rem; */
+            /* line-height: 2.4rem; */
+            overflow: auto;
+            /* padding: 2.4rem; */
+            text-align: left;
+            /*white-space: pre-wrap;*/
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        pre code {
+            font-size: 120% !important;
+        }
+
+
+        pre.danger,
+        span.danger,
+        td.danger {
+            background: #ff9696 !important;
+        }
+
+        pre.danger-a,
+        span.danger-a,
+        td.danger-a {
+            background: rgb(233, 195, 255) !important;
+        }
+
+        pre.danger-b,
+        span.danger-b,
+        td.danger-b {
+            background: rgb(177, 239, 255) !important;
+        }
+
+        pre.danger-c,
+        span.danger-c,
+        td.danger-c {
+            background: rgb(192, 255, 179) !important;
+        }
+
+        pre.danger-d,
+        span.danger-d,
+        td.danger-d {
+            background: rgb(253, 214, 188) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        function enterFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            }
+        }
+    </script>
+
+    <ul class="topnav">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="8-queens.html">8-queens</a></li>
+        <li><a href="jobInterview.html">job interview</a></li>
+        <li class="right"><a target="_blank" href="https://github.com/fiurthorn">github</a></li>
+        <li class="right"><a target="_blank" href="https://gist.github.com/fiurthorn">gist</a></li>
+    </ul>
+
+    <div class="letter">
+        <section>
+            <h1 class="blog-title">Das Damenproblem | WIP</h1>
+            <p class="lead blog-description">\( {{64!} \over {56!}} = 178.462.987.637.760 \)</p>
+
+            <p>Das Damenproblem ist ein gutes Beispiel für ein einfach zu formulierendes Problem mit
+                nicht-trivialen Lösungen. (<a href="javascript:enterFullscreen(document.documentElement);">Vollbild</a>)
+            </p>
+        </section>
+
+
+        <section id="section-2">
+            <h2>wikipedia</h2>
+
+            <p>Das Damenproblem ist eine schachmathematische Aufgabe.</p>
+            <p>Es sollen jeweils acht
+                Damen auf einem Schachbrett so aufgestellt werden, dass keine zwei Damen einander gemäß
+                ihren in den Schachregeln definierten Zugmöglichkeiten schlagen können.
+            </p>
+            <p>Die Figurenfarbe
+                wird dabei ignoriert, und es wird angenommen, dass jede Figur jede andere angreifen
+                könnte. Solcherart auf dem Schachbrett angeordnete Figuren werden auch als „unabhängig“
+                bezeichnet.</p>
+            <p>Für Damen heißt dies konkret und anders ausgedrückt: Es dürfen keine zwei
+                Damen auf derselben Reihe, Linie oder Diagonale
+                stehen.</p>
+            <p>Das Problem kann auf quadratische Schachbretter beliebiger Größe
+                verallgemeinert werden: Dann gilt es, \(n\) unabhängige Damen auf einem Brett von
+                \(n \times n\) Feldern zu positionieren (mit \(n\) als Parameter aus den natürlichen
+                Zahlen (\(n \in \mathbb{N}\)) ).</p>
+        </section>
+
+
+        <section id="section-3">
+            <h2 class="alignleft">Motivation</h2>
+
+            <ol class="flexblock specs">
+                <li><strong>abstrakte Abbildung von realen "Dingen"</strong>
+                    - Dame<br>
+                    - Schachbrett<br>
+                    - Spiel (Dame mit Schachbrett verbinden)</li>
+                <li><strong>Zustände festhalten</strong>- alle Lösungen</li>
+                <li><strong>Höhere Basistypen</strong>
+                    - Arrays<br>
+                    - Maps<br>
+                    - Sets</li>
+            </ol>
+
+            <ol class="flexblock specs">
+                <li><strong>Rekursion</strong>
+                    - Funktionen die sich selbst wieder aufrufen.<br />
+                    - Parameter werden angepasst (aktuelle Tiefe, ...).<br />
+                    - Abbruchbedingung ist essentiell (&rarr; Endlosschleife).</br />
+                </li>
+                <li><strong>Duplikate finden</strong>
+                    - Spiegelsymetrie<br>
+                    - Rotationssymmetrie</li>
+                <li><strong>Didaktik</strong>- Umsetzten und erlernen von etwas Unbekanntem</li>
+            </ol>
+        </section>
+
+
+        <section id="section-4">
+            <h2 class="alignleft">Das Spielbrett</h2>
+
+            <table id="chess_board" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td><a href="#">H</a></td>
+                    <td id="A8"></td>
+                    <td id="B8"></td>
+                    <td id="C8"></td>
+                    <td id="D8"></td>
+                    <td id="E8"></td>
+                    <td id="F8"></td>
+                    <td id="G8"></td>
+                    <td id="H8"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">G</a></td>
+                    <td id="A7"></td>
+                    <td id="B7"></td>
+                    <td id="C7"></td>
+                    <td id="D7"></td>
+                    <td id="E7"></td>
+                    <td id="F7"></td>
+                    <td id="G7"></td>
+                    <td id="H7"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">F</a></td>
+                    <td id="A6"></td>
+                    <td id="B6"></td>
+                    <td id="C6"></td>
+                    <td id="D6"></td>
+                    <td id="E6"></td>
+                    <td id="F6"></td>
+                    <td id="G6"></td>
+                    <td id="H6"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">E</a></td>
+                    <td id="A5"></td>
+                    <td id="B5"></td>
+                    <td id="C5"></td>
+                    <td id="D5"></td>
+                    <td id="E5"></td>
+                    <td id="F5"></td>
+                    <td id="G5"></td>
+                    <td id="H5"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">D</a></td>
+                    <td id="A4"></td>
+                    <td id="B4"></td>
+                    <td id="C4"></td>
+                    <td id="D4"></td>
+                    <td id="E4"></td>
+                    <td id="F4"></td>
+                    <td id="G4"></td>
+                    <td id="H4"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">C</a></td>
+                    <td id="A3"></td>
+                    <td id="B3"></td>
+                    <td id="C3"></td>
+                    <td id="D3"></td>
+                    <td id="E3"></td>
+                    <td id="F3"></td>
+                    <td id="G3"></td>
+                    <td id="H3"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">B</a></td>
+                    <td id="A2"></td>
+                    <td id="B2"></td>
+                    <td id="C2"></td>
+                    <td id="D2"></td>
+                    <td id="E2"></td>
+                    <td id="F2"></td>
+                    <td id="G2"></td>
+                    <td id="H2"></td>
+                </tr>
+                <tr>
+                    <td><a href="#">A</a></td>
+                    <td id="A1"></td>
+                    <td id="B1"></td>
+                    <td id="C1"></td>
+                    <td id="D1"></td>
+                    <td id="E1"></td>
+                    <td id="F1"></td>
+                    <td id="G1"></td>
+                    <td id="H1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="#">1</a></td>
+                    <td><a href="#">2</a></td>
+                    <td><a href="#">3</a></td>
+                    <td><a href="#">4</a></td>
+                    <td><a href="#">5</a></td>
+                    <td><a href="#">6</a></td>
+                    <td><a href="#">7</a></td>
+                    <td><a href="#">8</a></td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section id="section-5">
+            <h2 class="alignleft">Das Spielbrett: Datentyp</h2>
+
+            <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td><a href="#">7</a></td>
+                    <td id="A8">56</td>
+                    <td id="B8">57</td>
+                    <td id="C8">58</td>
+                    <td id="D8">59</td>
+                    <td id="E8">60</td>
+                    <td id="F8">61</td>
+                    <td id="G8">62</td>
+                    <td id="H8">63</td>
+                </tr>
+                <tr>
+                    <td><a href="#">6</a></td>
+                    <td id="A7">48</td>
+                    <td id="B7">49</td>
+                    <td id="C7">50</td>
+                    <td id="D7">51</td>
+                    <td id="E7">52</td>
+                    <td id="F7">53</td>
+                    <td id="G7">54</td>
+                    <td id="H7">55</td>
+                </tr>
+                <tr>
+                    <td><a href="#">5</a></td>
+                    <td id="A6">40</td>
+                    <td id="B6">41</td>
+                    <td id="C6">42</td>
+                    <td id="D6">43</td>
+                    <td id="E6">44</td>
+                    <td id="F6">45</td>
+                    <td id="G6">46</td>
+                    <td id="H6">47</td>
+                </tr>
+                <tr>
+                    <td><a href="#">4</a></td>
+                    <td id="A5">32</td>
+                    <td id="B5">33</td>
+                    <td id="C5">34</td>
+                    <td id="D5">35</td>
+                    <td id="E5">36</td>
+                    <td id="F5">37</td>
+                    <td id="G5">38</td>
+                    <td id="H5">39</td>
+                </tr>
+                <tr>
+                    <td><a href="#">3</a></td>
+                    <td id="A4">24</td>
+                    <td id="B4">25</td>
+                    <td id="C4">26</td>
+                    <td id="D4">27</td>
+                    <td id="E4">28</td>
+                    <td id="F4">29</td>
+                    <td id="G4">30</td>
+                    <td id="H4">31</td>
+                </tr>
+                <tr>
+                    <td><a href="#">2</a></td>
+                    <td id="A3">16</td>
+                    <td id="B3">17</td>
+                    <td id="C3">18</td>
+                    <td id="D3">19</td>
+                    <td id="E3">20</td>
+                    <td id="F3">21</td>
+                    <td id="G3">22</td>
+                    <td id="H3">23</td>
+                </tr>
+                <tr>
+                    <td><a href="#">1</a></td>
+                    <td id="A2">8</td>
+                    <td id="B2">9</td>
+                    <td id="C2">10</td>
+                    <td id="D2">11</td>
+                    <td id="E2">12</td>
+                    <td id="F2">13</td>
+                    <td id="G2">14</td>
+                    <td id="H2">15</td>
+                </tr>
+                <tr>
+                    <td><a href="#">0</a></td>
+                    <td id="A1">0</td>
+                    <td id="B1">1</td>
+                    <td id="C1">2</td>
+                    <td id="D1">3</td>
+                    <td id="E1">4</td>
+                    <td id="F1">5</td>
+                    <td id="G1">6</td>
+                    <td id="H1">7</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="#">0</a></td>
+                    <td><a href="#">1</a></td>
+                    <td><a href="#">2</a></td>
+                    <td><a href="#">3</a></td>
+                    <td><a href="#">4</a></td>
+                    <td><a href="#">5</a></td>
+                    <td><a href="#">6</a></td>
+                    <td><a href="#">7</a></td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section id="section-6">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot1.png">
+            </div>
+
+            <h2 class="alignleft">Ablage im Speicher als Multidimensionales Array</h2>
+
+            <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td><a href="#">2</a></td>
+                    <td id="A3">6</td>
+                    <td id="B3">7</td>
+                    <td id="C3">8</td>
+                </tr>
+                <tr>
+                    <td><a href="#">1</a></td>
+                    <td id="A2">3</td>
+                    <td id="B2">4</td>
+                    <td id="C2">5</td>
+                </tr>
+                <tr>
+                    <td><a href="#">0</a></td>
+                    <td id="A1">0</td>
+                    <td id="B1">1</td>
+                    <td id="C1">2</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="#">0</a></td>
+                    <td><a href="#">1</a></td>
+                    <td><a href="#">2</a></td>
+                </tr>
+            </table>
+
+            <div class="column">
+                <pre><code>Größe n = 3 und Index f</code></pre>
+                <div class="formular">
+                    Modulo-Operator, Rest der Ganzzahldivion<br>
+                    Gaußsche Klammern, Abrundung
+                </div>
+                <div class="formular">
+                    $$f = n &times; y + x$$
+
+                    $$\begin{pmatrix}{x}\\{y}\end{pmatrix} =
+                    \begin{pmatrix}{f \mod n}\\{\lfloor f / n \rfloor}\end{pmatrix} =
+                    \begin{pmatrix}{f - ( n &times; y )}\\{( f - x ) / n}\end{pmatrix}
+                    $$
+                </div>
+            </div>
+
+            <table id="arrayTable">
+                <tr>
+                    <th>feld</th>
+                    <th>0</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                </tr>
+                <tr>
+                    <th>x,y</th>
+                    <td>0,0</td>
+                    <td>1,0</td>
+                    <td>2,0</td>
+                    <td>0,1</td>
+                    <td>1,1</td>
+                    <td>2,1</td>
+                    <td>0,2</td>
+                    <td>1,2</td>
+                    <td>2,2</td>
+                </tr>
+            </table>
+        </section>
+
+
+        <section id="section-7">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot2.png">
+            </div>
+
+            <header>
+                <span>
+                    <strong class="alignleft">Ablage im Speicher als Multidimensionales Array</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">2</a></td>
+                                <td id="A3">6</td>
+                                <td id="B3">7</td>
+                                <td id="C3">8</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">1</a></td>
+                                <td id="A2">3</td>
+                                <td id="B2">4</td>
+                                <td id="C2" class="danger-c">5</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">0</a></td>
+                                <td id="A1">0</td>
+                                <td id="B1">1</td>
+                                <td id="C1">2</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">0</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <pre><code>Größe n = 3 und Index f</code></pre>
+                        <div class="formular">
+                            Modulo-Operator, Rest der Ganzzahldivion<br>
+                            Gaußsche Klammern, Abrundung
+                        </div>
+                        <div class="formular">
+                            $$f = n &times; y + x$$
+
+                            $$\begin{pmatrix}{x}\\{y}\end{pmatrix} =
+                            \begin{pmatrix}{f \mod n}\\{\lfloor f / n \rfloor}\end{pmatrix} =
+                            \begin{pmatrix}{f - ( n &times; y )}\\{( f - x ) / n}\end{pmatrix}
+                            $$
+                        </div>
+                        <span class="formular">
+                            $$\bbox[#B1EFB1, padding: 3px]{f = 3 \times 1 + 2 = 5}$$
+                            $$\bbox[#B1EFB1, padding: 3px]{x = 5 - (3 \times 1) = 5 - 3 = 2}$$
+                            $$\bbox[#B1EFB1, padding: 3px]{y = (5 - 2) / 3 = 3 / 3 = 1}$$
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="column">
+                    <table id="arrayTable">
+                        <tr>
+                            <th>feld</th>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                        </tr>
+                        <tr>
+                            <th>x,y</th>
+                            <td>0,0</td>
+                            <td>1,0</td>
+                            <td>2,0</td>
+                            <td>0,1</td>
+                            <td>1,1</td>
+                            <td class="danger-c">2,1</td>
+                            <td>0,2</td>
+                            <td>1,2</td>
+                            <td>2,2</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="column"></div>
+            </div>
+        </section>
+
+        <section id="section-8">
+            <header>
+                <span>
+                    <strong class="alignleft">Welche Felder bedroht eine Dame</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">7</a></td>
+                                <td id="A8"></td>
+                                <td id="B8"></td>
+                                <td id="C8" class="danger"></td>
+                                <td id="D8"></td>
+                                <td id="E8"></td>
+                                <td id="F8"></td>
+                                <td id="G8" class="danger"></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">6</a></td>
+                                <td id="A7"></td>
+                                <td id="B7"></td>
+                                <td id="C7" class="danger"></td>
+                                <td id="D7"></td>
+                                <td id="E7"></td>
+                                <td id="F7" class="danger"></td>
+                                <td id="G7"></td>
+                                <td id="H7"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">5</a></td>
+                                <td id="A6" class="danger"></td>
+                                <td id="B6"></td>
+                                <td id="C6" class="danger"></td>
+                                <td id="D6"></td>
+                                <td id="E6" class="danger"></td>
+                                <td id="F6"></td>
+                                <td id="G6"></td>
+                                <td id="H6"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">4</a></td>
+                                <td id="A5"></td>
+                                <td id="B5" class="danger"></td>
+                                <td id="C5" class="danger"></td>
+                                <td id="D5" class="danger"></td>
+                                <td id="E5"></td>
+                                <td id="F5"></td>
+                                <td id="G5"></td>
+                                <td id="H5"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">3</a></td>
+                                <td id="A4" class="danger"></td>
+                                <td id="B4" class="danger"></td>
+                                <td id="C4" class="danger"><span class="queen black">&#x2655;</span></td>
+                                <td id="D4" class="danger"></td>
+                                <td id="E4" class="danger"></td>
+                                <td id="F4" class="danger"></td>
+                                <td id="G4" class="danger"></td>
+                                <td id="H4" class="danger"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">2</a></td>
+                                <td id="A3"></td>
+                                <td id="B3" class="danger"></td>
+                                <td id="C3" class="danger"></td>
+                                <td id="D3" class="danger"></td>
+                                <td id="E3"></td>
+                                <td id="F3"></td>
+                                <td id="G3"></td>
+                                <td id="H3"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">1</a></td>
+                                <td id="A2" class="danger"></td>
+                                <td id="B2"></td>
+                                <td id="C2" class="danger"></td>
+                                <td id="D2"></td>
+                                <td id="E2" class="danger"></td>
+                                <td id="F2"></td>
+                                <td id="G2"></td>
+                                <td id="H2"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">0</a></td>
+                                <td id="A1"></td>
+                                <td id="B1"></td>
+                                <td id="C1" class="danger"></td>
+                                <td id="D1"></td>
+                                <td id="E1"></td>
+                                <td id="F1" class="danger"></td>
+                                <td id="G1"></td>
+                                <td id="H1"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">0</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                                <td><a href="#">3</a></td>
+                                <td><a href="#">4</a></td>
+                                <td><a href="#">5</a></td>
+                                <td><a href="#">6</a></td>
+                                <td><a href="#">7</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-9">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot1.png">
+            </div>
+
+            <header>
+                <span>
+                    <strong class="alignleft">Welche Felder bedroht eine Dame</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">7</a></td>
+                                <td id="A8"></td>
+                                <td id="B8"></td>
+                                <td id="C8" class="danger-b">b<sub>1</sub></td>
+                                <td id="D8"></td>
+                                <td id="E8"></td>
+                                <td id="F8"></td>
+                                <td id="G8" class="danger-d">d<sub>1</sub></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">6</a></td>
+                                <td id="A7"></td>
+                                <td id="B7"></td>
+                                <td id="C7" class="danger-b"></td>
+                                <td id="D7"></td>
+                                <td id="E7"></td>
+                                <td id="F7" class="danger-d"></td>
+                                <td id="G7"></td>
+                                <td id="H7"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">5</a></td>
+                                <td id="A6" class="danger-c">c<sub>2</sub></td>
+                                <td id="B6"></td>
+                                <td id="C6" class="danger-b"></td>
+                                <td id="D6"></td>
+                                <td id="E6" class="danger-d"></td>
+                                <td id="F6"></td>
+                                <td id="G6"></td>
+                                <td id="H6"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">4</a></td>
+                                <td id="A5"></td>
+                                <td id="B5" class="danger-c"></td>
+                                <td id="C5" class="danger-b"></td>
+                                <td id="D5" class="danger-d"></td>
+                                <td id="E5"></td>
+                                <td id="F5"></td>
+                                <td id="G5"></td>
+                                <td id="H5"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">3</a></td>
+                                <td id="A4" class="danger-a">a<sub>2</sub></td>
+                                <td id="B4" class="danger-a"></td>
+                                <td id="C4" class=""><span class="queen black">&#x2655;</span></td>
+                                <td id="D4" class="danger-a"></td>
+                                <td id="E4" class="danger-a"></td>
+                                <td id="F4" class="danger-a"></td>
+                                <td id="G4" class="danger-a"></td>
+                                <td id="H4" class="danger-a">a<sub>1</sub></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">2</a></td>
+                                <td id="A3"></td>
+                                <td id="B3" class="danger-d"></td>
+                                <td id="C3" class="danger-b"></td>
+                                <td id="D3" class="danger-c"></td>
+                                <td id="E3"></td>
+                                <td id="F3"></td>
+                                <td id="G3"></td>
+                                <td id="H3"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">1</a></td>
+                                <td id="A2" class="danger-d">d<sub>2</sub></td>
+                                <td id="B2"></td>
+                                <td id="C2" class="danger-b"></td>
+                                <td id="D2"></td>
+                                <td id="E2" class="danger-c"></td>
+                                <td id="F2"></td>
+                                <td id="G2"></td>
+                                <td id="H2"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">0</a></td>
+                                <td id="A1"></td>
+                                <td id="B1"></td>
+                                <td id="C1" class="danger-b">b<sub>2</sub></td>
+                                <td id="D1"></td>
+                                <td id="E1"></td>
+                                <td id="F1" class="danger-c">c<sub>1</sub></td>
+                                <td id="G1"></td>
+                                <td id="H1"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">0</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                                <td><a href="#">3</a></td>
+                                <td><a href="#">4</a></td>
+                                <td><a href="#">5</a></td>
+                                <td><a href="#">6</a></td>
+                                <td><a href="#">7</a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="column">
+                        <h4>Geraden</h4>
+                        <pre class="danger-a"><code>a<sub>1</sub>) [2,3] &rarrtl; [7,3] mit [+1,  0]</code></pre>
+                        <pre class="danger-a"><code>a<sub>2</sub>) [2,3] &rarrtl; [0,3] mit [-1,  0]</code></pre>
+                        <pre class="danger-b"><code>b<sub>1</sub>) [2,3] &rarrtl; [2,7] mit [ 0, +1]</code></pre>
+                        <pre class="danger-b"><code>b<sub>2</sub>) [2,3] &rarrtl; [2,0] mit [ 0, -1]</code></pre>
+                        <pre class="danger-c"><code>c<sub>1</sub>) [2,3] &rarrtl; [5,0] mit [+1, -1]</code></pre>
+                        <pre class="danger-c"><code>c<sub>2</sub>) [2,3] &rarrtl; [0,5] mit [-1, +1]</code></pre>
+                        <pre class="danger-d"><code>d<sub>1</sub>) [2,3] &rarrtl; [6,7] mit [+1, +1]</code></pre>
+                        <pre class="danger-d"><code>d<sub>2</sub>) [2,3] &rarrtl; [0,1] mit [-1, -1]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-10">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot2.png">
+            </div>
+
+            <header>
+                <span>
+                    <strong class="alignleft">Welche Felder bedroht eine Dame</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">7</a></td>
+                                <td id="A8"></td>
+                                <td id="B8"></td>
+                                <td id="C8" class="danger-b">b</td>
+                                <td id="D8"></td>
+                                <td id="E8"></td>
+                                <td id="F8"></td>
+                                <td id="G8" class="danger-d"></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">6</a></td>
+                                <td id="A7"></td>
+                                <td id="B7"></td>
+                                <td id="C7" class="danger-b"></td>
+                                <td id="D7"></td>
+                                <td id="E7"></td>
+                                <td id="F7" class="danger-d"></td>
+                                <td id="G7"></td>
+                                <td id="H7"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">5</a></td>
+                                <td id="A6" class="danger-c">c</td>
+                                <td id="B6"></td>
+                                <td id="C6" class="danger-b"></td>
+                                <td id="D6"></td>
+                                <td id="E6" class="danger-d"></td>
+                                <td id="F6"></td>
+                                <td id="G6"></td>
+                                <td id="H6"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">4</a></td>
+                                <td id="A5"></td>
+                                <td id="B5" class="danger-c"></td>
+                                <td id="C5" class="danger-b"></td>
+                                <td id="D5" class="danger-d"></td>
+                                <td id="E5"></td>
+                                <td id="F5"></td>
+                                <td id="G5"></td>
+                                <td id="H5"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">3</a></td>
+                                <td id="A4" class="danger-a">a</td>
+                                <td id="B4" class="danger-a"></td>
+                                <td id="C4" class=""><span class="queen black">&#x2655;</span></td>
+                                <td id="D4" class="danger-a"></td>
+                                <td id="E4" class="danger-a"></td>
+                                <td id="F4" class="danger-a"></td>
+                                <td id="G4" class="danger-a"></td>
+                                <td id="H4" class="danger-a"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">2</a></td>
+                                <td id="A3"></td>
+                                <td id="B3" class="danger-d"></td>
+                                <td id="C3" class="danger-b"></td>
+                                <td id="D3" class="danger-c"></td>
+                                <td id="E3"></td>
+                                <td id="F3"></td>
+                                <td id="G3"></td>
+                                <td id="H3"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">1</a></td>
+                                <td id="A2" class="danger-d">d</td>
+                                <td id="B2"></td>
+                                <td id="C2" class="danger-b"></td>
+                                <td id="D2"></td>
+                                <td id="E2" class="danger-c"></td>
+                                <td id="F2"></td>
+                                <td id="G2"></td>
+                                <td id="H2"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">0</a></td>
+                                <td id="A1"></td>
+                                <td id="B1"></td>
+                                <td id="C1" class="danger-b"></td>
+                                <td id="D1"></td>
+                                <td id="E1"></td>
+                                <td id="F1" class="danger-c"></td>
+                                <td id="G1"></td>
+                                <td id="H1"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">0</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                                <td><a href="#">3</a></td>
+                                <td><a href="#">4</a></td>
+                                <td><a href="#">5</a></td>
+                                <td><a href="#">6</a></td>
+                                <td><a href="#">7</a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="column">
+                        <h4>Geraden mit Grenzen</h4>
+                        <pre class="danger"><code>   m = n - 1</code></pre>
+                        <pre class="danger-a"><code>a)   [x<sub>1</sub>=0, y<sub>1</sub>=y]
+&rarr; [x<sub>2</sub>=m, y<sub>2</sub>=y]
+mit [+1,  0]</code></pre>
+                        <pre class="danger-b"><code>b)   [x<sub>1</sub>=x, y<sub>1</sub>=0]
+&rarr; [x<sub>2</sub>=x, y<sub>2</sub>=m]
+mit [ 0, +1]</code></pre>
+                        <pre class="danger-c"><code>c)   [x<sub>1</sub>= x-min(x, m-y), y<sub>1</sub>= y+min(x, m-y)]
+&rarr; [x<sub>2</sub>= x+min(m-x, y), y<sub>2</sub>= y-min(m-x, y)]
+mit [ +1, -1]</code></pre>
+                        <pre class="danger-d"><code>d)   [x<sub>1</sub>= x-min(x,y),      y<sub>1</sub>= y-min(x,y)]
+&rarr; [x<sub>2</sub>= x+min(m-x, m-y), y<sub>2</sub>= y+min(m-x, m-y)]
+mit [ +1, +1]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-11">
+            <header>
+                <span>
+                    <strong class="alignleft">Lösungansatz</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <h4>recursive backtracking</h4>
+
+                        <ol class="flexblock specs">
+                            <li><strong>Rekursiv</strong>
+                                Funktionen die sich selbst mit veränderten Parametern aufrufen</li>
+                            <li><strong>Backtracking</strong>
+                                Algorithmus der ohne Datenverlust einen Schritt zurückgehen kann</li>
+                            <li><strong>Optimierung</strong>
+                                Setze pro Spalte nur eine Dame (8^8 &lt; 17 Millionen)<br>
+                                Nachteil: kann nicht ohne Änderungen für Springer und Läufer angewendet werden</li>
+                            <li><strong>Lösung</strong>
+                                Mischung aus den beiden Varianten</li>
+                        </ol>
+                    </div>
+                    <div class="column">
+                        <h4>Beschreibung</h4>
+
+                        <ol class="flexblock specs">
+                            <li><strong>Start</strong>
+                                Setze ein Dame auf das erste Feld</li>
+                            <li>
+                                <ol class="flexblock specs">
+                                    <li><strong>Damen setzten</strong>
+                                        Gehe die Felder der Reihe nach durch, bis zum nächsten Feld ohne Bedrohung
+                                        und setzte die nächste Dame.</li>
+                                    <li><strong>Backtracking</strong>
+                                        Sind noch nicht alle Damen gesetzt, aber kein Feld mehr frei, nimm die
+                                        letzte Dame vom Brett und wiederhole den oberen Schritt.</li>
+                                </ol>
+                            </li>
+                            <li><strong>weitere Lösungen</strong>
+                                Sind alle Damen gesetzt, speichere die Lösung ab, nimm die letzte Dame aus dem
+                                Spiele und wiederhole die oberen Schritte.
+                            </li>
+                            <li><strong>Beendung des Algorithmus</strong>
+                                Ist die erste Dame auf dem letzten Feld, ist die Suche beendet.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            var timeout = 333;
+            var ingame = false
+            var section, board, button
+            var queens
+            var counter
+
+            function play(initial, count, TODO) {
+                function init() {
+                    section = document.getElementById('showcase')
+                    board = section.querySelector("#chess_board")
+                    button = section.querySelector("#start_button")
+                }
+
+                function isBusy(x, y) {
+                    var i = index(x, y)
+                    var td = board.querySelector(i)
+                    var content = td.firstChild
+                    if (content) {
+                        return true
+                    }
+                    return false
+                }
+
+                function setQueen(i) {
+                    var f = section.querySelector(i)
+                    if (!f.firstChild) {
+                        f.appendChild(queen())
+                    }
+                }
+
+                function resetQueen(i) {
+                    var f = section.querySelector(i)
+                    if (f.firstChild) { f.removeChild(f.firstChild) }
+                }
+
+                function queen() {
+                    var q = document.createElement("span")
+                    q.className = "queen black"
+                    q.textContent = "\u265B"
+                    return q
+                }
+
+                function danger(x, y) {
+                    section.querySelector(index(x, y)).classList.add("danger")
+                }
+
+                function safety(x, y) {
+                    section.querySelector(index(x, y)).classList.remove("danger")
+                }
+
+                function safetyField(x, y) {
+                    for (var line of lines(x, y)) {
+                        var [from, till, count] = line
+                        for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                            if (isBusy(x1, y1)) {
+                                return false
+                            }
+                        }
+                    }
+                    return true
+                }
+
+                function frameQueen(x, y) {
+                    for (var line of lines(x, y)) {
+                        var [from, till, count] = line
+                        for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                            danger(x1, y1)
+                        }
+                    }
+                }
+
+                function unframeQueen(x, y) {
+                    for (var line of lines(x, y)) {
+                        var [from, till, count] = line
+                        for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                            safety(x1, y1)
+                        }
+                    }
+                }
+
+                function clear() {
+                    for (var i = 0; i < 64; i++) {
+                        resetQueen(index(i % gSize, Math.floor(i / gSize)))
+                        safety(i % gSize, Math.floor(i / gSize))
+                    }
+                }
+
+                function saftyAll() {
+                    for (var i = 0; i < 64; i++) {
+                        safety(i % gSize, Math.floor(i / gSize))
+                    }
+                }
+
+                if (!section) {
+                    init()
+                }
+
+                if (initial) {
+                    clear()
+                    queens = [];
+                    counter = 0;
+
+                }
+
+                var x = count % gSize, y = Math.floor(count / gSize)
+
+                counter++
+                if (counter > 20) {
+                    timeout = 222
+                }
+                if (counter > 40) {
+                    timeout = 50
+                }
+                if (counter > 200) {
+                    timeout = 10
+                }
+
+                if (TODO) {
+                    var [kind, next] = TODO
+
+                    switch (kind) {
+                        case "SOLVE":
+                            saftyAll();
+                            ingame = false
+                            break;
+                        case "RESET":
+                            resetQueen(index(x, y))
+                            if (x == 7) {
+                                setTimeout(play, timeout, false, count, ["BACKTRACK", []])
+                            } else {
+                                setTimeout(play, timeout, ...next)
+                            }
+                            break;
+                        case "STORE":
+                            frameQueen(x, y)
+                            queens.push([count, x, y])
+                            setTimeout(play, timeout, ...next)
+                            break;
+                        case "BACKTRACK":
+                            var [c, x, y] = queens.pop()
+                            resetQueen(index(x, y))
+                            unframeQueen(x, y)
+                            queens.forEach(([f1, x1, y1]) => frameQueen(x1, y1))
+                            if (x == 7) {
+                                setTimeout(play, timeout, false, count, ["BACKTRACK", []])
+                            } else {
+                                setTimeout(play, timeout * 5, false, c + 1)
+                            }
+                            break;
+                    }
+
+                } else if (queens.length == 8) {
+                    setTimeout(play, timeout, false, 0, ["SOLVE", []])
+                } else if (x < gSize && y < gSize) {
+                    var isSafety = safetyField(x, y)
+                    setQueen(index(x, y))
+                    if (isSafety) {
+                        setTimeout(play, timeout, false, count, ["STORE", [false, count + (gSize - x || 1)]])
+                    } else {
+                        setTimeout(play, timeout, false, count, ["RESET", [false, count + 1]])
+                    }
+                }
+            }
+
+            function match() {
+                if (!ingame) {
+                    ingame = true
+                    timeout = 333;
+                    setTimeout(play, timeout, true, 0)
+                }
+            }
+        </script>
+
+        <script>
+            var gSection, gBoard, gSolutions, gSize = 8
+            var gCount = gSize * gSize
+
+            function queen() {
+                var q = document.createElement("span")
+                q.className = "queen black"
+                q.textContent = gQueens.length % 2 == 0 ? "\u265B" : "\u2655"
+                return q
+            }
+
+
+            function index(x, y) {
+                return '#' + String.fromCharCode(65 + y, 49 + x)
+            }
+
+            function xy(i) {
+                return [i.charCodeAt(2) - 49, i.charCodeAt(1) - 65]
+            }
+
+            function isBusy(x, y) {
+                var i = index(x, y)
+                var td = gBoard.querySelector(i)
+                var content = td.firstChild
+                if (content) {
+                    return true
+                }
+                return false
+            }
+
+            function setQueen(x, y) {
+                var i = index(x, y)
+                var f = gSection.querySelector(i)
+                if (!f.firstChild) { f.appendChild(queen()) }
+            }
+
+            function resetQueen(x, y) {
+                var f = gSection.querySelector(index(x, y))
+                if (f.firstChild) {
+                    f.removeChild(f.firstChild)
+                }
+            }
+
+            function danger(x, y) {
+                gSection.querySelector(index(x, y)).classList.add("danger")
+            }
+
+            function safety(x, y) {
+                gSection.querySelector(index(x, y)).classList.remove("danger")
+            }
+
+            function check(a, b, count) {
+                if (count < 0) {
+                    return a >= b
+                } if (count > 0) {
+                    return a <= b
+                } else {
+                    return a == b
+                }
+            }
+
+            function frameQueen(x, y) {
+                for (var line of lines(x, y)) {
+                    var [from, till, count] = line
+                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                        danger(x1, y1)
+                    }
+                }
+                if (gMaharadscha) {
+                    knight(x, y).forEach(([x1, y1]) => danger(x1, y1))
+                }
+            }
+
+            function unframeQueen(x, y) {
+                for (var line of lines(x, y)) {
+                    var [from, till, count] = line
+                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                        safety(x1, y1)
+                    }
+                }
+                if (gMaharadscha) {
+                    knight(x, y).forEach(([x1, y1]) => safety(x1, y1))
+                }
+            }
+
+            function safetyLine(x, y) {
+                for (var line of lines(x, y)) {
+                    var [from, till, count] = line
+                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                        if (isBusy(x1, y1)) {
+                            return false
+                        }
+                    }
+                }
+                if (gMaharadscha) {
+                    for (var [x1, y1] of knight(x, y)) {
+                        if (isBusy(x1, y1)) {
+                            return false
+                        }
+                    }
+                }
+                return true
+            }
+
+            function rotate(solution) {
+                var i = math.complex(0, 1)
+                var half = (gSize - 1) / 2
+
+                return solution.map(([x, y]) => math.complex(x - half, y - half))
+                    .map(abi => math.multiply(abi, i))
+                    .map(abi => [math.re(abi) + half, math.im(abi) + half])
+            }
+
+            function diagonal1(solution) {
+                return solution.map(([x, y]) => [y, x])
+            }
+
+            function diagonal2(solution) {
+                return solution.map(([x, y]) => [gSize - y - 1, gSize - x - 1])
+            }
+
+            function mirror1(solution) {
+                return solution.map(([x, y]) => [gSize - x - 1, y])
+            }
+
+            function mirror2(solution) {
+                return solution.map(([x, y]) => [x, gSize - y - 1])
+            }
+
+            function storeable(solution) {
+                return solution.map(([x, y]) => index(x, y)).sort().join(", ")
+            }
+
+            function symetrics(origin) {
+                var result = [], interim
+
+                result.push(origin.slice())
+
+                interim = rotate(origin)
+                result.push(interim)
+
+                interim = rotate(interim)
+                result.push(interim)
+
+                interim = rotate(interim)
+                result.push(interim)
+
+                result.push(diagonal1(origin))
+                result.push(diagonal2(origin))
+                result.push(mirror1(origin))
+                result.push(mirror2(origin))
+
+                return result
+            }
+
+            function contains(uniq, solution) {
+                var solutions = symetrics(solution).map(storeable)
+                // .map(solution => solution.map(([x, y]) => index(x, y)).sort().join(", "))
+
+                var included = solutions.reduce((prev, curr) => prev || uniq.indexOf(curr) >= 0, false)
+                if (!included) {
+                    uniq.push(solutions[0])
+                }
+                return included;
+            }
+
+            function draw(a, b) {
+                init()
+
+                symetrics([[a, b]]).forEach((s) => {
+                    s.forEach(([x, y]) => {
+                        setQueen(x, y)
+                    })
+                })
+            }
+
+            function drawSolution(sol) {
+                if (!gRunning) {
+                    clear();
+                    sol.split(/,\s*/g).map(a => xy(a)).forEach(([x, y]) => setQueen(x, y))
+                }
+            }
+
+            function gInit() {
+                if (!gSection) {
+                    gSection = document.getElementById('thegame')
+                    gBoard = gSection.querySelector("#chess_board")
+                    gButton = gSection.querySelector("#start_button")
+                    gSolutionsDiv = gSection.querySelector("#solutions")
+                    gSolutionsAllDiv = gSection.querySelector("#allSolutions")
+                }
+            }
+
+            function clear() {
+                for (var i = 0; i < 64; i++) {
+                    resetQueen(i % gSize, Math.floor(i / gSize))
+                    safety(i % gSize, Math.floor(i / gSize))
+                }
+            }
+
+            var gSolutionsDiv, gSolutionsAllDiv, gButton
+            var gSolutions = []
+            var gUniq = []
+            var gQueens = []
+            var gTimeout = 500
+            var gIterations = 0
+            var gRunning = false
+            var gMaharadscha = false
+
+            function game() {
+                gInit()
+
+                function solve() {
+                    if (gIterations === 0) {
+                        while (gSolutionsDiv.firstChild) {
+                            gSolutionsDiv.removeChild(gSolutionsDiv.firstChild)
+                        }
+                        while (gSolutionsAllDiv.firstChild) {
+                            gSolutionsAllDiv.removeChild(gSolutionsAllDiv.firstChild)
+                        }
+                        clear()
+                        gRunning = true;
+                    }
+                    var startUp;
+                    if (gQueens.length == 0) {
+                        startUp = 0
+                    } else {
+                        var data = gQueens.pop()
+                        startUp = data[0] + 1
+                        resetQueen(data[1], data[2])
+                    }
+
+                    for (var f = startUp; f <= gCount; f++) {
+                        gIterations++
+
+                        if (f === gCount || gQueens.length === gSize) {
+                            if (gQueens.length == gSize) {
+                                gButton.textContent = `running - ${gSolutions.length} - ${gUniq.length} - ${gIterations}`
+
+                                var sol = []
+                                for (var q of gQueens) {
+                                    sol.push([q[1], q[2]])
+                                }
+                                gSolutions.push(sol.map(([a, b]) => index(a, b)).sort().join(", "))
+
+                                if (!contains(gUniq, sol)) {
+                                    var sol = gUniq[gUniq.length - 1];
+                                    var p = document.createElement("SPAN")
+                                    p.classList.add("solutionButton")
+                                    p.textContent = `${gSolutions.length}: ${sol}`
+                                    p.onclick = (e) => drawSolution(sol)
+                                    gSolutionsDiv.appendChild(p)
+                                    gSolutionsDiv.appendChild(document.createElement("BR"))
+                                    gSolutionsDiv.appendChild(document.createElement("BR"))
+                                    if (gUniq.length == 12) {
+                                        gTimeout = 250
+                                    }
+                                } else {
+                                    var sol = gSolutions[gSolutions.length - 1];
+                                    var span = document.createElement("SPAN")
+                                    span.textContent = ` ${gSolutions.length}. `
+                                    span.classList.add("solutionButton")
+                                    span.onclick = (e) => drawSolution(sol)
+                                    gSolutionsAllDiv.appendChild(span)
+                                }
+
+                                if (gSolutions.length === 50) {
+                                    gTimeout = 175
+                                }
+
+                                setTimeout(game, gTimeout)
+                                return
+                            }
+                            var data = gQueens.pop()
+                            if (data) {
+                                f = data[0]
+                                resetQueen(data[1], data[2])
+                            } else {
+                                gRunning = false;
+                                drawSolution(gSolutions[gSolutions.length - 1])
+                                gButton.textContent = `ready - ${gSolutions.length} - ${gUniq.length} - ${gIterations}`
+
+                                gIterations = 0
+                                gSolutions = []
+                                gUniq = []
+                                gTimeout = 500
+
+                                return
+                            }
+                        } else {
+                            var x = f % gSize, y = Math.floor(f / gSize)
+                            if (safetyLine(x, y)) {
+                                setQueen(x, y)
+                                gQueens.push([f, x, y])
+                            }
+                        }
+                    }
+                }
+
+                solve()
+            }
+
+            function knight(x, y) {
+                return [
+                    [+2, +1],
+                    [+2, -1],
+                    [-2, +1],
+                    [-2, -1],
+                    [+1, +2],
+                    [-1, +2],
+                    [+1, -2],
+                    [-1, -2],
+                ].map(([a, b]) => [x + a, y + b])
+                    .filter(([a, b]) => a >= 0 && b >= 0 && a < gSize && b < gSize)
+            }
+
+            function lines(x, y) { return [line1(x, y), line2(x, y), line3(x, y), line4(x, y),] }
+
+            function line1(x, y) { return [[0, y], [7, y], [1, 0]] }
+
+            function line2(x, y) { return [[x, 0], [x, 7], [0, 1]] }
+
+            function line3(x, y) { return [[x - Math.min(x, y), y - Math.min(x, y)], [x + Math.min(gSize - x - 1, gSize - y - 1), y + Math.min(gSize - x - 1, gSize - y - 1)], [1, 1]] }
+
+            function line4(x, y) {
+                return [[x - Math.min(x, gSize - y - 1), y + Math.min(x, gSize - y - 1)], [x + Math.min(gSize - x - 1, y), y - Math.min(gSize - x - 1, y)], [1, -1]]
+            }
+
+            function mirror(kind) {
+                if (!gRunning) {
+                    var queens = []
+                    for (var f = 0; f < gCount; f++) {
+                        var x = f % gSize, y = Math.floor(f / gSize)
+                        var i = index(x, y)
+                        var field = gSection.querySelector(i)
+                        if (field.firstChild) {
+                            queens.push([x, y])
+                            resetQueen(x, y)
+                        }
+                    }
+                    switch (kind) {
+                        case 'S':
+                            queens = rotate(queens)
+                            break;
+                        case 'V':
+                            queens = mirror1(queens)
+                            break;
+                        case 'H':
+                            queens = mirror2(queens)
+                            break;
+                        case 'D1':
+                            queens = diagonal1(queens)
+                            break;
+                        case 'D2':
+                            queens = diagonal2(queens)
+                            break;
+                    }
+                    queens.forEach(([x, y]) => setQueen(x, y))
+                }
+            }
+        </script>
+
+
+        <section id="section-12">
+            <a name="showcase"></a>
+            <header>
+                <span>
+                    <strong class="alignleft">Showcase</strong>
+                </span>
+            </header>
+            <div class="wrap size-50" id="showcase">
+                <span id="start_button" class="head_button" onclick="match()">start</span>
+                <table id="chess_board" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="border"><a href="#">H</a></td>
+                        <td id="H1"></td>
+                        <td id="H2"></td>
+                        <td id="H3"></td>
+                        <td id="H4"></td>
+                        <td id="H5"></td>
+                        <td id="H6"></td>
+                        <td id="H7"></td>
+                        <td id="H8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">G</a></td>
+                        <td id="G1"></td>
+                        <td id="G2"></td>
+                        <td id="G3"></td>
+                        <td id="G4"></td>
+                        <td id="G5"></td>
+                        <td id="G6"></td>
+                        <td id="G7"></td>
+                        <td id="G8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">F</a></td>
+                        <td id="F1"></td>
+                        <td id="F2"></td>
+                        <td id="F3"></td>
+                        <td id="F4"></td>
+                        <td id="F5"></td>
+                        <td id="F6"></td>
+                        <td id="F7"></td>
+                        <td id="F8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">E</a></td>
+                        <td id="E1"></td>
+                        <td id="E2"></td>
+                        <td id="E3"></td>
+                        <td id="E4"></td>
+                        <td id="E5"></td>
+                        <td id="E6"></td>
+                        <td id="E7"></td>
+                        <td id="E8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">D</a></td>
+                        <td id="D1"></td>
+                        <td id="D2"></td>
+                        <td id="D3"></td>
+                        <td id="D4"></td>
+                        <td id="D5"></td>
+                        <td id="D6"></td>
+                        <td id="D7"></td>
+                        <td id="D8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">C</a></td>
+                        <td id="C1"></td>
+                        <td id="C2"></td>
+                        <td id="C3"></td>
+                        <td id="C4"></td>
+                        <td id="C5"></td>
+                        <td id="C6"></td>
+                        <td id="C7"></td>
+                        <td id="C8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">B</a></td>
+                        <td id="B1"></td>
+                        <td id="B2"></td>
+                        <td id="B3"></td>
+                        <td id="B4"></td>
+                        <td id="B5"></td>
+                        <td id="B6"></td>
+                        <td id="B7"></td>
+                        <td id="B8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"><a href="#">A</a></td>
+                        <td id="A1"></td>
+                        <td id="A2"></td>
+                        <td id="A3"></td>
+                        <td id="A4"></td>
+                        <td id="A5"></td>
+                        <td id="A6"></td>
+                        <td id="A7"></td>
+                        <td id="A8"></td>
+                    </tr>
+                    <tr>
+                        <td class="border"></td>
+                        <td class="border"><a href="#">1</a></td>
+                        <td class="border"><a href="#">2</a></td>
+                        <td class="border"><a href="#">3</a></td>
+                        <td class="border"><a href="#">4</a></td>
+                        <td class="border"><a href="#">5</a></td>
+                        <td class="border"><a href="#">6</a></td>
+                        <td class="border"><a href="#">7</a></td>
+                        <td class="border"><a href="#">8</a></td>
+                    </tr>
+                </table>
+
+            </div>
+        </section>
+
+        <section id="section-13">
+            <header>
+                <span>
+                    <strong class="alignleft">Die Anzahl der Möglichkeiten eine Spielfigur zu setzten</strong>
+                </span>
+            </header>
+
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <h4>Brute Force</h4>
+
+                        <pre><code>1. Dame 64 Möglichkeiten
+2. Dame 63 Möglichkeiten
+3. Dame 62 Möglichkeiten
+4. Dame 61 Möglichkeiten
+5. Dame 60 Möglichkeiten
+6. Dame 59 Möglichkeiten
+7. Dame 58 Möglichkeiten
+8. Dame 57 Möglichkeiten</code></pre>
+                        <pre><code>= n² &times; (n²-1) &times; (n²-3) &times; (n²-4) &times; (n²-5) &times; (n²-6) &times; (n²-7)</code></pre>
+                        <div class="formular"><span style="font-size:150%;">\(={(n^2)! \over ((n^2)-n)!} =
+                                {64!
+                                \over 56!} &lt; 179 Billionen \)</span> </div>
+                    </div>
+                    <div class="column">
+                        <h4>Anzahl für optimierte Lösung</h4>
+                        <pre><code> 8<sup>8</sup> = 16.777.216 = 16 &times; 10<sup>6</sup></code></pre>
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <h4>Anzahl für größere Bretter</h4>
+                        <pre><code> 8:  64! / 56!  = <span class="danger-d">2 &times 10<sup>14</sup></span>
+9:  81! / 72!  = <span class="danger-d">9 &times; 10<sup>16</sup></span>
+10: 100! / 90!  = <span class="danger-d">6 &times; 10<sup>19</sup></span>
+11: 121! / 110! = <span class="danger-d">5 &times; 10<sup>22</sup></span>
+12: 144! / 132! = <span class="danger-d">4 &times; 10<sup>25</sup></span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-14">
+            <header>
+                <span>
+                    <strong class="alignleft">Anzahl der Lösungen</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                    </div>
+                    <div class="column">
+                        <h4>92 Lösungen</h4>
+                        <h4>12 indiviudelle Lösungen</h4>
+                        <pre><code>12 &times; 8 = 96
+
+4 &times; 2 = 8
+
+{H}  +  {V}  +  {D1}  +  {D2}  = 4
+{0&deg;} + {90&deg;} + {180&deg;} + {270&deg;} = 4
+
+</code></pre>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-15">
+            <header>
+                <span>
+                    <strong class="alignleft">Anzahl der Lösungen</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                    </div>
+                    <div class="column">
+                        <h4>92 Lösungen</h4>
+                        <h4>12 indiviudelle Lösungen</h4>
+                        <pre><code>12 &times; 8 <span style="color:red">- 4</span> = 96 <span style="color:red">- 4</span> = 92
+
+4 &times; 2 = 8
+
+{H}  +  {V}  +  {D1}  +  {D2}  = 4
+{0&deg;} + {90&deg;} + {180&deg;} + {270&deg;} = 4
+
+1 Lösung ist rotations-identisch</code></pre>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-16">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot1.png">
+            </div>
+
+            <header>
+                <span>
+                    <strong class="alignleft">Spiegel-symetrische Lösungen</strong>
+                </span>
+            </header>
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">7</a></td>
+                                <td id="A8"></td>
+                                <td id="B8"></td>
+                                <td id="C8"></td>
+                                <td id="D8"></td>
+                                <td id="E8"></td>
+                                <td id="F8"></td>
+                                <td id="G8"></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">6</a></td>
+                                <td id="A7"></td>
+                                <td id="B7"></td>
+                                <td id="C7"></td>
+                                <td id="D7"></td>
+                                <td id="E7"></td>
+                                <td id="F7"><span class="queen black" style="color: rgb(231, 115, 19);">&#9819;</span>
+                                </td>
+                                <td id="G7"></td>
+                                <td id="H7"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">5</a></td>
+                                <td id="A6"></td>
+                                <td id="B6">
+                                    <span class="queen black" style="color: rgb(45, 197, 235);">&#9819;</span>
+                                </td>
+                                <td id="C6"></td>
+                                <td id="D6"></td>
+                                <td id="E6"></td>
+                                <td id="F6"></td>
+                                <td id="G6"></td>
+                                <td id="H6"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">4</a></td>
+                                <td id="A5"></td>
+                                <td id="B5"></td>
+                                <td id="C5"></td>
+                                <td id="D5" class="danger"></td>
+                                <td id="E5" class="danger"></td>
+                                <td id="F5"></td>
+                                <td id="G5"></td>
+                                <td id="H5"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">3</a></td>
+                                <td id="A4"></td>
+                                <td id="B4"></td>
+                                <td id="C4"></td>
+                                <td id="D4" class="danger"></td>
+                                <td id="E4" class="danger"></td>
+                                <td id="F4"></td>
+                                <td id="G4"></td>
+                                <td id="H4"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">2</a></td>
+                                <td id="A3"></td>
+                                <td id="B3"><span class="queen black">&#9819;</span></td>
+                                <td id="C3"></td>
+                                <td id="D3"></td>
+                                <td id="E3"></td>
+                                <td id="F3"></td>
+                                <td id="G3"><span class="queen black" style="color: rgb(62, 216, 126);">&#9819;</span>
+                                </td>
+                                <td id="H3"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">1</a></td>
+                                <td id="A2"></td>
+                                <td id="B2"></td>
+                                <td id="C2"><span class="queen black" style="color: rgb(153, 59, 172);">&#9819;</span>
+                                </td>
+                                <td id="D2"></td>
+                                <td id="E2"></td>
+                                <td id="F2"></td>
+                                <td id="G2"></td>
+                                <td id="H2"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">0</a></td>
+                                <td id="A1"></td>
+                                <td id="B1"></td>
+                                <td id="C1"></td>
+                                <td id="D1"></td>
+                                <td id="E1"></td>
+                                <td id="F1"></td>
+                                <td id="G1"></td>
+                                <td id="H1"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">0</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                                <td><a href="#">3</a></td>
+                                <td><a href="#">4</a></td>
+                                <td><a href="#">5</a></td>
+                                <td><a href="#">6</a></td>
+                                <td><a href="#">7</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <pre class="danger"><code>m = n - 1</code></pre>
+                        <h4>Vertikal</h4>
+                        <div class="formular" style="background-color: rgb(74, 219, 255);">
+                            <span>\({x_m = m - x}\)</span><br>
+                            <span>\({y_m = y}\)</span>
+                        </div>
+
+                        <h4>Horizontal</h4>
+                        <div class="formular" style="background-color: rgb(104, 255, 74);">
+                            <span>\({x_m = x}\)</span><br>
+                            <span>\({y_m = m - y}\)</span>
+                        </div>
+
+                        <h4>Hauptdiagonale</h4>
+                        <div class="formular" style="background-color: rgb(177, 93, 194)">
+                            <span>\({x_m = y}\)</span><br>
+                            <span>\({y_m = x}\)</span>
+                        </div>
+
+                        <h4>Nebendiagonale</h4>
+                        <div class="formular" style="background-color: rgb(231, 115, 19)">
+                            <span>\({x_m = m - y}\)</span><br>
+                            <span>\({y_m = m - x}\)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-17">
+            <div style="position: absolute; max-width: 10%; height: auto; top: 50px; right: 150px; z-index: 999;">
+                <img src="images/hot2.png">
+            </div>
+
+            <header>
+                <span>
+                    <strong class="alignleft">Wie drehen? &rarr; Komplexe Zahlen
+                        \(\to i = \sqrt{-1} &rarr; i^2 = -1\)</strong>
+                </span>
+            </header>
+
+            <div class="wrap">
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td><a href="#">4i</a></td>
+                                <td id="A8"></td>
+                                <td id="B8"></td>
+                                <td id="C8"></td>
+                                <td id="D8"></td>
+                                <td id="E8"></td>
+                                <td id="F8"></td>
+                                <td id="G8"></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">3i</a></td>
+                                <td id="A7"></td>
+                                <td id="B7"></td>
+                                <td id="C7"><span class="queen black" style="color: rgb(231, 115, 19);">&#9819;</span>
+                                </td>
+                                <td id="D7"></td>
+                                <td id="E7"></td>
+                                <td id="F7"></td>
+                                <td id="G7"></td>
+                                <td id="H7"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">2i</a></td>
+                                <td id="A6"></td>
+                                <td id="B6"></td>
+                                <td id="C6"></td>
+                                <td id="D6"></td>
+                                <td id="E6"></td>
+                                <td id="F6"></td>
+                                <td id="G6"><span class="queen black" style="color: rgb(62, 216, 126);">&#9819;</span>
+                                </td>
+                                <td id="H6"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">i</a></td>
+                                <td id="A5"></td>
+                                <td id="B5"></td>
+                                <td id="C5"></td>
+                                <td id="D5" class="danger"></td>
+                                <td id="E5" class="danger"></td>
+                                <td id="F5"></td>
+                                <td id="G5"></td>
+                                <td id="H5"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">-i</a></td>
+                                <td id="A4"></td>
+                                <td id="B4"></td>
+                                <td id="C4"></td>
+                                <td id="D4" class="danger"></td>
+                                <td id="E4" class="danger"></td>
+                                <td id="F4"></td>
+                                <td id="G4"></td>
+                                <td id="H4"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">-2i</a></td>
+                                <td id="A3"></td>
+                                <td id="B3"><span class="queen black" style="color: rgb(231, 51, 255);">&#9819;</span>
+                                </td>
+                                <td id="C3"></td>
+                                <td id="D3"></td>
+                                <td id="E3"></td>
+                                <td id="F3"></td>
+                                <td id="G3"></td>
+                                <td id="H3"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">-3i</a></td>
+                                <td id="A2"></td>
+                                <td id="B2"></td>
+                                <td id="C2"></td>
+                                <td id="D2"></td>
+                                <td id="E2"></td>
+                                <td id="F2"><span class="queen black" style="color: rgb(45, 197, 235);">&#9819;</span>
+                                </td>
+                                <td id="G2"></td>
+                                <td id="H2"></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">-4i</a></td>
+                                <td id="A1"></td>
+                                <td id="B1"></td>
+                                <td id="C1"></td>
+                                <td id="D1"></td>
+                                <td id="E1"></td>
+                                <td id="F1"></td>
+                                <td id="G1"></td>
+                                <td id="H1"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#">-4</a></td>
+                                <td><a href="#">-3</a></td>
+                                <td><a href="#">-2</a></td>
+                                <td><a href="#">-1</a></td>
+                                <td><a href="#">1</a></td>
+                                <td><a href="#">2</a></td>
+                                <td><a href="#">3</a></td>
+                                <td><a href="#">4</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <h4 style="color: #ccc;">Drehen</h4>
+                        <div class="formular">
+                            <span>0° &rarr; 90° &rarr; 180° &rarr; 270°</span>
+                        </div>
+
+                        <h4 style="color: #ccc;">Komplexe Zahlen</h4>
+                        <div class="formular">
+                            <span style="font-size: 200%;"> \( i = \sqrt {-1}
+                                \to i^2 = -1 \) </span>
+                        </div>
+
+                        <h4 style="color: #ccc;">Nullpunkt justieren</h4>
+                        <div class="formular">
+                            <span style="font-size: 150%;">\(a = x - {m \over 2} \)</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-size: 150%;">\(bi = i(y - {m \over 2})\)</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-size: 150%;">\( {m = n - 1} \)</span>
+                        </div>
+
+                        <h4 style="color: #ccc;">Drehung durchführen</h4>
+                        <div class="formular">
+                            <span style="background-color: rgb(241, 137, 255);">( a+bi)</span> &rarr; ( a+bi)
+                            &times; i = &nbsp;ai+bi² = <span
+                                style="background-color: rgb(74, 219, 255);">-b+ai</span><br>
+
+                            <span style="background-color: rgb(74, 219, 255);">(-b+ai)</span> &rarr; (-b+ai) &times;
+                            i = -bi+ai² = <span style="background-color: rgb(104, 255, 74);">-a-bi</span><br>
+
+                            <span style="background-color: rgb(104, 255, 74);">(-a-bi)</span> &rarr; (-a-bi) &times;
+                            i = -ai-bi² = &nbsp;<span style="background-color: rgb(231, 115, 19);">b-ai</span><br>
+
+                            <span style="background-color: rgb(231, 115, 19);">( b-ai)</span> &rarr; ( b-ai) &times;
+                            i = &nbsp;bi-ai² = &nbsp;<span
+                                style="background-color: rgb(241, 137, 255);">a+bi</span><br><br>
+
+                            <span style="background-color: rgb(241, 137, 255);">(-3 -2i)</span> &rarr; (-3 -2i)
+                            &times; i = -3i - 2i² = <span style="background-color: rgb(74, 219, 255);">(+2
+                                -3i)</span><br>
+                            <span style="background-color: rgb(74, 219, 255);">(+2 -3i)</span> &rarr; (+2 -3i)
+                            &times; i = &nbsp;2i - 3i² = <span style="background-color: rgb(104, 255, 74);">(+3
+                                +2i)</span><br>
+                            <span style="background-color: rgb(104, 255, 74);">(+3 +2i)</span> &rarr; (+3 +2i)
+                            &times; i = &nbsp;3i + 2i² = <span style="background-color: rgb(231, 115, 19);">(-2
+                                +3i)</span><br>
+                            <span style="background-color: rgb(231, 115, 19);">(-2 +3i)</span> &rarr; (-2 +3i)
+                            &times; i = -2i + 3i² = <span style="background-color: rgb(241, 137, 255);">(-3
+                                -2i)</span></code></pre>
+                        </div>
+
+                        <h4 style="color: #ccc;">Nullpunkt re-justieren</h4>
+                        <div class="formular">
+                            <span style="font-size: 150%;">\(x = \operatorname{Re}(a) + {m \over 2} \)</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="font-size: 150%;">\(y = \operatorname{Im}(b) + {m \over 2} \)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-18">
+            <header>
+                <span>
+                    <strong class="alignleft">The Game</strong>
+                </span>
+            </header>
+            <div class="wrap" id="thegame">
+                <span class="head_button" id="start_button" onclick="game()">start</span>
+                <span class="head_button" id="spin_button" onclick="mirror('S')">S</span>
+                <span class="head_button" id="vert_button" onclick="mirror('V')">V</span>
+                <span class="head_button" id="hor_button" onclick="mirror('H')">H</span>
+                <span class="head_button" id="d1_button" onclick="mirror('D1')">D<sub>1</sub></span>
+                <span class="head_button" id="d2_button" onclick="mirror('D2')">D<sub>2</sub></span>
+                <div class="grid">
+                    <div class="column">
+                        <table id="chess_board" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="border"><a href="#">H</a></td>
+                                <td id="H1"></td>
+                                <td id="H2"></td>
+                                <td id="H3"></td>
+                                <td id="H4"></td>
+                                <td id="H5"></td>
+                                <td id="H6"></td>
+                                <td id="H7"></td>
+                                <td id="H8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">G</a></td>
+                                <td id="G1"></td>
+                                <td id="G2"></td>
+                                <td id="G3"></td>
+                                <td id="G4"></td>
+                                <td id="G5"></td>
+                                <td id="G6"></td>
+                                <td id="G7"></td>
+                                <td id="G8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">F</a></td>
+                                <td id="F1"></td>
+                                <td id="F2"></td>
+                                <td id="F3"></td>
+                                <td id="F4"></td>
+                                <td id="F5"></td>
+                                <td id="F6"></td>
+                                <td id="F7"></td>
+                                <td id="F8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">E</a></td>
+                                <td id="E1"></td>
+                                <td id="E2"></td>
+                                <td id="E3"></td>
+                                <td id="E4"></td>
+                                <td id="E5"></td>
+                                <td id="E6"></td>
+                                <td id="E7"></td>
+                                <td id="E8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">D</a></td>
+                                <td id="D1"></td>
+                                <td id="D2"></td>
+                                <td id="D3"></td>
+                                <td id="D4"></td>
+                                <td id="D5"></td>
+                                <td id="D6"></td>
+                                <td id="D7"></td>
+                                <td id="D8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">C</a></td>
+                                <td id="C1"></td>
+                                <td id="C2"></td>
+                                <td id="C3"></td>
+                                <td id="C4"></td>
+                                <td id="C5"></td>
+                                <td id="C6"></td>
+                                <td id="C7"></td>
+                                <td id="C8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">B</a></td>
+                                <td id="B1"></td>
+                                <td id="B2"></td>
+                                <td id="B3"></td>
+                                <td id="B4"></td>
+                                <td id="B5"></td>
+                                <td id="B6"></td>
+                                <td id="B7"></td>
+                                <td id="B8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"><a href="#">A</a></td>
+                                <td id="A1"></td>
+                                <td id="A2"></td>
+                                <td id="A3"></td>
+                                <td id="A4"></td>
+                                <td id="A5"></td>
+                                <td id="A6"></td>
+                                <td id="A7"></td>
+                                <td id="A8"></td>
+                            </tr>
+                            <tr>
+                                <td class="border"></td>
+                                <td class="border"><a href="#">1</a></td>
+                                <td class="border"><a href="#">2</a></td>
+                                <td class="border"><a href="#">3</a></td>
+                                <td class="border"><a href="#">4</a></td>
+                                <td class="border"><a href="#">5</a></td>
+                                <td class="border"><a href="#">6</a></td>
+                                <td class="border"><a href="#">7</a></td>
+                                <td class="border"><a href="#">8</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <h4>Lösungen</h4>
+                        <div id="solutions"></div>
+                        <div id="allSolutions"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+
+</body>
+
+</html>
