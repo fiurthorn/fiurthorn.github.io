@@ -15,6 +15,14 @@ pre, code {
     font-family: 'PT Mono', monospace;
 }
 
+section {
+    padding: 20px;
+}
+
+section:not(:last-child) {
+    margin-bottom: 30px;
+}
+
 .title {
     margin-top: 30px;
     margin-bottom: 0;
@@ -22,12 +30,9 @@ pre, code {
     font-weight: normal;
 }
 
-.blog-description {
+.lead {
     font-size: 20px;
     color: #999;
-}
-
-.lead {
     margin: 0 0 20px 0;
     font-size: 16px;
     font-weight: 300;
@@ -48,15 +53,27 @@ span.unbreakable {
 }
 
 h2, h3 {
-    margin: 1.5em -20px 7px -25px;
-    padding: 10px 20px 10px 20px;
+    /* margin-top: -20px; */
+    margin-left: -20px;
+    margin-bottom: 30px;
+    padding: 10px 0 10px 10px;
     border-bottom: 1px solid #eee;
     border-left: 3px solid #2C4870;
 }
 
 body {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    position: sticky;
+    color: #cecece;
+    background-color: #2C4870;
+    text-align: center;
+    vertical-align: middle;
+    height: 50px;
+    padding: 1px 0
 }
 
 ul.topnav {
@@ -84,23 +101,7 @@ ul.topnav li a:hover:not(.active) {
 }
 
 ul.topnav li a.active {
-    background-color: #8694A8;
     background-color: #3b5d8b;
-}
-
-ul.topnav>li>a.active:after {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -5px;
-    vertical-align: middle;
-    content: " ";
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid;
-    border-left: 5px solid transparent;
-    border-color: #fff;
 }
 
 ul.topnav li.right {
@@ -168,23 +169,27 @@ dd {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         margin: 26px auto 26px;
         max-width: 1000px;
-        padding: 50px 100px 50px 100px;
+        padding: 50px 100px 100px 100px;
         position: relative;
         width: 80%;
+        min-height: calc(100vh - 304px);
     }
     h2 {
         border-bottom: 1px solid rgba(102, 102, 102, 0.678);
-        padding-top: 20px;
+        /* padding-top: 20px; */
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .letter {
+        width: 100%;
+        padding: 0;
+        margin: 0;
     }
 }
 
 @media screen and (max-width: 600px) {
     ul.topnav li.right, ul.topnav li {
         float: none;
-    }
-    .letter {
-        width: 100%;
-        padding: 10 20 10 20;
-        margin: 0 0 0 0;
     }
 }

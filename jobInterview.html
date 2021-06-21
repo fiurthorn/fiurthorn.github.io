@@ -4,6 +4,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
     <title>Längenumrechnungen | fiurthorn</title>
+
+    <style>
+        .head_button:hover {
+            background: #000;
+            color: #ccc;
+        }
+
+        .head_button:active {
+            background: rgb(141, 140, 140);
+            color: rgb(107, 131, 158);
+        }
+
+        .head_button {
+            cursor: pointer;
+            background: #2C4870;
+            color: #ccc;
+            border-width: 1px;
+            border-color: rgb(179, 179, 179);
+            padding: 3px 20px;
+            margin: 3px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,71 +47,82 @@
                 var inOpt = document.getElementById('inOpt').value;
                 var outOpt = document.getElementById('outOpt').value;
                 var output = document.getElementById('output');
-                output.value = (input * inOpt / outOpt).toFixed(10);
+                output.value = (input * inOpt / outOpt).toFixed(20).replace(/0+$/, '0').replace(/.0$/, '');
             }
         </script>
 
-        <h1>Längenumrechnungen</h1>
+        <section>
+            <h1>Längenumrechnungen</h1>
 
-        <h2>Umrechungen</h2>
+            <h2>Aufgabe</h2>
 
-        <table>
-            <tr>
-                <td><input type="decimal" id="input" onkeyup="changed();" value="0"></input>
-                </td>
-                <td><select id="inOpt" onchange="changed();">
-                        <option value="1">m - Meter</option>
-                        <option value="1000">km - Kilometer</option>
-                        <option value="1609.3440">Meile(n)</option>
-                        <option value="1852.216">Seemeile(n)</option>
-                        <option value="0.0254">Zoll / Inch</option>
-                        <option value="0.9144">yard</option>
-                        <option value="9460730472580800">Lichtjahr(e)</option>
-                        <option value="17987547480">Lichtminute(n)</option>
-                        <option value="299792458">Lichtsekunde(n)</option>
-                        <option value="30856775800000000">parsec</option>
-                        <option value="149597870700">AE / AU</option>
-                    </select></td>
-            </tr>
-            <tr>
-                <td>entsprechen</td>
-            </tr>
-            <tr>
-                <td><input type="text" id="output" readonly="readonly" value="0"></input>
-                </td>
-                <td><select id="outOpt" onchange="changed();">
-                        <option value="1">m - Meter</option>
-                        <option value="1000">km - Kilometer</option>
-                        <option value="1609.3440">Meile(n)</option>
-                        <option value="1852.216">Seemeile(n)</option>
-                        <option value="0.0254">Zoll / Inch</option>
-                        <option value="0.9144">yard</option>
-                        <option value="9460730472580800">Lichtjahr(e)</option>
-                        <option value="17987547480">Lichtminute(n)</option>
-                        <option value="299792458">Lichtsekunde(n)</option>
-                        <option value="30856775800000000">parsec</option>
-                        <option value="149597870700">AE / AU</option>
-                    </select></td>
-            </tr>
-        </table>
+            <ol>
+                <li>Erstellen Sie bitte eine HTML-Seite, die in der Lage ist, vom Benutzer eingegebene Längenangaben in
+                    verschiedenen Einheiten anzugeben (z.B. m, km mile, etc.).</li>
+                <li>Desweitern soll es dem Benutzer möglich sein eine Maßeinheit anzugeben, in die umgerechnet werden
+                    soll.
+                </li>
+                <li>Die Ausgabe soll innerhalb der HTML-Seite erfolgen (keine MessageBox).</li>
+                <li>Die Berechnung soll nicht durch einen Button ausgelöst werden.</li>
+                </li>
+            </ol>
+        </section>
 
-        <h2>Aufgabe</h2>
+        <section style="padding-bottom: 0;padding-top: 0;margin-top: 0;margin-bottom: 0;">
+            <span id="previewButton" class="head_button"
+                onclick="document.getElementById('preview').style.display='inline';document.getElementById('previewHeader').style.display='block';document.getElementById('previewButton').style.display='none';">Vorschau</span>
+            <span id="solutionButton" class="head_button"
+                onclick="document.getElementById('solution').style.display='inline';document.getElementById('solutionHeader').style.display='block';document.getElementById('solutionButton').style.display='none';">Lösung</span>
+        </section>
 
-        <ol>
-            <li>Erstellen Sie bitte eine HTML-Seite, die in der Lage ist, vom Benutzer eingegebene Längenangaben in
-                verschiedenen Einheiten anzugeben (z.B. m, km mile, etc.).</li>
-            <li>Desweitern soll es dem Benutzer möglich sein eine Maßeinheit anzugeben, in die umgerechnet werden soll.
-            </li>
-            <li>Die Ausgabe soll innerhalb der HTML-Seite erfolgen (keine MessageBox).</li>
-            <li>Die Berechnung soll nicht durch einen Button ausgelöst werden.</li>
-            </li>
-        </ol>
+        <section>
+            <h2 id="previewHeader" style="display:none">Umrechungen</h2>
 
-        <h2 style="cursor: pointer;" id="solutionHeader"
-            onclick="var e=document.getElementById('solution'); s=e.style.display; e.style.display = 'inline';">
-            Lösung</h2>
-        <div id="solution">
-            <pre>&lt;html&gt;
+            <table id="preview" style="display:none">
+                <tr>
+                    <td><input type="decimal" id="input" onkeyup="changed();" value="0"></input>
+                    </td>
+                    <td><select id="inOpt" onchange="changed();">
+                            <option value="1">m - Meter</option>
+                            <option value="1000">km - Kilometer</option>
+                            <option value="1609.3440">Meile(n)</option>
+                            <option value="1852.216">Seemeile(n)</option>
+                            <option value="0.0254">Zoll / Inch</option>
+                            <option value="0.9144">yard</option>
+                            <option value="9460730472580800">Lichtjahr(e)</option>
+                            <option value="17987547480">Lichtminute(n)</option>
+                            <option value="299792458">Lichtsekunde(n)</option>
+                            <option value="30856775800000000">parsec</option>
+                            <option value="149597870700">AE / AU</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>entsprechen</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="output" readonly="readonly" value="0"></input>
+                    </td>
+                    <td><select id="outOpt" onchange="changed();">
+                            <option value="1">m - Meter</option>
+                            <option value="1000">km - Kilometer</option>
+                            <option value="1609.3440">Meile(n)</option>
+                            <option value="1852.216">Seemeile(n)</option>
+                            <option value="0.0254">Zoll / Inch</option>
+                            <option value="0.9144">yard</option>
+                            <option value="9460730472580800">Lichtjahr(e)</option>
+                            <option value="17987547480">Lichtminute(n)</option>
+                            <option value="299792458">Lichtsekunde(n)</option>
+                            <option value="30856775800000000">parsec</option>
+                            <option value="149597870700">AE / AU</option>
+                        </select></td>
+                </tr>
+            </table>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h2 style="display:none" id="solutionHeader">Lösung</h2>
+            <div id="solution">
+                <pre>&lt;html&gt;
     &lt;head&gt;
     &lt;title&gt;Umrechnungen&lt;/title&gt;
     &lt;script&gt;
@@ -138,11 +172,14 @@
     &lt;/table&gt;
     &lt;/body&gt;
 &lt;/html&gt;</pre>
-        </div>
+            </div>
+        </section>
 
     </div>
 
-
+    <footer>
+        <p>&copy; fiurthorn 2021 &dash; All rights reserved.</p>
+    </footer>
 </body>
 
 </html>
