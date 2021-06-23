@@ -11,6 +11,20 @@
     <title>8-queens | fiurthorn</title>
 
     <style>
+        .sqrt {
+            white-space: nowrap;
+        }
+
+        .sqrt>span {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px 0 0 0;
+        }
+
+        .sqrt::before {
+            content: "\221A"
+        }
+
         div.vector {
             display: inline-table;
             padding: 0 2px 0 2px;
@@ -20,6 +34,8 @@
             border-width: 0 1px 0 1px;
             border-radius: 5px;
             vertical-align: middle;
+            white-space: nowrap;
+            text-align: center;
         }
 
         .fraction {
@@ -28,7 +44,7 @@
             vertical-align: middle;
             letter-spacing: 0.001em;
             text-align: center;
-
+            white-space: nowrap;
         }
 
         .fraction>span {
@@ -118,8 +134,8 @@
             margin-top: 4px !important;
         }
 
-        #chess_board tr:nth-child(odd) td:nth-child(even),
-        #chess_board tr:nth-child(even) td:nth-child(odd) {
+        #chess_board tr:nth-child(odd) td:nth-child(odd),
+        #chess_board tr:nth-child(even) td:nth-child(even) {
             background: #ccc;
         }
 
@@ -174,7 +190,7 @@
             /* display: inline; */
             /* margin: 0 auto; */
             padding: 10px;
-            font-size: 120%;
+            font-size: 100%;
             font-family: 'Courier New', Courier, monospace;
             /* text-align: left;
             word-wrap: break-word; */
@@ -188,6 +204,7 @@
             padding: 10px;
         }
 
+        div.danger,
         pre.danger,
         span.danger,
         td.danger {
@@ -195,6 +212,7 @@
 
         }
 
+        div.danger-a,
         pre.danger-a,
         span.danger-a,
         td.danger-a {
@@ -202,6 +220,7 @@
 
         }
 
+        div.danger-b,
         pre.danger-b,
         span.danger-b,
         td.danger-b {
@@ -209,6 +228,7 @@
 
         }
 
+        div.danger-c,
         pre.danger-c,
         span.danger-c,
         td.danger-c {
@@ -216,6 +236,7 @@
 
         }
 
+        div.danger-d,
         pre.danger-d,
         span.danger-d,
         td.danger-d {
@@ -223,6 +244,43 @@
 
         }
 
+        .complex-a {
+            background-color: rgb(177, 118, 189) !important;
+        }
+
+        .complex-b {
+            background-color: rgb(74, 219, 255) !important;
+        }
+
+        .complex-c {
+            background-color: rgb(104, 255, 74) !important;
+        }
+
+        .complex-d {
+            background-color: rgb(248, 159, 87) !important
+        }
+
+        .mirror-a {
+            background-color: rgb(74, 219, 255) !important;
+        }
+
+        .mirror-b {
+            background-color: rgb(104, 255, 74) !important;
+        }
+
+        .mirror-c {
+            background-color: rgb(177, 118, 189) !important;
+        }
+
+        .mirror-d {
+            background-color: rgb(248, 159, 87) !important;
+        }
+
+        .highlight {
+            border-color: var(--highlight);
+            border-style: solid;
+            border-width: 0 0 2px 2px;
+        }
 
         :root {
             --highlight: #4adbff;
@@ -261,7 +319,6 @@
             </p>
         </section>
 
-
         <section id="section-2">
             <h4>wikipedia</h4>
 
@@ -280,10 +337,9 @@
             <p>Das Problem kann auf quadratische Schachbretter beliebiger Größe
                 verallgemeinert werden: Dann gilt es, <code>n</code> unabhängige Damen auf einem Brett von
                 <code>n &times; n</code> Feldern zu positionieren (mit <code>n</code> als Parameter aus den natürlichen
-                Zahlen <code>n &#x2208; &#x1D545;</code> .
+                Zahlen <code>n &#x2208; &#x2115;</code> .
             </p>
         </section>
-
 
         <section id="section-3">
             <h2>Motivation</h2>
@@ -305,7 +361,7 @@
             <ol class="flexblock specs">
                 <li><strong>Rekursion</strong><br>
                     - Funktionen die sich selbst wieder aufrufen.<br />
-                    - Parameter werden angepasst (aktuelle Tiefe, ...).<br />
+                    - Parameter werden angepasst (aktuelle Tiefe, &#x2026;).<br />
                     - Abbruchbedingung ist essentiell (&rarr; Endlosschleife).</br />
                 </li>
                 <li><strong>Duplikate finden</strong><br>
@@ -315,13 +371,12 @@
             </ol>
         </section>
 
-
         <section id="section-4">
             <h2>Das Spielbrett</h2>
 
             <table id="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td>H</td>
+                    <td>8</td>
                     <td id="A8"></td>
                     <td id="B8"></td>
                     <td id="C8"></td>
@@ -332,7 +387,7 @@
                     <td id="H8"></td>
                 </tr>
                 <tr>
-                    <td>G</td>
+                    <td>7</td>
                     <td id="A7"></td>
                     <td id="B7"></td>
                     <td id="C7"></td>
@@ -343,7 +398,7 @@
                     <td id="H7"></td>
                 </tr>
                 <tr>
-                    <td>F</td>
+                    <td>6</td>
                     <td id="A6"></td>
                     <td id="B6"></td>
                     <td id="C6"></td>
@@ -354,7 +409,7 @@
                     <td id="H6"></td>
                 </tr>
                 <tr>
-                    <td>E</td>
+                    <td>5</td>
                     <td id="A5"></td>
                     <td id="B5"></td>
                     <td id="C5"></td>
@@ -365,7 +420,7 @@
                     <td id="H5"></td>
                 </tr>
                 <tr>
-                    <td>D</td>
+                    <td>4</td>
                     <td id="A4"></td>
                     <td id="B4"></td>
                     <td id="C4"></td>
@@ -376,7 +431,7 @@
                     <td id="H4"></td>
                 </tr>
                 <tr>
-                    <td>C</td>
+                    <td>3</td>
                     <td id="A3"></td>
                     <td id="B3"></td>
                     <td id="C3"></td>
@@ -387,7 +442,7 @@
                     <td id="H4"></td>
                 </tr>
                 <tr>
-                    <td>B</td>
+                    <td>2</td>
                     <td id="A2"></td>
                     <td id="B2"></td>
                     <td id="C2"></td>
@@ -398,7 +453,7 @@
                     <td id="H2"></td>
                 </tr>
                 <tr>
-                    <td>A</td>
+                    <td>1</td>
                     <td id="A1"></td>
                     <td id="B1"></td>
                     <td id="C1"></td>
@@ -410,18 +465,17 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
+                    <td>A</td>
+                    <td>B</td>
+                    <td>C</td>
+                    <td>D</td>
+                    <td>E</td>
+                    <td>F</td>
+                    <td>G</td>
+                    <td>H</td>
                 </tr>
             </table>
         </section>
-
 
         <section id="section-5">
             <h2>Das Spielbrett: Datentyp</h2>
@@ -531,7 +585,7 @@
 
         <section id="section-6">
             <img style="float:right; height:100px" src="images/hot1.png">
-            <h2>Ablage im Speicher als multidimensionales Array</h2>
+            <h2>multidimensionales Array</h2>
 
             <h4>Das Spielbrett</h4>
             <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
@@ -590,30 +644,11 @@
             </table>
         </section>
 
-
         <section id="section-7">
             <img style="float:right; height:100px" src="images/hot2.png">
-            <h2>Ablage im Speicher als Array</h2>
+            <h2>Array</h2>
 
-            <div class="formular">f = n &times; y + x
-                <br>
-                <br>
-                <div class="vector">
-                    <div>x</div>
-                    <div>y</div>
-                </div> =
-
-                <div class="vector">
-                    <div>f mod n</div>
-                    <div>&#x230A;f / n&#x230B;</div>
-                </div> =
-
-                <div class="vector">
-                    <div>f - ( n &times; y )</div>
-                    <div>( f - x ) / n</div>
-                </div>
-            </div>
-
+            <h4>Das Spielbrett</h4>
             <table id="arrayTable">
                 <tr>
                     <th>feld</th>
@@ -641,9 +676,9 @@
                 </tr>
             </table>
 
-            <br>
-            <br>
-            <div class="formular danger" style="background-color: #B1EFB1;">f = 3 &times; 2 + 1 = 5
+            <h4>im Speicher mit Größe n=3 und Index f</h4>
+            <div class="formular" style="background-color: #B1EFB1 !important">
+                f = n &times; y + x = 3 &times; 2 + 1 = 5
 
                 <br>
                 <br>
@@ -651,6 +686,16 @@
                 <div class="vector">
                     <div>x</div>
                     <div>y</div>
+                </div> =
+
+                <div class="vector">
+                    <div>f mod n</div>
+                    <div>&#x230A;f / n&#x230B;</div>
+                </div> =
+
+                <div class="vector">
+                    <div>f - (n &times; y)</div>
+                    <div>(f - x) / n</div>
                 </div> =
 
                 <div class="vector">
@@ -665,7 +710,7 @@
 
                 <div class="vector">
                     <div>2</div>
-                    <div>3</div>
+                    <div>1</div>
                 </div>
             </div>
         </section>
@@ -789,7 +834,7 @@
                     <td id="D8"></td>
                     <td id="E8"></td>
                     <td id="F8"></td>
-                    <td id="G8" class="danger-d">d<sub>1</sub></td>
+                    <td id="G8" class="danger-c">c<sub>1</sub></td>
                     <td id="H8"></td>
                 </tr>
                 <tr>
@@ -799,17 +844,17 @@
                     <td id="C7" class="danger-b"></td>
                     <td id="D7"></td>
                     <td id="E7"></td>
-                    <td id="F7" class="danger-d"></td>
+                    <td id="F7" class="danger-c"></td>
                     <td id="G7"></td>
                     <td id="H7"></td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td id="A6" class="danger-c">c<sub>2</sub></td>
+                    <td id="A6" class="danger-d">d<sub>2</sub></td>
                     <td id="B6"></td>
                     <td id="C6" class="danger-b"></td>
                     <td id="D6"></td>
-                    <td id="E6" class="danger-d"></td>
+                    <td id="E6" class="danger-c"></td>
                     <td id="F6"></td>
                     <td id="G6"></td>
                     <td id="H6"></td>
@@ -817,9 +862,9 @@
                 <tr>
                     <td>4</td>
                     <td id="A5"></td>
-                    <td id="B5" class="danger-c"></td>
+                    <td id="B5" class="danger-d"></td>
                     <td id="C5" class="danger-b"></td>
-                    <td id="D5" class="danger-d"></td>
+                    <td id="D5" class="danger-c"></td>
                     <td id="E5"></td>
                     <td id="F5"></td>
                     <td id="G5"></td>
@@ -839,9 +884,9 @@
                 <tr>
                     <td>2</td>
                     <td id="A3"></td>
-                    <td id="B3" class="danger-d"></td>
+                    <td id="B3" class="danger-c"></td>
                     <td id="C3" class="danger-b"></td>
-                    <td id="D3" class="danger-c"></td>
+                    <td id="D3" class="danger-d"></td>
                     <td id="E3"></td>
                     <td id="F3"></td>
                     <td id="G3"></td>
@@ -849,11 +894,11 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td id="A2" class="danger-d">d<sub>2</sub></td>
+                    <td id="A2" class="danger-c">c<sub>2</sub></td>
                     <td id="B2"></td>
                     <td id="C2" class="danger-b"></td>
                     <td id="D2"></td>
-                    <td id="E2" class="danger-c"></td>
+                    <td id="E2" class="danger-d"></td>
                     <td id="F2"></td>
                     <td id="G2"></td>
                     <td id="H2"></td>
@@ -865,7 +910,7 @@
                     <td id="C1" class="danger-b">b<sub>2</sub></td>
                     <td id="D1"></td>
                     <td id="E1"></td>
-                    <td id="F1" class="danger-c">c<sub>1</sub></td>
+                    <td id="F1" class="danger-d">d<sub>1</sub></td>
                     <td id="G1"></td>
                     <td id="H1"></td>
                 </tr>
@@ -881,20 +926,148 @@
                     <td>7</td>
                 </tr>
             </table>
+
             <h4>Geraden</h4>
-            <pre class="danger-a"><code>a<sub>1</sub>) [2,3] &rarrtl; [7,3] mit [+1,  0]</code></pre>
-            <pre class="danger-a"><code>a<sub>2</sub>) [2,3] &rarrtl; [0,3] mit [-1,  0]</code></pre>
-            <pre class="danger-b"><code>b<sub>1</sub>) [2,3] &rarrtl; [2,7] mit [ 0, +1]</code></pre>
-            <pre class="danger-b"><code>b<sub>2</sub>) [2,3] &rarrtl; [2,0] mit [ 0, -1]</code></pre>
-            <pre class="danger-c"><code>c<sub>1</sub>) [2,3] &rarrtl; [5,0] mit [+1, -1]</code></pre>
-            <pre class="danger-c"><code>c<sub>2</sub>) [2,3] &rarrtl; [0,5] mit [-1, +1]</code></pre>
-            <pre class="danger-d"><code>d<sub>1</sub>) [2,3] &rarrtl; [6,7] mit [+1, +1]</code></pre>
-            <pre class="danger-d"><code>d<sub>2</sub>) [2,3] &rarrtl; [0,1] mit [-1, -1]</code></pre>
+
+            <div class="formular danger-a">
+
+                <code>a<sub>1</sub>) </code>
+                <div class="vector">
+                    <div>2</div>
+                    <div>3</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>7</div>
+                    <div>3</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>0</div>
+                </div>
+                <br>
+                <div>
+                    <code>a<sub>2</sub>)</code>
+                    <div class="vector">
+                        <div>2</div>
+                        <div>3</div>
+                    </div>
+                    <span style="vertical-align: bottom;">&#x2026;</span>
+                    <div class="vector">
+                        <div>0</div>
+                        <div>3</div>
+                    </div> - <div class="vector">
+                        <div>1</div>
+                        <div>0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formular danger-b">
+
+                <code>b<sub>1</sub>) </code>
+                <div class="vector">
+                    <div>2</div>
+                    <div>3</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>2</div>
+                    <div>7</div>
+                </div> + <div class="vector">
+                    <div>0</div>
+                    <div>1</div>
+                </div>
+                <br>
+                <div>
+                    <code>b<sub>2</sub>)</code>
+                    <div class="vector">
+                        <div>2</div>
+                        <div>3</div>
+                    </div>
+                    <span style="vertical-align: bottom;">&#x2026;</span>
+                    <div class="vector">
+                        <div>2</div>
+                        <div>0</div>
+                    </div> - <div class="vector">
+                        <div>0</div>
+                        <div>1</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="formular danger-c">
+
+                <code>c<sub>1</sub>) </code>
+                <div class="vector">
+                    <div>2</div>
+                    <div>3</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>6</div>
+                    <div>7</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>1</div>
+                </div>
+                <br>
+                <div>
+                    <code>c<sub>2</sub>)</code>
+                    <div class="vector">
+                        <div>2</div>
+                        <div>3</div>
+                    </div>
+                    <span style="vertical-align: bottom;">&#x2026;</span>
+                    <div class="vector">
+                        <div>0</div>
+                        <div>1</div>
+                    </div> - <div class="vector">
+                        <div>1</div>
+                        <div>1</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="formular danger-d">
+                <code>d<sub>1</sub>) </code>
+                <div class="vector">
+                    <div>2</div>
+                    <div>3</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>5</div>
+                    <div>0</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>-1</div>
+                </div>
+                <br>
+                <div>
+                    <code>d<sub>2</sub>)</code>
+                    <div class="vector">
+                        <div>2</div>
+                        <div>3</div>
+                    </div>
+                    <span style="vertical-align: bottom;">&#x2026;</span>
+                    <div class="vector">
+                        <div>0</div>
+                        <div>5</div>
+                    </div> - <div class="vector">
+                        <div>1</div>
+                        <div>-1</div>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <section id="section-10">
             <img style="float:right; height:100px" src="images/hot2.png">
             <h2>Welche Felder bedroht eine Dame</h2>
+            <h4>Mit durchgehenden Geraden</h4>
 
             <table id="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
@@ -905,7 +1078,7 @@
                     <td id="D8"></td>
                     <td id="E8"></td>
                     <td id="F8"></td>
-                    <td id="G8" class="danger-d"></td>
+                    <td id="G8" class="danger-c"></td>
                     <td id="H8"></td>
                 </tr>
                 <tr>
@@ -915,17 +1088,17 @@
                     <td id="C7" class="danger-b"></td>
                     <td id="D7"></td>
                     <td id="E7"></td>
-                    <td id="F7" class="danger-d"></td>
+                    <td id="F7" class="danger-c"></td>
                     <td id="G7"></td>
                     <td id="H7"></td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td id="A6" class="danger-c">c</td>
+                    <td id="A6" class="danger-d">d</td>
                     <td id="B6"></td>
                     <td id="C6" class="danger-b"></td>
                     <td id="D6"></td>
-                    <td id="E6" class="danger-d"></td>
+                    <td id="E6" class="danger-c"></td>
                     <td id="F6"></td>
                     <td id="G6"></td>
                     <td id="H6"></td>
@@ -933,9 +1106,9 @@
                 <tr>
                     <td>4</td>
                     <td id="A5"></td>
-                    <td id="B5" class="danger-c"></td>
+                    <td id="B5" class="danger-d"></td>
                     <td id="C5" class="danger-b"></td>
-                    <td id="D5" class="danger-d"></td>
+                    <td id="D5" class="danger-c"></td>
                     <td id="E5"></td>
                     <td id="F5"></td>
                     <td id="G5"></td>
@@ -955,9 +1128,9 @@
                 <tr>
                     <td>2</td>
                     <td id="A3"></td>
-                    <td id="B3" class="danger-d"></td>
+                    <td id="B3" class="danger-c"></td>
                     <td id="C3" class="danger-b"></td>
-                    <td id="D3" class="danger-c"></td>
+                    <td id="D3" class="danger-d"></td>
                     <td id="E3"></td>
                     <td id="F3"></td>
                     <td id="G3"></td>
@@ -965,11 +1138,11 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td id="A2" class="danger-d">d</td>
+                    <td id="A2" class="danger-c">c</td>
                     <td id="B2"></td>
                     <td id="C2" class="danger-b"></td>
                     <td id="D2"></td>
-                    <td id="E2" class="danger-c"></td>
+                    <td id="E2" class="danger-d"></td>
                     <td id="F2"></td>
                     <td id="G2"></td>
                     <td id="H2"></td>
@@ -981,7 +1154,7 @@
                     <td id="C1" class="danger-b"></td>
                     <td id="D1"></td>
                     <td id="E1"></td>
-                    <td id="F1" class="danger-c"></td>
+                    <td id="F1" class="danger-d"></td>
                     <td id="G1"></td>
                     <td id="H1"></td>
                 </tr>
@@ -1000,32 +1173,167 @@
 
             <h4>Geraden</h4>
 
-            <pre class="danger">m = n - 1
+            <div class="danger formular">
 
-[x<sub>1</sub>, y<sub>1</sub>] &rarr; [x<sub>1</sub>, y<sub>1</sub>]
-mit [&Delta;x, &Delta;y]</pre>
+                <div class="vector">
+                    <div>x<sub>1</sub></div>
+                    <div>y<sub>1</sub></div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>x<sub>2</sub></div>
+                    <div>y<sub>2</sub></div>
+                </div> + <div class="vector">
+                    <div>&Delta;x</div>
+                    <div>&Delta;y</div>
+                </div>
 
-            <pre class="danger-a"><code>a) x<sub>1</sub>=0
-   y<sub>1</sub> = y
-   x<sub>2</sub> = m
-   y<sub>2</sub> = y
-   mit [1, 0]</code></pre>
+            </div>
 
-            <pre class="danger-b"><code>b) x<sub>1</sub> = x
-   y<sub>1</sub> = 0
-   x<sub>2</sub> = x
-   y<sub>2</sub> = m
-   mit [0, 1]</code></pre>
-            <pre class="danger-c"><code>c) x<sub>1</sub> = x - min(x, m-y)
-   y<sub>1</sub> = y + min(x, m-y)
-   x<sub>2</sub> = x + min(m-x, y)
-   y<sub>2</sub> = y - min(m-x, y)
-   mit [1, -1]</code></pre>
-            <pre class="danger-d"><code>d) x<sub>1</sub> = x - min(x, y)
-   y<sub>1</sub> = y - min(x, y)
-   x<sub>2</sub> = x + min(m-x, m-y)
-   y<sub>2</sub> = y + min(m-x, m-y)
-   mit [ +1, +1]</code></pre>
+            <div class="formular">
+                m = n - 1 = 8 - 1 = 7<br>
+                m<sub>a</sub> = min(x, m-y) = min(2, 7-3) = min(2, 4) = 2<br>
+                m<sub>b</sub> = min(y, m-x) = min(3, 7-2) = min(3, 5) = 3<br>
+                m<sub>c</sub> = min(x, y) = min(2, 3) = 2<br>
+                m<sub>d</sub> = min(m-x, m-y) = min(7-2, 7-3) = min(5, 4) = 4<br>
+            </div>
+
+            <div class="formular danger-a">
+                <code>a) </code>
+                <div class="vector">
+                    <div> 0 </div>
+                    <div> y </div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>m</div>
+                    <div>y</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>0</div>
+                </div> &rarr; <div class="vector">
+                    <div> 0 </div>
+                    <div> 3 </div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>7</div>
+                    <div>3</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>0</div>
+                </div>
+
+            </div>
+
+            <div class="formular danger-b">
+
+                <code>b) </code>
+                <div class="vector">
+                    <div>x</div>
+                    <div>0</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>x</div>
+                    <div>m</div>
+                </div> + <div class="vector">
+                    <div>0</div>
+                    <div>1</div>
+                </div> &rarr; <div class="vector">
+                    <div>2</div>
+                    <div>0</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>2</div>
+                    <div>7</div>
+                </div> + <div class="vector">
+                    <div>0</div>
+                    <div>1</div>
+                </div>
+
+            </div>
+
+            <div class="formular danger-c">
+
+                <code>c) </code>
+                <div class="vector">
+                    <div>x-m<sub>c</sub></div>
+                    <div>y-m<sub>c</sub></div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>x+m<sub>d</sub></div>
+                    <div>y+m<sub>d</sub></div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>1</div>
+                </div> &rarr; <div class="vector">
+                    <div>2-2</div>
+                    <div>3-2</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>2+4</div>
+                    <div>3+4</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>1</div>
+                </div> &rarr; <div class="vector">
+                    <div>0</div>
+                    <div>1</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>6</div>
+                    <div>7</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>1</div>
+                </div>
+
+            </div>
+
+            <div class="formular danger-d">
+
+                <code>d) </code>
+                <div class="vector">
+                    <div>x-m<sub>a</sub></div>
+                    <div>y+m<sub>a</sub></div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>x+m<sub>b</sub></div>
+                    <div>y-m<sub>b</sub></div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>-1</div>
+                </div> &rarr; <div class="vector">
+                    <div>2-2</div>
+                    <div>3+2</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>2+3</div>
+                    <div>3-3</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>-1</div>
+                </div> &rarr; <div class="vector">
+                    <div>0</div>
+                    <div>5</div>
+                </div>
+                <span style="vertical-align: bottom;">&#x2026;</span>
+                <div class="vector">
+                    <div>5</div>
+                    <div>0</div>
+                </div> + <div class="vector">
+                    <div>1</div>
+                    <div>-1</div>
+                </div>
+
+            </div>
         </section>
 
         <section id="section-11">
@@ -1038,12 +1346,16 @@ mit [&Delta;x, &Delta;y]</pre>
                     Funktionen die sich selbst mit veränderten Parametern aufrufen</li>
                 <li><strong>Backtracking</strong>
                     Algorithmus der ohne Datenverlust einen Schritt zurückgehen kann</li>
-                <li><strong>Optimierung</strong>
-                    Setze pro Spalte nur eine Dame (8^8 &lt; 17 Millionen)<br>
-                    Nachteil: kann nicht ohne Änderungen für Springer und Läufer angewendet
-                    werden</li>
-                <li><strong>Lösung</strong>
-                    Mischung aus den beiden Varianten</li>
+                <li>
+                    <strong>Optimierungen</strong>
+                    <ol>
+                        <li>Setze pro Spalte nur eine Dame (8<sup>8</sup> &#x2248; 16 Millionen)<br>
+                            Nachteil: kann nicht ohne Änderungen für Springer und Läufer angewendet
+                            werden</li>
+                        <li>Ist ein Dame am rechten Rand angekommen gehe einen weiteren Schritt zurück (&#x2248; 1
+                            Million)</li>
+                    </ol>
+                </li>
             </ol>
 
             <h4>Beschreibung</h4>
@@ -1051,16 +1363,20 @@ mit [&Delta;x, &Delta;y]</pre>
             <ol class="flexblock specs">
                 <li><strong>Start</strong>
                     Setze ein Dame auf das erste Feld</li>
-                <li>
+                <li><strong>Schritt</strong>
                     <ol class="flexblock specs">
                         <li><strong>Damen setzten</strong>
                             Gehe die Felder der Reihe nach durch, bis zum nächsten Feld ohne
                             Bedrohung
                             und setzte die nächste Dame.</li>
                         <li><strong>Backtracking</strong>
-                            Sind noch nicht alle Damen gesetzt, aber kein Feld mehr frei, nimm
-                            die
-                            letzte Dame vom Brett und wiederhole den oberen Schritt.</li>
+                            <ul>
+                                <li>Sind noch nicht alle Damen gesetzt, aber kein Feld mehr frei, nimm
+                                    die letzte Dame vom Brett und wiederhole den oberen Schritt.</li>
+                                <li>Ist eine Dame am rechten Rand angekommen nimm
+                                    eine weiter Damen vom Brett und wiederhole den oberen Schritt.</li>
+                            </ul>
+                        </li>
                     </ol>
                 </li>
                 <li><strong>weitere Lösungen</strong>
@@ -1082,21 +1398,276 @@ mit [&Delta;x, &Delta;y]</pre>
         </script>
 
         <script>
-            var timeout = 333;
-            var ingame = false
-            var section, board
-            var queens
-            var counter
+            var inShowcase = false
+            function showcase() {
+                var section, board, counter, queens
 
-            function play(initial, count, TODO) {
-                function init() {
+                if (!inShowcase) {
+                    inShowcase = true
+
+                    queens = [];
+                    counter = 0;
                     section = document.getElementById('showcase')
                     board = section.querySelector("#chess_board")
+
+                    setTimeout(play, 0, 0, "init")
+                } else {
+                    return
+                }
+
+                function play(field, TODO) {
+                    counter++
+
+                    function isBusy(x, y) {
+                        var i = index(x, y)
+                        var td = board.querySelector(i)
+                        var content = td.firstChild
+                        if (content) {
+                            return true
+                        }
+                        return false
+                    }
+
+                    function setQueen(i) {
+                        var f = section.querySelector(i)
+                        if (!f.firstChild) {
+                            f.appendChild(queen(i))
+                        }
+                    }
+
+                    function resetQueen(i) {
+                        var f = section.querySelector(i)
+                        if (f.firstChild) { f.removeChild(f.firstChild) }
+                    }
+
+                    function queen(i) {
+                        var [x, y] = xy(i)
+                        var q = document.createElement("span")
+                        q.className = "queen black"
+                        q.textContent = y % 2 == 0 ? "\u265B" : "\u2655"
+                        return q
+                    }
+
+                    function danger(x, y) {
+                        section.querySelector(index(x, y)).classList.add("danger")
+                    }
+
+                    function safety(x, y) {
+                        section.querySelector(index(x, y)).classList.remove("danger")
+                    }
+
+                    function safetyField(x, y) {
+                        for (var line of lines(x, y)) {
+                            var [from, till, count] = line
+                            for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                                if (isBusy(x1, y1)) {
+                                    return false
+                                }
+                            }
+                        }
+                        return true
+                    }
+
+                    function frameQueen(x, y) {
+                        for (var line of lines(x, y)) {
+                            var [from, till, count] = line
+                            for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                                danger(x1, y1)
+                            }
+                        }
+                    }
+
+                    function unframeQueen(x, y) {
+                        for (var line of lines(x, y)) {
+                            var [from, till, count] = line
+                            for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                                safety(x1, y1)
+                            }
+                        }
+                    }
+
+                    function reframeQueen(x, y, queens) {
+                        var save = []
+                        for (var line of lines(x, y)) {
+                            var [from, till, count] = line
+                            for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                                save.push(index(x1, y1));
+                            }
+                        }
+                        save = save.sort();
+
+                        var danger = []
+                        queens.forEach(([F, X, Y]) => {
+                            for (var line of lines(X, Y)) {
+                                var [from, till, count] = line
+                                for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                                    danger.push(index(x1, y1));
+                                }
+                            }
+
+                        })
+                        danger = danger.sort();
+                        for (var f of save) {
+                            if (danger.indexOf(f) < 0) {
+                                safety(...xy(f))
+                            }
+                        }
+                    }
+
+                    function clear() {
+                        for (var i = 0; i < 64; i++) {
+                            resetQueen(index(i % size, Math.floor(i / size)))
+                            safety(i % size, Math.floor(i / size))
+                        }
+                    }
+
+                    function saftyAll() {
+                        for (var i = 0; i < 64; i++) {
+                            safety(i % size, Math.floor(i / size))
+                        }
+                    }
+
+                    function time() {
+                        if (counter > 200) {
+                            return 20
+                        } else if (counter > 40) {
+                            return 50
+                        } else if (counter > 20) {
+                            return 222
+                        }
+                        return 333
+                    }
+
+                    if (TODO === "init") {
+                        clear()
+                        setTimeout(play, 0, 0)
+                    }
+
+                    var x = field % size, y = Math.floor(field / size)
+                    if (TODO) {
+                        var [kind, next] = TODO
+
+                        switch (kind) {
+                            case "SOLVE":
+                                saftyAll();
+                                inShowcase = false
+                                break;
+                            case "RESET":
+                                resetQueen(index(x, y))
+                                if (x == 7) {
+                                    setTimeout(play, time(), field, ["BACKTRACK", []])
+                                } else {
+                                    setTimeout(play, time(), ...next)
+                                }
+                                break;
+                            case "STORE":
+                                frameQueen(x, y)
+                                queens.push([field, x, y])
+                                setTimeout(play, time(), ...next)
+                                break;
+                            case "BACKTRACK":
+                                var [c, x, y] = queens.pop()
+
+                                resetQueen(index(x, y))
+                                reframeQueen(x, y, queens)
+
+                                if (x == 7) {
+                                    setTimeout(play, time(), field, ["BACKTRACK", []])
+                                } else {
+                                    setTimeout(play, time() * 5, c + 1)
+                                }
+                                break;
+                        }
+
+                    } else if (queens.length == 8) {
+                        setTimeout(play, 1000, 0, ["SOLVE", []])
+                    } else if (x < size && y < size) {
+                        var isSafety = safetyField(x, y)
+                        setQueen(index(x, y))
+                        if (isSafety) {
+                            setTimeout(play, time(), field, ["STORE", [field + (size - x || 1)]])
+                        } else {
+                            setTimeout(play, time(), field, ["RESET", [field + 1]])
+                        }
+                    }
+
+                }
+            }
+        </script>
+
+        <script>
+            var size = 8
+            function index(x, y) {
+                return '#' + String.fromCharCode(65 + x, 49 + y)
+            }
+
+            function xy(i) {
+                return [i.charCodeAt(1) - 65, i.charCodeAt(2) - 49]
+            }
+
+            function check(a, b, count) {
+                if (count < 0) {
+                    return a >= b
+                } if (count > 0) {
+                    return a <= b
+                } else {
+                    return a == b
+                }
+            }
+
+            function knight(x, y) {
+                return [
+                    [+2, +1],
+                    [+2, -1],
+                    [-2, +1],
+                    [-2, -1],
+                    [+1, +2],
+                    [-1, +2],
+                    [+1, -2],
+                    [-1, -2],
+                ].map(([a, b]) => [x + a, y + b])
+                    .filter(([a, b]) => a >= 0 && b >= 0 && a < size && b < size)
+            }
+
+            function rook(x, y) { return [line1(x, y), line2(x, y)] }
+
+            function bishop(x, y) { return [line3(x, y), line4(x, y)] }
+
+            function lines(x, y) { return [line1(x, y), line2(x, y), line3(x, y), line4(x, y),] }
+
+            function line1(x, y) { return [[0, y], [size - 1, y], [1, 0]] }
+
+            function line2(x, y) { return [[x, 0], [x, size - 1], [0, 1]] }
+
+            function line3(x, y) { return [[x - Math.min(x, y), y - Math.min(x, y)], [x + Math.min(size - x - 1, size - y - 1), y + Math.min(size - x - 1, size - y - 1)], [1, 1]] }
+
+            function line4(x, y) { return [[x - Math.min(x, size - y - 1), y + Math.min(x, size - y - 1)], [x + Math.min(size - x - 1, y), y - Math.min(size - x - 1, y)], [1, -1]] }
+
+            var mirror
+
+            var gRunning = false
+            function game() {
+                if (gRunning) {
+                    return
+                }
+                gRunning = true
+                document.getElementById('-game-spinner').style['display'] = 'inline'
+
+                var gSection, gBoard, gSolutions
+                var gCount = size * size
+
+                function queen(x, y) {
+                    var type = ((x % 2) + (y % 2)) % 2 === 0
+
+                    var q = document.createElement("span")
+                    q.className = "queen black"
+                    q.textContent = type ? "\u265B" : "\u2655"
+                    return q
                 }
 
                 function isBusy(x, y) {
                     var i = index(x, y)
-                    var td = board.querySelector(i)
+                    var td = gBoard.querySelector(i)
                     var content = td.firstChild
                     if (content) {
                         return true
@@ -1104,43 +1675,25 @@ mit [&Delta;x, &Delta;y]</pre>
                     return false
                 }
 
-                function setQueen(i) {
-                    var f = section.querySelector(i)
-                    if (!f.firstChild) {
-                        f.appendChild(queen())
+                function setQueen(x, y) {
+                    var i = index(x, y)
+                    var f = gSection.querySelector(i)
+                    if (!f.firstChild) { f.appendChild(queen(x, y)) }
+                }
+
+                function resetQueen(x, y) {
+                    var f = gSection.querySelector(index(x, y))
+                    if (f.firstChild) {
+                        f.removeChild(f.firstChild)
                     }
-                }
-
-                function resetQueen(i) {
-                    var f = section.querySelector(i)
-                    if (f.firstChild) { f.removeChild(f.firstChild) }
-                }
-
-                function queen() {
-                    var q = document.createElement("span")
-                    q.className = "queen black"
-                    q.textContent = "\u265B"
-                    return q
                 }
 
                 function danger(x, y) {
-                    section.querySelector(index(x, y)).classList.add("danger")
+                    gSection.querySelector(index(x, y)).classList.add("danger")
                 }
 
                 function safety(x, y) {
-                    section.querySelector(index(x, y)).classList.remove("danger")
-                }
-
-                function safetyField(x, y) {
-                    for (var line of lines(x, y)) {
-                        var [from, till, count] = line
-                        for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
-                            if (isBusy(x1, y1)) {
-                                return false
-                            }
-                        }
-                    }
-                    return true
+                    gSection.querySelector(index(x, y)).classList.remove("danger")
                 }
 
                 function frameQueen(x, y) {
@@ -1161,483 +1714,279 @@ mit [&Delta;x, &Delta;y]</pre>
                     }
                 }
 
-                function clear() {
-                    for (var i = 0; i < 64; i++) {
-                        resetQueen(index(i % gSize, Math.floor(i / gSize)))
-                        safety(i % gSize, Math.floor(i / gSize))
-                    }
-                }
-
-                function saftyAll() {
-                    for (var i = 0; i < 64; i++) {
-                        safety(i % gSize, Math.floor(i / gSize))
-                    }
-                }
-
-                if (!section) {
-                    init()
-                }
-
-                if (initial) {
-                    clear()
-                    queens = [];
-                    counter = 0;
-
-                }
-
-                var x = count % gSize, y = Math.floor(count / gSize)
-
-                counter++
-                if (counter > 200) {
-                    timeout = 20
-                } else if (counter > 40) {
-                    timeout = 50
-                } else if (counter > 20) {
-                    timeout = 222
-                }
-
-                if (TODO) {
-                    var [kind, next] = TODO
-
-                    switch (kind) {
-                        case "SOLVE":
-                            saftyAll();
-                            ingame = false
-                            break;
-                        case "RESET":
-                            resetQueen(index(x, y))
-                            if (x == 7) {
-                                setTimeout(play, timeout, false, count, ["BACKTRACK", []])
-                            } else {
-                                setTimeout(play, timeout, ...next)
+                function safetyLine(x, y) {
+                    for (var line of lines(x, y)) {
+                        var [from, till, count] = line
+                        for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
+                            if (isBusy(x1, y1)) {
+                                return false
                             }
-                            break;
-                        case "STORE":
-                            frameQueen(x, y)
-                            queens.push([count, x, y])
-                            setTimeout(play, timeout, ...next)
-                            break;
-                        case "BACKTRACK":
-                            var [c, x, y] = queens.pop()
-                            resetQueen(index(x, y))
-                            unframeQueen(x, y)
-                            queens.forEach(([f1, x1, y1]) => frameQueen(x1, y1))
-                            if (x == 7) {
-                                setTimeout(play, timeout, false, count, ["BACKTRACK", []])
-                            } else {
-                                setTimeout(play, timeout * 5, false, c + 1)
-                            }
-                            break;
+                        }
                     }
-
-                } else if (queens.length == 8) {
-                    setTimeout(play, 1000, false, 0, ["SOLVE", []])
-                } else if (x < gSize && y < gSize) {
-                    var isSafety = safetyField(x, y)
-                    setQueen(index(x, y))
-                    if (isSafety) {
-                        setTimeout(play, timeout, false, count, ["STORE", [false, count + (gSize - x || 1)]])
-                    } else {
-                        setTimeout(play, timeout, false, count, ["RESET", [false, count + 1]])
-                    }
-                }
-            }
-
-            function match() {
-                if (!ingame) {
-                    ingame = true
-                    timeout = 333;
-                    setTimeout(play, timeout, true, 0)
-                }
-            }
-        </script>
-
-        <script>
-            var gSection, gBoard, gSolutions, gSize = 8
-            var gCount = gSize * gSize
-
-            function queen() {
-                var q = document.createElement("span")
-                q.className = "queen black"
-                q.textContent = gQueens.length % 2 == 0 ? "\u265B" : "\u2655"
-                return q
-            }
-
-
-            function index(x, y) {
-                return '#' + String.fromCharCode(65 + y, 49 + x)
-            }
-
-            function xy(i) {
-                return [i.charCodeAt(2) - 49, i.charCodeAt(1) - 65]
-            }
-
-            function isBusy(x, y) {
-                var i = index(x, y)
-                var td = gBoard.querySelector(i)
-                var content = td.firstChild
-                if (content) {
                     return true
                 }
-                return false
-            }
 
-            function setQueen(x, y) {
-                var i = index(x, y)
-                var f = gSection.querySelector(i)
-                if (!f.firstChild) { f.appendChild(queen()) }
-            }
+                function rotate(solution) {
+                    var i = math.complex(0, 1)
+                    var half = (size - 1) / 2
 
-            function resetQueen(x, y) {
-                var f = gSection.querySelector(index(x, y))
-                if (f.firstChild) {
-                    f.removeChild(f.firstChild)
+                    return solution.map(([x, y]) => math.complex(x - half, y - half))
+                        .map(abi => math.multiply(abi, i))
+                        .map(abi => [math.re(abi) + half, math.im(abi) + half])
                 }
-            }
 
-            function danger(x, y) {
-                gSection.querySelector(index(x, y)).classList.add("danger")
-            }
-
-            function safety(x, y) {
-                gSection.querySelector(index(x, y)).classList.remove("danger")
-            }
-
-            function check(a, b, count) {
-                if (count < 0) {
-                    return a >= b
-                } if (count > 0) {
-                    return a <= b
-                } else {
-                    return a == b
+                function diagonal1(solution) {
+                    return solution.map(([x, y]) => [y, x])
                 }
-            }
 
-            function frameQueen(x, y) {
-                for (var line of lines(x, y)) {
-                    var [from, till, count] = line
-                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
-                        danger(x1, y1)
+                function diagonal2(solution) {
+                    return solution.map(([x, y]) => [size - y - 1, size - x - 1])
+                }
+
+                function mirror1(solution) {
+                    return solution.map(([x, y]) => [size - x - 1, y])
+                }
+
+                function mirror2(solution) {
+                    return solution.map(([x, y]) => [x, size - y - 1])
+                }
+
+                var solutionSort = (a, b) => a.charCodeAt(2) - b.charCodeAt(2)
+
+                function storable(solution) {
+                    return solution.map(([x, y]) => index(x, y)).sort(solutionSort).join(", ")
+                }
+
+                function symmetries(origin) {
+                    var result = [], interim
+
+                    result.push(origin.slice())
+
+                    interim = rotate(origin)
+                    result.push(interim)
+
+                    interim = rotate(interim)
+                    result.push(interim)
+
+                    interim = rotate(interim)
+                    result.push(interim)
+
+                    result.push(diagonal1(origin))
+                    result.push(diagonal2(origin))
+                    result.push(mirror1(origin))
+                    result.push(mirror2(origin))
+
+                    return result
+                }
+
+                function contains(uniq, solution) {
+                    var solutions = symmetries(solution).map(storable)
+                    var index = solutions.reduce((prev, curr) => prev < 0 ? uniq.indexOf(curr) : prev, -1)
+                    if (index < 0) {
+                        uniq.push(solutions[0])
                     }
+                    return index;
                 }
-                if (gMaharadscha) {
-                    knight(x, y).forEach(([x1, y1]) => danger(x1, y1))
-                }
-            }
 
-            function unframeQueen(x, y) {
-                for (var line of lines(x, y)) {
-                    var [from, till, count] = line
-                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
-                        safety(x1, y1)
-                    }
-                }
-                if (gMaharadscha) {
-                    knight(x, y).forEach(([x1, y1]) => safety(x1, y1))
-                }
-            }
+                function draw(a, b) {
+                    step()
 
-            function safetyLine(x, y) {
-                for (var line of lines(x, y)) {
-                    var [from, till, count] = line
-                    for (var x1 = from[0], y1 = from[1], x2 = till[0], y2 = till[1]; check(x1, x2, count[0]) && check(y1, y2, count[1]); x1 += count[0], y1 += count[1]) {
-                        if (isBusy(x1, y1)) {
-                            return false
-                        }
-                    }
-                }
-                if (gMaharadscha) {
-                    for (var [x1, y1] of knight(x, y)) {
-                        if (isBusy(x1, y1)) {
-                            return false
-                        }
-                    }
-                }
-                return true
-            }
-
-            function rotate(solution) {
-                var i = math.complex(0, 1)
-                var half = (gSize - 1) / 2
-
-                return solution.map(([x, y]) => math.complex(x - half, y - half))
-                    .map(abi => math.multiply(abi, i))
-                    .map(abi => [math.re(abi) + half, math.im(abi) + half])
-            }
-
-            function diagonal1(solution) {
-                return solution.map(([x, y]) => [y, x])
-            }
-
-            function diagonal2(solution) {
-                return solution.map(([x, y]) => [gSize - y - 1, gSize - x - 1])
-            }
-
-            function mirror1(solution) {
-                return solution.map(([x, y]) => [gSize - x - 1, y])
-            }
-
-            function mirror2(solution) {
-                return solution.map(([x, y]) => [x, gSize - y - 1])
-            }
-
-            function storeable(solution) {
-                return solution.map(([x, y]) => index(x, y)).sort().join(", ")
-            }
-
-            function symetrics(origin) {
-                var result = [], interim
-
-                result.push(origin.slice())
-
-                interim = rotate(origin)
-                result.push(interim)
-
-                interim = rotate(interim)
-                result.push(interim)
-
-                interim = rotate(interim)
-                result.push(interim)
-
-                result.push(diagonal1(origin))
-                result.push(diagonal2(origin))
-                result.push(mirror1(origin))
-                result.push(mirror2(origin))
-
-                return result
-            }
-
-            function contains(uniq, solution) {
-                var solutions = symetrics(solution).map(storeable)
-                var index = solutions.reduce((prev, curr) => prev < 0 ? uniq.indexOf(curr) : prev, -1)
-                if (index < 0) {
-                    uniq.push(solutions[0])
-                }
-                return index;
-            }
-
-            function draw(a, b) {
-                init()
-
-                symetrics([[a, b]]).forEach((s) => {
-                    s.forEach(([x, y]) => {
-                        setQueen(x, y)
+                    symmetries([[a, b]]).forEach((s) => {
+                        s.forEach(([x, y]) => {
+                            setQueen(x, y)
+                        })
                     })
-                })
-            }
-
-            function drawSolution(sol) {
-                if (!gRunning) {
-                    clear();
-                    if (sol) sol.split(/,\s*/g).map(a => xy(a)).forEach(([x, y]) => setQueen(x, y))
                 }
-            }
 
-            function gInit() {
-                if (!gSection) {
-                    gSection = document.getElementById('thegame')
-                    gBoard = gSection.querySelector("#chess_board")
-                    gSolutionsAllDiv = gSection.querySelector("#solutions")
-                    gRounds = gSection.querySelector("#rounds")
-                    gGameEnd = gSection.querySelector("#game-end")
+                function drawSolution(sol) {
+                    if (!gRunning) {
+                        clear();
+                        if (sol) sol.split(/,\s*/g).map(a => xy(a)).forEach(([x, y]) => setQueen(x, y))
+                    }
                 }
-            }
 
-            function clear() {
-                for (var i = 0; i < 64; i++) {
-                    resetQueen(i % gSize, Math.floor(i / gSize))
-                    safety(i % gSize, Math.floor(i / gSize))
+                function gInit() {
+                    if (!gSection) {
+                        gSection = document.getElementById('thegame')
+                        gBoard = gSection.querySelector("#chess_board")
+                        gSolutionsAllDiv = gSection.querySelector("#solutions")
+                        gRounds = gSection.querySelector("#rounds")
+                        gGameEnd = gSection.querySelector("#game-end")
+                    }
                 }
-            }
 
-            var gSolutionsAllDiv, gRounds, gGameEnd
-            var gSolutions = []
-            var gUniq = []
-            var gQueens = []
-            var gTimeout = 500
-            var gIterations = 0
-            var gRunning = false
-            var gMaharadscha = true
+                function clear() {
+                    for (var i = 0; i < 64; i++) {
+                        resetQueen(i % size, Math.floor(i / size))
+                        safety(i % size, Math.floor(i / size))
+                    }
+                }
 
-            function game() {
-                gInit()
+                var gSolutionsAllDiv, gRounds, gGameEnd
+                var gSolutions = []
+                var gUniq = []
+                var gQueens = []
+                var gIterations = 0
 
-                function solve() {
-                    if (gIterations === 0) {
-                        while (gSolutionsAllDiv.firstChild) {
-                            gSolutionsAllDiv.removeChild(gSolutionsAllDiv.firstChild)
+                function gTimeout() {
+                    if (gSolutions.length === 50) {
+                        return 175
+                    } else if (gUniq.length == 12) {
+                        return 250
+                    }
+                    return 500;
+                }
+
+                function step() {
+                    gInit()
+
+                    function solve() {
+                        if (gIterations === 0) {
+                            while (gSolutionsAllDiv.firstChild) {
+                                gSolutionsAllDiv.removeChild(gSolutionsAllDiv.firstChild)
+                            }
+                            clear()
                         }
-                        clear()
-                        gRunning = true;
-                    }
-                    var startUp;
-                    if (gQueens.length == 0) {
-                        startUp = 0
-                    } else {
-                        var data = gQueens.pop()
-                        startUp = data[0] + 1
-                        resetQueen(data[1], data[2])
-                    }
-
-                    for (var f = startUp; f <= gCount; f++) {
-                        gIterations++
-
-                        if (f === gCount || gQueens.length === gSize) {
-                            if (gQueens.length == gSize) {
-                                gRounds.textContent = `${gIterations}`
-
-                                var sol = []
-                                for (var q of gQueens) {
-                                    sol.push([q[1], q[2]])
-                                }
-                                gSolutions.push(sol.map(([a, b]) => index(a, b)).sort().join(", "))
-
-                                var sIndex = contains(gUniq, sol)
-                                var miniSolution = -1
-
-                                var sol = gUniq[gUniq.length - 1];
-
-                                var span = document.createElement("SPAN")
-                                span.style['white-space'] = 'nowrap'
-                                if (sIndex < 0) {
-                                    span.textContent = `${gSolutions.length}.`
-                                    span.onclick = (e) => drawSolution(sol)
-                                    span.classList.add(`solution-${gUniq.length - 1}`)
-                                    span.style['border-color'] = 'var(--highlight)'
-                                    span.style['border-style'] = 'solid'
-                                    span.style['border-width'] = '0 0 2px 2px'
-                                    gSolutionsAllDiv.appendChild(document.createTextNode(' '))
-                                    gSolutionsAllDiv.appendChild(span)
-                                    if (gUniq.length == 12) {
-                                        gTimeout = 250
-                                    }
-                                } else {
-                                    var sol = gSolutions[gSolutions.length - 1];
-                                    span.textContent = `${gSolutions.length}.`
-                                    span.onclick = (e) => drawSolution(sol)
-                                    span.classList.add(`solution-${sIndex}`)
-                                    gSolutionsAllDiv.appendChild(document.createTextNode(' '))
-                                    gSolutionsAllDiv.appendChild(span)
-                                }
-                                span.style['padding'] = '2px'
-                                span.onmouseover = (e) => {
-                                    var className = e.srcElement.className;
-                                    var elms = document.getElementsByClassName(className);
-                                    // if (miniSolution >= 0) span.textContent = ` ${e.srcElement.title} `
-                                    for (var k = 0, len = elms.length; k < len; k++) {
-                                        elms[k].style.backgroundColor = 'var(--highlight)';
-                                    }
-                                }
-                                span.onmouseout = (e) => {
-                                    var className = e.srcElement.className;
-                                    var elms = document.getElementsByClassName(className);
-                                    if (miniSolution >= 0) span.textContent = ` ${miniSolution}. `
-                                    for (var k = 0, len = elms.length; k < len; k++) {
-                                        elms[k].style.backgroundColor = 'transparent';
-                                    }
-                                }
-
-                                if (gSolutions.length === 50) {
-                                    gTimeout = 175
-                                }
-
-                                gGameEnd.scrollIntoView();
-                                setTimeout(game, gTimeout)
-                                return
-                            }
-                            var data = gQueens.pop()
-                            if (data) {
-                                f = data[0]
-                                resetQueen(data[1], data[2])
-                            } else {
-                                gRunning = false;
-                                drawSolution(gSolutions[gSolutions.length - 1])
-                                gRounds.textContent = `${gIterations}`
-
-                                gIterations = 0
-                                gSolutions = []
-                                gUniq = []
-                                gTimeout = 500
-
-                                return
-                            }
+                        var startUp;
+                        if (gQueens.length == 0) {
+                            startUp = 0
                         } else {
-                            var x = f % gSize, y = Math.floor(f / gSize)
-                            if (safetyLine(x, y)) {
-                                setQueen(x, y)
-                                gQueens.push([f, x, y])
+                            var data = gQueens.pop()
+                            startUp = data[0] + 1
+                            resetQueen(data[1], data[2])
+                        }
+
+                        for (var f = startUp; f <= gCount; f++) {
+                            gIterations++
+
+                            if (f === gCount || gQueens.length === size) {
+                                if (gQueens.length == size) {
+                                    gRounds.textContent = `${gIterations}`
+
+                                    var sol = []
+                                    for (var q of gQueens) {
+                                        sol.push([q[1], q[2]])
+                                    }
+                                    gSolutions.push(sol.map(([a, b]) => index(a, b)).sort(solutionSort).join(", "))
+
+                                    var sIndex = contains(gUniq, sol)
+
+                                    var sol = gSolutions[gSolutions.length - 1];
+
+                                    var span = document.createElement("SPAN")
+                                    span.textContent = `${gSolutions.length}.`
+                                    span.onclick = (e) => drawSolution(sol)
+                                    span.style['padding'] = '2px'
+                                    span.style['white-space'] = 'nowrap'
+                                    span.title = sol.replace(/[#,]/g, '')
+                                    if (sIndex < 0) {
+                                        span.classList.add(`highlight`)
+                                        span.classList.add(`solution-${gUniq.length - 1}`)
+                                    } else {
+                                        span.classList.add(`solution-${sIndex}`)
+                                    }
+                                    gSolutionsAllDiv.appendChild(document.createTextNode(' '))
+                                    gSolutionsAllDiv.appendChild(span)
+
+                                    span.onmouseover = (e) => {
+                                        e.srcElement.classList.forEach(className => {
+                                            if (className.indexOf('solution-') == 0) {
+                                                var elms = document.getElementsByClassName(className);
+                                                for (var k = 0, len = elms.length; k < len; k++) {
+                                                    elms[k].style.backgroundColor = 'var(--highlight)';
+                                                }
+                                            }
+                                        });
+                                    }
+                                    span.onmouseout = (e) => {
+                                        e.srcElement.classList.forEach(className => {
+                                            console.log(className)
+                                            if (className.indexOf('solution-') == 0) {
+                                                var elms = document.getElementsByClassName(className);
+                                                for (var k = 0, len = elms.length; k < len; k++) {
+                                                    elms[k].style.backgroundColor = 'transparent';
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    // gGameEnd.scrollIntoView();
+                                    setTimeout(step, gTimeout())
+                                    return
+                                }
+
+                                var data = gQueens.pop()
+                                if (data) {
+                                    f = data[0]
+                                    resetQueen(data[1], data[2])
+                                } else {
+                                    gRunning = false;
+                                    document.getElementById('-game-spinner').style['display'] = 'none'
+                                    drawSolution(gSolutions[gSolutions.length - 1])
+                                    gRounds.textContent = `${gIterations}`
+
+                                    gIterations = 0
+                                    gSolutions = []
+                                    gUniq = []
+
+                                    return
+                                }
+
+                            } else {
+
+                                var x = f % size, y = Math.floor(f / size)
+                                if (safetyLine(x, y)) {
+                                    setQueen(x, y)
+                                    gQueens.push([f, x, y])
+                                }
+
                             }
                         }
                     }
+
+                    solve()
                 }
 
-                solve()
-            }
-
-            function knight(x, y) {
-                return [
-                    [+2, +1],
-                    [+2, -1],
-                    [-2, +1],
-                    [-2, -1],
-                    [+1, +2],
-                    [-1, +2],
-                    [+1, -2],
-                    [-1, -2],
-                ].map(([a, b]) => [x + a, y + b])
-                    .filter(([a, b]) => a >= 0 && b >= 0 && a < gSize && b < gSize)
-            }
-
-            function lines(x, y) { return [line1(x, y), line2(x, y), line3(x, y), line4(x, y),] }
-
-            function line1(x, y) { return [[0, y], [7, y], [1, 0]] }
-
-            function line2(x, y) { return [[x, 0], [x, 7], [0, 1]] }
-
-            function line3(x, y) { return [[x - Math.min(x, y), y - Math.min(x, y)], [x + Math.min(gSize - x - 1, gSize - y - 1), y + Math.min(gSize - x - 1, gSize - y - 1)], [1, 1]] }
-
-            function line4(x, y) {
-                return [[x - Math.min(x, gSize - y - 1), y + Math.min(x, gSize - y - 1)], [x + Math.min(gSize - x - 1, y), y - Math.min(gSize - x - 1, y)], [1, -1]]
-            }
-
-            function mirror(kind) {
-                if (!gRunning) {
-                    var queens = []
-                    for (var f = 0; f < gCount; f++) {
-                        var x = f % gSize, y = Math.floor(f / gSize)
-                        var i = index(x, y)
-                        var field = gSection.querySelector(i)
-                        if (field.firstChild) {
-                            queens.push([x, y])
-                            resetQueen(x, y)
+                mirror = function (kind) {
+                    if (!gRunning) {
+                        var queens = []
+                        for (var f = 0; f < gCount; f++) {
+                            var x = f % size, y = Math.floor(f / size)
+                            var i = index(x, y)
+                            var field = gSection.querySelector(i)
+                            if (field.firstChild) {
+                                queens.push([x, y])
+                                resetQueen(x, y)
+                            }
                         }
+                        switch (kind) {
+                            case 'S':
+                                queens = rotate(queens)
+                                break;
+                            case 'V':
+                                queens = mirror1(queens)
+                                break;
+                            case 'H':
+                                queens = mirror2(queens)
+                                break;
+                            case 'D1':
+                                queens = diagonal1(queens)
+                                break;
+                            case 'D2':
+                                queens = diagonal2(queens)
+                                break;
+                        }
+                        queens.forEach(([x, y]) => setQueen(x, y))
                     }
-                    switch (kind) {
-                        case 'S':
-                            queens = rotate(queens)
-                            break;
-                        case 'V':
-                            queens = mirror1(queens)
-                            break;
-                        case 'H':
-                            queens = mirror2(queens)
-                            break;
-                        case 'D1':
-                            queens = diagonal1(queens)
-                            break;
-                        case 'D2':
-                            queens = diagonal2(queens)
-                            break;
-                    }
-                    queens.forEach(([x, y]) => setQueen(x, y))
                 }
+
+                step()
             }
         </script>
-
 
         <a name="showcase"></a>
         <ul class="topnav" style="background-color: #8694A8;">
-            <li id="start_button"><a href="javascript:match()">Start Showcase</a></li>
+            <li id="start_button"><a href="javascript:showcase()">Start Showcase</a></li>
         </ul>
         <section id="section-12">
             <h2>Showcase</h2>
@@ -1645,139 +1994,132 @@ mit [&Delta;x, &Delta;y]</pre>
             <div id="showcase">
                 <table id="chess_board" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td class="border"><a href="#">H</a></td>
-                        <td id="H1"></td>
-                        <td id="H2"></td>
-                        <td id="H3"></td>
-                        <td id="H4"></td>
-                        <td id="H5"></td>
-                        <td id="H6"></td>
-                        <td id="H7"></td>
+                        <td class="border">8</td>
+                        <td id="A8"></td>
+                        <td id="B8"></td>
+                        <td id="C8"></td>
+                        <td id="D8"></td>
+                        <td id="E8"></td>
+                        <td id="F8"></td>
+                        <td id="G8"></td>
                         <td id="H8"></td>
                     </tr>
                     <tr>
-                        <td class="border"><a href="#">G</a></td>
-                        <td id="G1"></td>
-                        <td id="G2"></td>
-                        <td id="G3"></td>
-                        <td id="G4"></td>
-                        <td id="G5"></td>
-                        <td id="G6"></td>
-                        <td id="G7"></td>
-                        <td id="G8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">F</a></td>
-                        <td id="F1"></td>
-                        <td id="F2"></td>
-                        <td id="F3"></td>
-                        <td id="F4"></td>
-                        <td id="F5"></td>
-                        <td id="F6"></td>
-                        <td id="F7"></td>
-                        <td id="F8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">E</a></td>
-                        <td id="E1"></td>
-                        <td id="E2"></td>
-                        <td id="E3"></td>
-                        <td id="E4"></td>
-                        <td id="E5"></td>
-                        <td id="E6"></td>
-                        <td id="E7"></td>
-                        <td id="E8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">D</a></td>
-                        <td id="D1"></td>
-                        <td id="D2"></td>
-                        <td id="D3"></td>
-                        <td id="D4"></td>
-                        <td id="D5"></td>
-                        <td id="D6"></td>
-                        <td id="D7"></td>
-                        <td id="D8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">C</a></td>
-                        <td id="C1"></td>
-                        <td id="C2"></td>
-                        <td id="C3"></td>
-                        <td id="C4"></td>
-                        <td id="C5"></td>
-                        <td id="C6"></td>
-                        <td id="C7"></td>
-                        <td id="C8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">B</a></td>
-                        <td id="B1"></td>
-                        <td id="B2"></td>
-                        <td id="B3"></td>
-                        <td id="B4"></td>
-                        <td id="B5"></td>
-                        <td id="B6"></td>
-                        <td id="B7"></td>
-                        <td id="B8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">A</a></td>
-                        <td id="A1"></td>
-                        <td id="A2"></td>
-                        <td id="A3"></td>
-                        <td id="A4"></td>
-                        <td id="A5"></td>
-                        <td id="A6"></td>
+                        <td class="border">7</td>
                         <td id="A7"></td>
-                        <td id="A8"></td>
+                        <td id="B7"></td>
+                        <td id="C7"></td>
+                        <td id="D7"></td>
+                        <td id="E7"></td>
+                        <td id="F7"></td>
+                        <td id="G7"></td>
+                        <td id="H7"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">6</td>
+                        <td id="A6"></td>
+                        <td id="B6"></td>
+                        <td id="C6"></td>
+                        <td id="D6"></td>
+                        <td id="E6"></td>
+                        <td id="F6"></td>
+                        <td id="G6"></td>
+                        <td id="H6"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">5</td>
+                        <td id="A5"></td>
+                        <td id="B5"></td>
+                        <td id="C5"></td>
+                        <td id="D5"></td>
+                        <td id="E5"></td>
+                        <td id="F5"></td>
+                        <td id="G5"></td>
+                        <td id="H5"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">4</td>
+                        <td id="A4"></td>
+                        <td id="B4"></td>
+                        <td id="C4"></td>
+                        <td id="D4"></td>
+                        <td id="E4"></td>
+                        <td id="F4"></td>
+                        <td id="G4"></td>
+                        <td id="H4"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">3</td>
+                        <td id="A3"></td>
+                        <td id="B3"></td>
+                        <td id="C3"></td>
+                        <td id="D3"></td>
+                        <td id="E3"></td>
+                        <td id="F3"></td>
+                        <td id="G3"></td>
+                        <td id="H3"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">2</td>
+                        <td id="A2"></td>
+                        <td id="B2"></td>
+                        <td id="C2"></td>
+                        <td id="D2"></td>
+                        <td id="E2"></td>
+                        <td id="F2"></td>
+                        <td id="G2"></td>
+                        <td id="H2"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">1</td>
+                        <td id="A1"></td>
+                        <td id="B1"></td>
+                        <td id="C1"></td>
+                        <td id="D1"></td>
+                        <td id="E1"></td>
+                        <td id="F1"></td>
+                        <td id="G1"></td>
+                        <td id="H1"></td>
                     </tr>
                     <tr>
                         <td class="border"></td>
-                        <td class="border"><a href="#">1</a></td>
-                        <td class="border"><a href="#">2</a></td>
-                        <td class="border"><a href="#">3</a></td>
-                        <td class="border"><a href="#">4</a></td>
-                        <td class="border"><a href="#">5</a></td>
-                        <td class="border"><a href="#">6</a></td>
-                        <td class="border"><a href="#">7</a></td>
-                        <td class="border"><a href="#">8</a></td>
+                        <td class="border">A</td>
+                        <td class="border">B</td>
+                        <td class="border">C</td>
+                        <td class="border">D</td>
+                        <td class="border">E</td>
+                        <td class="border">F</td>
+                        <td class="border">G</td>
+                        <td class="border">H</td>
                     </tr>
                 </table>
             </div>
         </section>
 
         <section id="section-13">
-            <h2>Die Anzahl der Möglichkeiten eine Spielfigur zu setzten</h2>
+            <h2>Die Anzahl der Möglichkeiten</h2>
 
             <h4>Brute Force</h4>
 
-            <pre><code>1. Dame 64 Möglichkeiten
-2. Dame 63 Möglichkeiten
-3. Dame 62 Möglichkeiten
-4. Dame 61 Möglichkeiten
-5. Dame 60 Möglichkeiten
-6. Dame 59 Möglichkeiten
-7. Dame 58 Möglichkeiten
-8. Dame 57 Möglichkeiten</code></pre>
-            <div class="formular">= n<sup>2</sup> &times; (n<sup>2</sup>-1) &times; (n<sup>2</sup>-3) &times;
+            <div class="formular">
+                = 64 &times; 63 &times; 62 &times; 61 &times; 60 &times; 59 &times; 58 &times; 57<br>
+                = n<sup>2</sup> &times; (n<sup>2</sup>-1) &times; (n<sup>2</sup>-3) &times;
                 (n<sup>2</sup>-4) &times; (n<sup>2</sup>-5) &times; (n<sup>2</sup>-6)
-                &times; (n<sup>2</sup>-7)</div>
-            <br>
-            <div class="formular">= <div class="fraction">
-                    <span>n<sup>2</sup></span>
+                &times; (n<sup>2</sup>-7)<br>
+                = <div class="fraction">
+                    <span>n<sup>2</sup>!</span>
                     <span class="symbol">/</span>
-                    <span>n(n-1)</span>
+                    <span>(n<sup>2</sup>-n)!</span>
                 </div> = <div class="fraction">
                     <span>64!</span>
                     <span class="symbol">/</span>
                     <span>56!</span>
-                </div>
+                </div><br>
+                &#x2248; 179 Billionen
             </div>
-            <p>ca. 179 Billionen</p>
 
             <h4>Anzahl für optimierte Lösung</h4>
-            <pre><code> 8<sup>8</sup> = 16.777.216 = 16 &times; 10<sup>6</sup></code></pre>
+            <pre><code> 8<sup>8</sup> &#x2248; 16 Millionen</code></pre>
 
             <h4>Anzahl für größere Bretter</h4>
             <pre><code> 8:  64! / 56!  = <span class="danger-d">2 &times 10<sup>14</sup></span>
@@ -1792,25 +2134,14 @@ mit [&Delta;x, &Delta;y]</pre>
 
             <h4>92 Lösungen</h4>
             <h4>12 indiviudelle Lösungen</h4>
-            <pre><code>12 &times; 8 = 96
-
- 4 &times; 2 = 8
-
-{H}  +  {V}  +  {D1}  +  {D2}  = 4
-{0&deg;} + {90&deg;} + {180&deg;} + {270&deg;} = 4
-
-</code></pre>
+            <div class="formular">
+                {H, V, D<sub>1</sub>, D<sub>2</sub>, 0&deg;, 90&deg; 180&deg; 270&deg;} &times; 12 = 8 &times; 12 = 96
+            </div>
 
             <h4>ein Lösung ist Rotationsidentisch</h4>
-
-            <pre><code>12 &times; 8 <span style="color:red">- 4</span> = 96 <span style="color:red">- 4</span> = 92
-
- 4 &times; 2 = 8
-
-{H}  +  {V}  +  {D1}  +  {D2}  = 4
-{0&deg;} + {90&deg;} + {180&deg;} + {270&deg;} = 4
-
-</code></pre>
+            <div class="formular">
+                12 &times; 8 <span style="color:red">- 4</span> = 96 <span style="color:red">- 4</span> = 92
+            </div>
         </section>
 
         <section id="section-16">
@@ -1924,29 +2255,76 @@ mit [&Delta;x, &Delta;y]</pre>
                 </tr>
             </table>
 
-            <pre class="danger"><code>m = n - 1</code></pre>
-
-            <h4>Vertikal</h4>
-            <pre class="danger" style="background-color: rgb(74, 219, 255) !important"><code>x<sub>m</sub> = m - x
-y<sub>m</sub> = y</span></code></pre>
+            <pre class="danger"><code>m = n - 1 = 8 - 1 = 7</code></pre>
 
             <h4>Horizontal</h4>
-            <pre class="danger" style="background-color: rgb(104, 255, 74) !important"><code>x<sub>m</sub> = x
-y<sub>m</sub> = m - y</span></code></pre>
+            <div class="formular mirror-a">
+                <div class="vector">
+                    <div>x<sub>m</sub></div>
+                    <div>y<sub>m</sub></div>
+                </div> &rarr; <div class="vector">
+                    <div>x</sub></div>
+                    <div>m-y</div>
+                </div> = <div class="vector">
+                    <div>1</div>
+                    <div>7-2</sub></div>
+                </div> = <div class="vector">
+                    <div>1</div>
+                    <div>5</sub></div>
+                </div>
+            </div>
+
+            <h4>Vertikal</h4>
+            <div class="formular mirror-b">
+                <div class="vector">
+                    <div>x<sub>m</sub></div>
+                    <div>y<sub>m</sub></div>
+                </div> &rarr; <div class="vector">
+                    <div>m-x</sub></div>
+                    <div>y</div>
+                </div> = <div class="vector">
+                    <div>7-1</div>
+                    <div>2</sub></div>
+                </div> = <div class="vector">
+                    <div>6</div>
+                    <div>5</sub></div>
+                </div>
+            </div>
 
             <h4>Hauptdiagonale</h4>
-            <pre class="danger" style="background-color: rgb(177, 93, 194) !important"><code>x<sub>m</sub> = y
-y<sub>m</sub> = x</span></code></pre>
-
+            <div class="formular mirror-c">
+                <div class="vector">
+                    <div>x<sub>m</sub></div>
+                    <div>y<sub>m</sub></div>
+                </div> &rarr; <div class="vector">
+                    <div>y</sub></div>
+                    <div>x</div>
+                </div> = <div class="vector">
+                    <div>2</div>
+                    <div>1</sub></div>
+                </div>
+            </div>
             <h4>Nebendiagonale</h4>
-            <pre class="danger" style="background-color: rgb(231, 115, 19) !important"><code>x<sub>m</sub> = m - y
-y<sub>m</sub> = m - x</span></code></pre>
-
+            <div class="formular mirror-d">
+                <div class="vector">
+                    <div>x<sub>m</sub></div>
+                    <div>y<sub>m</sub></div>
+                </div> &rarr; <div class="vector">
+                    <div>m-y</sub></div>
+                    <div>m-x</div>
+                </div> = <div class="vector">
+                    <div>7-2</div>
+                    <div>7-1</sub></div>
+                </div> = <div class="vector">
+                    <div>5</div>
+                    <div>6</sub></div>
+                </div>
+            </div>
         </section>
 
         <section id="section-17">
             <img style="float:right; height:100px" src="images/hot2.png">
-            <h2> Wie drehen? &rarr; Komplexe Zahlen</h2>
+            <h2>Rotations-symetrische Lösungen</h2>
 
             <table id="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
@@ -1985,7 +2363,7 @@ y<sub>m</sub> = m - x</span></code></pre>
                     <td id="H6"></td>
                 </tr>
                 <tr>
-                    <td>i</td>
+                    <td>1i</td>
                     <td id="A5"></td>
                     <td id="B5"></td>
                     <td id="C5"></td>
@@ -1996,7 +2374,7 @@ y<sub>m</sub> = m - x</span></code></pre>
                     <td id="H5"></td>
                 </tr>
                 <tr>
-                    <td>-i</td>
+                    <td>-1i</td>
                     <td id="A4"></td>
                     <td id="B4"></td>
                     <td id="C4"></td>
@@ -2009,7 +2387,7 @@ y<sub>m</sub> = m - x</span></code></pre>
                 <tr>
                     <td>-2i</td>
                     <td id="A3"></td>
-                    <td id="B3"><span class="queen black" style="color: rgb(231, 51, 255);">&#9819;</span>
+                    <td id="B3"><span class="queen black" style="color: rgb(177, 118, 189);">&#9819;</span>
                     </td>
                     <td id="C3"></td>
                     <td id="D3"></td>
@@ -2059,9 +2437,11 @@ y<sub>m</sub> = m - x</span></code></pre>
                 <span>0° &rarr; 90° &rarr; 180° &rarr; 270°</span>
             </div>
 
+            <h3>Wie drehen? &rarr; Komplexe Zahlen</h3>
+
             <h4>Komplexe Zahlen</h4>
             <div class="formular">
-                <span>i = &#x221A;<span style="text-decoration: overline">-1</span>
+                <span>i = <span class="sqrt"><span>-1</span></span>
                     &rarr; i<sup>2</sup> = -1</span>
             </div>
 
@@ -2079,57 +2459,41 @@ y<sub>m</sub> = m - x</span></code></pre>
                         <span>7</span>
                         <span class="symbol">/</span>
                         <span>2</span>
-                    </div> = 3,5</span>
+                    </div> = 3,5</span> &rarr; &#x2308;3,5&#x2309; = 4
                 <br>
-                <span> a = x - m</span>
+                <span>a = x - m</span> = 1 - 4 = -3
                 <br>
-                <span>bi = i(y - m)</span>
+                <span>bi = (y - m)i</span> = (2 - 4)i = -2i
             </div>
 
             <h4>Drehung durchführen</h4>
+
             <div class="formular">
-                <span style="background-color: rgb(241, 137, 255);">( a+bi)</span> &rarr; (
-                a+bi)
-                &times; i = &nbsp;ai+bi<sup>2</sup> = <span
-                    style="background-color: rgb(74, 219, 255);">-b+ai</span><br>
+                <div class="vector complex-a">
+                    <div>a+bi</div>
+                </div> &rarr; &times;i = <div class="vector complex-b">
+                    <div>-b+ai</div>
+                </div> &rarr; &times;i = <div class="vector complex-c">
+                    <div>-a-bi</div>
+                </div> &rarr; &times;i = <div class="vector complex-d">
+                    <div>b-ai</div>
+                </div> &rarr; &times;i = <div class="vector complex-a">
+                    <div>a+bi</div>
+                </div>
+            </div>
 
-                <span style="background-color: rgb(74, 219, 255);">(-b+ai)</span> &rarr;
-                (-b+ai)
-                &times;
-                i = -bi+ai<sup>2</sup> = <span style="background-color: rgb(104, 255, 74);">-a-bi</span><br>
-
-                <span style="background-color: rgb(104, 255, 74);">(-a-bi)</span> &rarr;
-                (-a-bi)
-                &times;
-                i = -ai-bi<sup>2</sup> = &nbsp;<span style="background-color: rgb(231, 115, 19);">b-ai</span><br>
-
-                <span style="background-color: rgb(231, 115, 19);">( b-ai)</span> &rarr; (
-                b-ai)
-                &times;
-                i = &nbsp;bi-ai<sup>2</sup> = &nbsp;<span style="background-color: rgb(241, 137, 255);">a+bi</span><br>
-
-                <br>
-
-                <span style="background-color: rgb(241, 137, 255);">(-3 -2i)</span> &rarr;
-                (-3
-                -2i)
-                &times; i = -3i - 2i<sup>2</sup> = <span style="background-color: rgb(74, 219, 255);">(+2
-                    -3i)</span><br>
-                <span style="background-color: rgb(74, 219, 255);">(+2 -3i)</span> &rarr;
-                (+2
-                -3i)
-                &times; i = &nbsp;2i - 3i<sup>2</sup> = <span style="background-color: rgb(104, 255, 74);">(+3
-                    +2i)</span><br>
-                <span style="background-color: rgb(104, 255, 74);">(+3 +2i)</span> &rarr;
-                (+3
-                +2i)
-                &times; i = &nbsp;3i + 2i<sup>2</sup> = <span style="background-color: rgb(231, 115, 19);">(-2
-                    +3i)</span><br>
-                <span style="background-color: rgb(231, 115, 19);">(-2 +3i)</span> &rarr;
-                (-2
-                +3i)
-                &times; i = -2i + 3i<sup>2</sup> = <span style="background-color: rgb(241, 137, 255);">(-3
-                    -2i)</span></code></pre>
+            <div class="formular">
+                <div class="vector complex-a">
+                    <div>-3-2i</div>
+                </div> &rarr; &times;i = <div class="vector complex-b">
+                    <div>2-3i</div>
+                </div> &rarr; &times;i = <div class="vector complex-c">
+                    <div>3+2i</div>
+                </div> &rarr; &times;i = <div class="vector complex-d">
+                    <div>-2+3i</div>
+                </div> &rarr; &times;i = <div class="vector complex-a">
+                    <div>-3-2i</div>
+                </div>
             </div>
 
             <h4>Nullpunkt re-justieren</h4>
@@ -2158,112 +2522,116 @@ y<sub>m</sub> = m - x</span></code></pre>
                 <h5>iterations</h5>
                 <span id="rounds"></span>
 
-                <h5>solutions</h5>
-                <div style="margin-top: 10px;" id="solutions"></div>
-
                 <h5>game</h5>
+                <div class="lds-dual-ring" id="-game-spinner" style="position: absolute; float:left; display: none">
+                </div>
+
                 <table id="chess_board" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td class="border"><a href="#">H</a></td>
-                        <td id="H1"></td>
-                        <td id="H2"></td>
-                        <td id="H3"></td>
-                        <td id="H4"></td>
-                        <td id="H5"></td>
-                        <td id="H6"></td>
-                        <td id="H7"></td>
+                        <td class="border">8</td>
+                        <td id="A8"></td>
+                        <td id="B8"></td>
+                        <td id="C8"></td>
+                        <td id="D8"></td>
+                        <td id="E8"></td>
+                        <td id="F8"></td>
+                        <td id="G8"></td>
                         <td id="H8"></td>
                     </tr>
                     <tr>
-                        <td class="border"><a href="#">G</a></td>
-                        <td id="G1"></td>
-                        <td id="G2"></td>
-                        <td id="G3"></td>
-                        <td id="G4"></td>
-                        <td id="G5"></td>
-                        <td id="G6"></td>
-                        <td id="G7"></td>
-                        <td id="G8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">F</a></td>
-                        <td id="F1"></td>
-                        <td id="F2"></td>
-                        <td id="F3"></td>
-                        <td id="F4"></td>
-                        <td id="F5"></td>
-                        <td id="F6"></td>
-                        <td id="F7"></td>
-                        <td id="F8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">E</a></td>
-                        <td id="E1"></td>
-                        <td id="E2"></td>
-                        <td id="E3"></td>
-                        <td id="E4"></td>
-                        <td id="E5"></td>
-                        <td id="E6"></td>
-                        <td id="E7"></td>
-                        <td id="E8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">D</a></td>
-                        <td id="D1"></td>
-                        <td id="D2"></td>
-                        <td id="D3"></td>
-                        <td id="D4"></td>
-                        <td id="D5"></td>
-                        <td id="D6"></td>
-                        <td id="D7"></td>
-                        <td id="D8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">C</a></td>
-                        <td id="C1"></td>
-                        <td id="C2"></td>
-                        <td id="C3"></td>
-                        <td id="C4"></td>
-                        <td id="C5"></td>
-                        <td id="C6"></td>
-                        <td id="C7"></td>
-                        <td id="C8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">B</a></td>
-                        <td id="B1"></td>
-                        <td id="B2"></td>
-                        <td id="B3"></td>
-                        <td id="B4"></td>
-                        <td id="B5"></td>
-                        <td id="B6"></td>
-                        <td id="B7"></td>
-                        <td id="B8"></td>
-                    </tr>
-                    <tr>
-                        <td class="border"><a href="#">A</a></td>
-                        <td id="A1"></td>
-                        <td id="A2"></td>
-                        <td id="A3"></td>
-                        <td id="A4"></td>
-                        <td id="A5"></td>
-                        <td id="A6"></td>
+                        <td class="border">7</td>
                         <td id="A7"></td>
-                        <td id="A8"></td>
+                        <td id="B7"></td>
+                        <td id="C7"></td>
+                        <td id="D7"></td>
+                        <td id="E7"></td>
+                        <td id="F7"></td>
+                        <td id="G7"></td>
+                        <td id="H7"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">6</td>
+                        <td id="A6"></td>
+                        <td id="B6"></td>
+                        <td id="C6"></td>
+                        <td id="D6"></td>
+                        <td id="E6"></td>
+                        <td id="F6"></td>
+                        <td id="G6"></td>
+                        <td id="H6"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">5</td>
+                        <td id="A5"></td>
+                        <td id="B5"></td>
+                        <td id="C5"></td>
+                        <td id="D5"></td>
+                        <td id="E5"></td>
+                        <td id="F5"></td>
+                        <td id="G5"></td>
+                        <td id="H5"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">4</td>
+                        <td id="A4"></td>
+                        <td id="B4"></td>
+                        <td id="C4"></td>
+                        <td id="D4"></td>
+                        <td id="E4"></td>
+                        <td id="F4"></td>
+                        <td id="G4"></td>
+                        <td id="H4"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">3</td>
+                        <td id="A3"></td>
+                        <td id="B3"></td>
+                        <td id="C3"></td>
+                        <td id="D3"></td>
+                        <td id="E3"></td>
+                        <td id="F3"></td>
+                        <td id="G3"></td>
+                        <td id="H3"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">2</td>
+                        <td id="A2"></td>
+                        <td id="B2"></td>
+                        <td id="C2"></td>
+                        <td id="D2"></td>
+                        <td id="E2"></td>
+                        <td id="F2"></td>
+                        <td id="G2"></td>
+                        <td id="H2"></td>
+                    </tr>
+                    <tr>
+                        <td class="border">1</td>
+                        <td id="A1"></td>
+                        <td id="B1"></td>
+                        <td id="C1"></td>
+                        <td id="D1"></td>
+                        <td id="E1"></td>
+                        <td id="F1"></td>
+                        <td id="G1"></td>
+                        <td id="H1"></td>
                     </tr>
                     <tr>
                         <td class="border"></td>
-                        <td class="border"><a href="#">1</a></td>
-                        <td class="border"><a href="#">2</a></td>
-                        <td class="border"><a href="#">3</a></td>
-                        <td class="border"><a href="#">4</a></td>
-                        <td class="border"><a href="#">5</a></td>
-                        <td class="border"><a href="#">6</a></td>
-                        <td class="border"><a href="#">7</a></td>
-                        <td class="border"><a href="#">8</a></td>
+                        <td class="border">A</td>
+                        <td class="border">B</td>
+                        <td class="border">C</td>
+                        <td class="border">D</td>
+                        <td class="border">E</td>
+                        <td class="border">F</td>
+                        <td class="border">G</td>
+                        <td class="border">H</td>
                     </tr>
                 </table>
                 <span id="game-end"></span>
+
+                <h5>solutions</h5>
+                <div style="margin-top: 10px;" id="solutions"></div>
+
         </section>
     </div>
 
