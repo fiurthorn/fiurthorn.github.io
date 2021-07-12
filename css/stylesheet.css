@@ -115,12 +115,17 @@ ul.topnav li {
     float: left;
 }
 
-ul.topnav li a {
+ul.topnav li span, ul.topnav li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+}
+
+ul.topnav li label {
+    display: block;
+    margin: 7px auto;
 }
 
 ul.topnav li a:hover:not(.active) {

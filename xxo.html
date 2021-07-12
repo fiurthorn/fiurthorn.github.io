@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <link rel="stylesheet" href="css/stylesheet.css" type="text/css">
+  <title>xxo | fiurthorn</title>
+  <script defer src="xxo/xxo.dart.js"></script>
+
+  <style>
+    table#xxo_board {
+      margin: 0 auto;
+      text-align: center;
+      aspect-ratio: 1 / 1;
+      table-layout: fixed;
+    }
+
+    #xxo_board td {
+      background: #fff;
+      max-height: 10vmin;
+      min-height: 10vmin;
+      height: 10vmin;
+      max-width: 10vmin;
+      min-width: 10vmin;
+      width: 10vmin;
+      aspect-ratio: 1 / 1;
+      vertical-align: middle;
+      border-width: 1px !important;
+      border-style: solid !important;
+      border-color: #777 !important;
+      font-size: 5vmin;
+    }
+
+    #xxo_board td span {
+      margin-left: -4px !important;
+      margin-top: 4px !important;
+    }
+
+    #xxo_board tr:nth-child(odd) td:nth-child(odd),
+    #xxo_board tr:nth-child(even) td:nth-child(even) {
+      background: #eee;
+    }
+
+    #xxo_board td:hover {
+      background: #ddd !important;
+    }
+
+    #xxo_board td.won {
+      background: rgb(178, 218, 255) !important;
+    }
+
+    #xxo_board td.draw {
+      background: rgb(255, 190, 160) !important;
+    }
+
+    /* The switch - the box around the slider */
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2C4870;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2C4870;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul class="topnav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="8-queens.html">8-queens</a></li>
+    <li><a class="active" href="xxo.html">XXO</a></li>
+    <li><a href="jobInterview.html">job interview</a></li>
+    <li class="right"><a target="_blank" href="https://github.com/fiurthorn">github</a></li>
+    <li class="right"><a target="_blank" href="https://gist.github.com/fiurthorn">gist</a></li>
+  </ul>
+
+  <div class="letter">
+
+    <ul class="topnav" style="background-color: #8694A8;">
+      <li id="start_button"><a id="clear">New</a></li>
+      <li id="start_button"><span>X:</span></li>
+      <li>
+        <label class="switch">
+          <input type="checkbox" id="playerX">
+          <span class="slider round"></span>
+        </label>
+      </li>
+      <li id="start_button"><span>O:</span></li>
+      <li>
+        <label class="switch">
+          <input type="checkbox" id="playerO">
+          <span class="slider round"></span>
+        </label>
+      </li>
+    </ul>
+    <section id="section-2">
+      <h1>XXO</h1>
+      <span id="nextPlayer"></span>
+
+      <table id="xxo_board" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td id="-cell-6"></td>
+            <td id="-cell-7"></td>
+            <td id="-cell-8"></td>
+          </tr>
+          <tr>
+            <td id="-cell-3"></td>
+            <td id="-cell-4"></td>
+            <td id="-cell-5"></td>
+          </tr>
+          <tr>
+            <td id="-cell-0"></td>
+            <td id="-cell-1"></td>
+            <td id="-cell-2"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; fiurthorn 2021 &dash; All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
