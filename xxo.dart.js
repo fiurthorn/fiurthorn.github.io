@@ -5939,30 +5939,15 @@
       }
     },
     checkAI$0: function() {
-      var t2, t3, moves, _this = this,
+      var moves, _this = this,
         t1 = _this.board;
       if (t1.get$remaining() === 0 || !J.$eq$(t1.get$winner(), $.$get$Board_empty()))
         return;
-      t1 = document;
-      t2 = t1.querySelector("#playerX");
-      t2.toString;
-      t3 = type$.InputElement;
-      t2 = t3._as(t2).checked;
-      t1 = t1.querySelector("#playerO");
+      t1 = "#player" + _this._currentPlayer.symbol;
+      t1 = document.querySelector(t1);
       t1.toString;
-      t1 = t3._as(t1).checked;
-      if (t2 === true)
-        t2 = _this.playerX.symbol === _this._currentPlayer.symbol;
-      else
-        t2 = false;
-      if (!t2)
-        if (t1 === true)
-          t1 = _this.playerO.symbol === _this._currentPlayer.symbol;
-        else
-          t1 = false;
-      else
-        t1 = true;
-      if (t1) {
+      t1 = type$.InputElement._as(t1).checked;
+      if (t1 === true) {
         t1 = _this._currentPlayer;
         moves = H.setRuntimeTypeInfo([], type$.JSArray_Pos);
         _this.minimax$2(t1, moves);
