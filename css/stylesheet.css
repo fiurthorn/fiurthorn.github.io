@@ -112,6 +112,105 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
+/** button player **/
+
+.button-cover, .knobs, .layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 36px;
+  margin: -0 auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r, .button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+.player-ai .knobs:before, .player-ai .knobs:after, .player-ai .knobs span {
+  position: absolute;
+  top: 4px;
+  width: 20px;
+  height: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  border-radius: 2px;
+  transition: 0.3s ease all;
+}
+
+.player-ai .knobs:before {
+  content: '';
+  left: 4px;
+  background-color: #2C4870;
+}
+
+.player-ai .knobs:after {
+  content: 'AI';
+  right: 4px;
+  color: #4e4e4e;
+}
+
+.player-ai .knobs span {
+  display: inline-block;
+  left: 4px;
+  color: #fff;
+  z-index: 1;
+}
+
+.player-ai .checkbox:checked+.knobs span {
+  color: #4e4e4e;
+}
+
+.player-ai .checkbox:checked+.knobs:before {
+  left: 42px;
+  background-color: #3b5d8b;
+}
+
+.player-ai .checkbox:checked+.knobs:after {
+  color: #fff;
+}
+
+.player-ai .checkbox:checked~.layer {
+  background-color: #bccadf;
+}
+
 /** spinner **/
 
 .lds-dual-ring {
@@ -182,11 +281,17 @@ ul.topnav {
   background-color: #2C4870;
 }
 
+body>ul.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
 ul.topnav li {
   float: left;
 }
 
-ul.topnav li span, ul.topnav li a {
+ul.topnav li span, ul.topnav li label, ul.topnav li a {
   display: block;
   color: white;
   text-align: center;
@@ -194,13 +299,12 @@ ul.topnav li span, ul.topnav li a {
   text-decoration: none;
 }
 
-ul.topnav li label {
-  display: block;
-  margin: 7px auto;
+ul.topnav li label span {
+  color: white;
 }
 
-ul.topnav li a:hover:not(.active) {
-  background-color: #3b5d8b;
+ul.topnav li:hover, ul.topnav li a:hover:not(.active), ul.topnav li span:hover:not(.active), ul.topnav li label:hover:not(.active) {
+  background-color: #3b5d8b !important;
 }
 
 ul.topnav li a.active {
@@ -230,6 +334,27 @@ dd {
 
 #solution {
   display: none;
+}
+
+/*** switch ***/
+
+label.switch {
+  max-height: 22px;
+  margin: auto;
+}
+
+input#playerO, input#playerX {
+  display: none;
+  padding: 0;
+  margin: 0;
+  width: 0;
+  height: 0;
+}
+
+#playerO:checked+.switch, #playerX:checked+.switch {
+  color: goldenrod;
+  text-shadow: #8694A8;
+  font-weight: bold;
 }
 
 /*** hamburger menu ***/

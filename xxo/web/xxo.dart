@@ -13,7 +13,7 @@ class WebGame extends Game {
   void turn(int index, bool ai) {
     try {
       if (stopped) return;
-      if (ai != (querySelector('#player${_currentPlayer.symbol}')! as InputElement).checked) return;
+      if (ai != (querySelector('#player${_currentPlayer.symbol}')!.querySelector('input') as InputElement).checked) return;
 
       board.set(_currentPlayer, board.pos(index));
       querySelector('#-cell-$index')?.text = _currentPlayer.symbol;
@@ -88,7 +88,7 @@ class WebGame extends Game {
   void checkAI() {
     if (stopped) return;
 
-    if ((querySelector('#player${_currentPlayer.symbol}')! as InputElement).checked ?? false) {
+    if ((querySelector('#player${_currentPlayer.symbol}')!.querySelector('input') as InputElement).checked ?? false) {
       turn(board.index(bestMove(_currentPlayer)), true);
     }
   }

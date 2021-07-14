@@ -5834,9 +5834,7 @@
           return;
         t2 = "#player" + _this._currentPlayer.symbol;
         t3 = document;
-        t2 = t3.querySelector(t2);
-        t2.toString;
-        if (ai !== type$.InputElement._as(t2).checked)
+        if (ai !== type$.InputElement._as(t3.querySelector(t2).querySelector("input")).checked)
           return;
         t1.$set$2(_this._currentPlayer, new R.Pos(C.JSInt_methods.$mod(index, 3), C.JSInt_methods._tdivFast$1(index, 3)));
         t2 = t3.querySelector("#-cell-" + index);
@@ -5944,9 +5942,7 @@
       if (t1.get$remaining() === 0 || !J.$eq$(t1.get$winner(), $.$get$Board_empty()))
         return;
       t1 = "#player" + _this._currentPlayer.symbol;
-      t1 = document.querySelector(t1);
-      t1.toString;
-      t1 = type$.InputElement._as(t1).checked;
+      t1 = type$.InputElement._as(document.querySelector(t1).querySelector("input")).checked;
       if (t1 === true) {
         t1 = _this._currentPlayer;
         moves = H.setRuntimeTypeInfo([], type$.JSArray_Pos);
