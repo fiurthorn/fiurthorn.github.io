@@ -77,7 +77,6 @@ class ConsoleGame extends Game {
     final alertPostion = Coordinate(0, 0);
     final boardPostion = Coordinate(4, 0);
     final dialogPostion = Coordinate(2, 0);
-    // ignore: unused_local_variable
     final printPostion = Coordinate(11, 0);
 
     game:

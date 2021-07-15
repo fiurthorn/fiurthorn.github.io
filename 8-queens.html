@@ -93,7 +93,7 @@
             color: #ccc;
         }
 
-        table#chess_board.array td {
+        table.chess_board.array td {
             color: rgb(141, 140, 140)
         }
 
@@ -101,7 +101,7 @@
             background-color: #bcbcbc;
         }
 
-        table#chess_board {
+        table.chess_board {
             margin: 0 auto;
             text-align: center;
             aspect-ratio: 1 / 1;
@@ -114,7 +114,7 @@
             aspect-ratio: 1 / 1;
         }
 
-        #chess_board td {
+        .chess_board td {
             background: #fff;
             max-height: 6vmin;
             min-height: 6vmin;
@@ -129,47 +129,49 @@
             border-color: #777 !important;
         }
 
-        #chess_board td span {
+        .chess_board td span {
             margin-left: -4px !important;
             margin-top: 4px !important;
         }
 
-        #chess_board tr:nth-child(odd) td:nth-child(odd),
-        #chess_board tr:nth-child(even) td:nth-child(even) {
+        .chess_board tr:nth-child(odd) td:nth-child(odd),
+        .chess_board tr:nth-child(even) td:nth-child(even) {
             background: #ccc;
         }
 
-        #chess_board tr td:first-child,
-        #chess_board tr:last-child td:nth-child(even),
-        #chess_board tr:last-child td:nth-child(odd),
-        #chess_board tr:last-child td {
+        .chess_board tr td:first-child,
+        .chess_board tr:last-child td {
             background: #ffcd9b !important;
         }
 
-        #chess_board tr td:first-child {
+        .chess_board tr td:first-child {
             border-right-width: 3px !important;
             border-right-color: #000 !important;
         }
 
-        #chess_board tr:last-child td {
+        .chess_board tr:last-child td {
             border-top-width: 3px !important;
             border-top-color: #000 !important;
         }
 
-        table#arrayTable th {
+        table.arrayTable th {
             background: #ffcd9b !important;
         }
 
-        table#arrayTable td:nth-child(even) {
-            background: #ccc;
-        }
-
-        table#arrayTable td:nth-child(odd) {
+        table.arrayTable td:nth-child(even) {
             background: #fff;
         }
 
-        table#arrayTable td,
-        table#arrayTable th {
+        table.arrayTable td:nth-child(odd) {
+            background: #ccc;
+        }
+
+        table.arrayTable {
+            border-spacing: 0;
+        }
+
+        table.arrayTable td,
+        table.arrayTable th {
             max-height: 6vmin;
             min-height: 6vmin;
             height: 6vmin;
@@ -179,9 +181,25 @@
             aspect-ratio: 1 / 1;
             vertical-align: middle;
             text-align: center;
+            border-width: 1px !important;
+            border-style: solid !important;
+            border-color: #777 !important;
+            padding: 0;
         }
 
-        table#arrayTable {
+        table.arrayTable tr th:first-child {
+            border-right-width: 3px !important;
+            border-right-style: solid !important;
+            border-right-color: #000 !important;
+        }
+
+        table.arrayTable tr:first-child th {
+            border-bottom-width: 3px !important;
+            border-bottom-style: solid !important;
+            border-bottom-color: #000 !important;
+        }
+
+        table.arrayTable {
             margin: 0 auto;
         }
 
@@ -381,7 +399,7 @@
         <section id="section-4">
             <h2>Das Spielbrett</h2>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>8</td>
                     <td id="A8"></td>
@@ -487,7 +505,7 @@
         <section id="section-5">
             <h2>Das Spielbrett: Datentyp</h2>
 
-            <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
+            <table class="chess_board" class="array" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>7</td>
                     <td id="A8">56</td>
@@ -595,7 +613,7 @@
             <h2>multidimensionales Array</h2>
 
             <h4>Das Spielbrett</h4>
-            <table id="chess_board" class="array" cellpadding="0" cellspacing="0">
+            <table class="chess_board" class="array" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>2</td>
                     <td id="A3">6</td>
@@ -623,7 +641,7 @@
             </table>
 
             <h4>im Speicher mit Größe n=3 und Index f</h4>
-            <table id="arrayTable">
+            <table class="arrayTable">
                 <tr>
                     <th>feld</th>
                     <th>0</th>
@@ -656,7 +674,7 @@
             <h2>Array</h2>
 
             <h4>Das Spielbrett</h4>
-            <table id="arrayTable">
+            <table class="arrayTable">
                 <tr>
                     <th>feld</th>
                     <th>0</th>
@@ -725,7 +743,7 @@
         <section id="section-8">
             <h2>Welche Felder bedroht eine Dame</h2>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>7</td>
                     <td id="A8"></td>
@@ -832,7 +850,7 @@
             <img style="float:right; height:100px" src="images/hot1.png">
             <h2>Welche Felder bedroht eine Dame</h2>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>7</td>
                     <td id="A8"></td>
@@ -1076,7 +1094,7 @@
             <h2>Welche Felder bedroht eine Dame</h2>
             <h4>Mit durchgehenden Geraden</h4>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>7</td>
                     <td id="A8"></td>
@@ -1415,7 +1433,7 @@
                     queens = [];
                     counter = 0;
                     section = document.getElementById('showcase')
-                    board = section.querySelector("#chess_board")
+                    board = section.querySelector(".chess_board")
 
                     setTimeout(play, 0, 0, "init")
                 } else {
@@ -1814,8 +1832,8 @@
 
                 function gInit() {
                     if (!gSection) {
-                        gSection = document.getElementById('thegame')
-                        gBoard = gSection.querySelector("#chess_board")
+                        gSection = document.getElementById('theGame')
+                        gBoard = gSection.querySelector(".chess_board")
                         gSolutionsAllDiv = gSection.querySelector("#solutions")
                         gRounds = gSection.querySelector("#rounds")
                         gGameEnd = gSection.querySelector("#game-end")
@@ -1999,7 +2017,7 @@
             <h2>Showcase</h2>
 
             <div id="showcase">
-                <table id="chess_board" cellpadding="0" cellspacing="0">
+                <table class="chess_board" cellpadding="0" cellspacing="0">
                     <tr>
                         <td class="border">8</td>
                         <td id="A8"></td>
@@ -2155,7 +2173,7 @@
             <img style="float:right; height:100px" src="images/hot1.png">
             <h2>Spiegel-symetrische Lösungen</h2>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>7</td>
                     <td id="A8"></td>
@@ -2309,7 +2327,7 @@
                 </div> = <div class="vector">
                     <div>1</sub></div>
                     <div>2</div>
-                </div>  &rarr; <div class="vector">
+                </div> &rarr; <div class="vector">
                     <div>2</div>
                     <div>1</sub></div>
                 </div>
@@ -2336,7 +2354,7 @@
             <img style="float:right; height:100px" src="images/hot2.png">
             <h2>Rotations-symetrische Lösungen</h2>
 
-            <table id="chess_board" cellpadding="0" cellspacing="0">
+            <table class="chess_board" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>4i</td>
                     <td id="A8"></td>
@@ -2527,7 +2545,7 @@
         <section id="section-18">
             <h2>The Game</h2>
 
-            <div id="thegame">
+            <div id="theGame">
 
                 <h5>iterations</h5>
                 <span id="rounds"></span>
@@ -2537,7 +2555,7 @@
                 <div class="lds-dual-ring" id="-game-spinner" style="position: absolute; float:left; display: none">
                 </div>
 
-                <table id="chess_board" cellpadding="0" cellspacing="0">
+                <table class="chess_board" cellpadding="0" cellspacing="0">
                     <tr>
                         <td class="border">8</td>
                         <td id="A8"></td>

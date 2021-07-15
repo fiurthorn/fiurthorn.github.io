@@ -12,8 +12,7 @@ class WebGame extends Game {
 
   void turn(int index, bool ai) {
     try {
-      if (stopped) return;
-      if (ai != (querySelector('#player${_currentPlayer.symbol}')!.querySelector('input') as InputElement).checked) return;
+      if (stopped || ai != checkAiFlag(_currentPlayer)) return;
 
       board.set(_currentPlayer, board.pos(index));
       querySelector('#-cell-$index')?.text = _currentPlayer.symbol;
@@ -21,7 +20,7 @@ class WebGame extends Game {
 
       if (stopped) {
         highlight();
-      } else {
+      } else if (checkAiFlag(_currentPlayer)) {
         delayed(checkAI);
       }
     } on Exception catch (e, t) {
@@ -88,10 +87,12 @@ class WebGame extends Game {
   void checkAI() {
     if (stopped) return;
 
-    if ((querySelector('#player${_currentPlayer.symbol}')!.querySelector('input') as InputElement).checked ?? false) {
+    if (checkAiFlag(_currentPlayer)) {
       turn(board.index(bestMove(_currentPlayer)), true);
     }
   }
+
+  bool checkAiFlag(Player player) => (querySelector('#player${player.symbol}')!.querySelector('input') as InputElement).checked ?? false;
 }
 
 final delay = Duration(milliseconds: 333);
@@ -110,7 +111,7 @@ void main() {
   //? reminder setProperty(window, 'turn', allowInterop((int cell) => game.turn(cell)));
   //? reminder setProperty(window, 'clear', allowInterop(() => game.initNewGame()));
 
-  querySelector('#clear')?.onClick.forEach((_) => game.initNewGame());
+  querySelector('#clear')?.onClick.forEach((_) => printit('-- new game ---', game.initNewGame()));
 
   for (var i in ['X', 'O']) {
     querySelector('#player$i')?.onChange.forEach((_) => delayed(game.checkAI));

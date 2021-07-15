@@ -1,15 +1,24 @@
 import 'dart:math';
 
+T printit<T>(String prefix, T t) {
+  // print('$prefix: $t');
+  return t;
+}
+
 class Pos {
   final int x;
   final int y;
 
-  Pos({required this.x, required this.y});
+  const Pos({required this.x, required this.y});
 
-  Pos.xy(this.x, this.y);
+  const Pos.xy(this.x, this.y);
+
+  const Pos.index(int index)
+      : x = index % 3,
+        y = index ~/ 3;
 
   @override
-  String toString() => '[$x, $y]';
+  String toString() => '{$x, $y}';
 
   @override
   int get hashCode => y << 4 + x;
@@ -33,7 +42,7 @@ class Player {
   factory Player.empty() => _empty;
 
   @override
-  String toString() => symbol;
+  String toString() => '<$symbol>';
 
   @override
   int get hashCode => symbol.hashCode;
@@ -50,7 +59,7 @@ class Board {
 
   final List<Player> _fields;
 
-  Board() : this._(List.filled(size * size, Player.empty()));
+  Board() : this._(List.filled(size * size, empty));
 
   Board._(this._fields);
 
@@ -100,7 +109,7 @@ class Board {
 
     final result = StringBuffer();
     for (var i = 0, line = size; i < size; i++, line--) {
-      result.writeln(' $line | ${_fields.sublist(line * size - size, line * size).join(' | ')}');
+      result.writeln(' $line | ${_fields.sublist(line * size - size, line * size).map((e) => e.symbol).join(' | ')}');
       result.writeln(split);
     }
     result.writeln('   | a | b | c');
@@ -120,19 +129,6 @@ class Board {
   }
 
   void unset(Pos xy) => _fields[index(xy)] = empty;
-}
-
-class Move {
-  int x;
-  int y;
-
-  @override
-  String toString() => '[$x:$y]';
-
-  Move(this.x, this.y);
-  Move.pos(Pos p)
-      : x = p.x,
-        y = p.y;
 }
 
 class Game {
@@ -157,27 +153,97 @@ class Game {
 
   Player _oppoite(Player p) => p == playerO ? playerX : playerO;
 
-  final edges = [
+  static const edges = [
+    Pos.xy(2, 2),
     Pos.xy(1, 1),
     Pos.xy(0, 0),
     Pos.xy(2, 0),
-    Pos.xy(2, 2),
     Pos.xy(0, 2),
   ];
+
+  static final lines = ({
+    0: [
+      [3, 6],
+      [4, 8],
+      [1, 2],
+    ],
+    1: [
+      [0, 2],
+      [4, 7],
+    ],
+    2: [
+      [0, 1],
+      [4, 6],
+      [5, 8],
+    ],
+    3: [
+      [0, 6],
+      [4, 5],
+    ],
+    4: [
+      [3, 5],
+      [0, 8],
+      [1, 7],
+      [2, 6],
+    ],
+    5: [
+      [3, 4],
+      [2, 8],
+    ],
+    6: [
+      [3, 0],
+      [4, 2],
+      [7, 8],
+    ],
+    7: [
+      [6, 8],
+      [4, 1],
+    ],
+    8: [
+      [6, 7],
+      [0, 4],
+      [2, 5],
+    ],
+  }.map(convert));
+
+  static MapEntry<Pos, Iterable<List<Pos>>> convert(int key, List<List<int>> value) => MapEntry(Pos.index(key), value.map(listToPos));
+
+  static List<Pos> listToPos(List<int> e) => [Pos.index(e[0]), Pos.index(e[1])];
+
+  List<Pos> adjust(List<Pos> selected, Player player) {
+    if (selected.length == 1) return selected;
+
+    final adjusted = List.of(selected)..retainWhere((pos) => retainLinesWithEmptyAndOwnField(pos, player));
+    return adjusted.isEmpty ? selected : adjusted;
+  }
+
+  bool retainLinesWithEmptyAndOwnField(Pos element, Player player) {
+    return lines[element]!.fold<bool>(false, (select, line) => foldLinesToEmptyAndOwn(select, line, player));
+  }
+
+  bool foldLinesToEmptyAndOwn(bool select, List<Pos> line, Player player) {
+    if (select) return true;
+    final positions = line.map((pos) => board.get(pos));
+    final empties = positions.where((sym) => sym == Board.empty).length;
+    final owns = positions.where((sym) => sym == player).length;
+    return empties == 1 && owns == 1;
+  }
 
   Pos bestMove(Player player) {
     final moves = <Pos>[];
     final score = minimax(player, moves);
-    if (score == 0) {
-      final selected = moves.fold<List<Pos>>([], (prev, e) {
-        if (edges.contains(e)) {
-          prev.add(e);
+    if (score == 0 && moves.length > 1) {
+      final selected = printit('$player selected (1)', (printit('$player moves', List<Pos>.from(moves))..retainWhere((e) => edges.contains(e))));
+      if (selected.length > 1) {
+        if (board.remaining > 6) {
+          return printit('$player turn (2) [${board.remaining}]', printit('$player selected (2)', selected)[rand.nextInt(selected.length)]);
         }
-        return prev;
-      });
-      if (selected.isNotEmpty) return selected[rand.nextInt(selected.length)];
+
+        final adjusted = adjust(selected, player);
+        return printit('$player turn (3)', printit('$player adjusted $selected vs', adjusted)[rand.nextInt(adjusted.length)]);
+      }
     }
-    return moves[rand.nextInt(moves.length)];
+    return printit('$player turn (1)', moves[rand.nextInt(moves.length)]);
   }
 
   int rating(Player player) {
