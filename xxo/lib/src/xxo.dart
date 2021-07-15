@@ -157,9 +157,26 @@ class Game {
 
   Player _oppoite(Player p) => p == playerO ? playerX : playerO;
 
+  final edges = [
+    Pos.xy(1, 1),
+    Pos.xy(0, 0),
+    Pos.xy(2, 0),
+    Pos.xy(2, 2),
+    Pos.xy(0, 2),
+  ];
+
   Pos bestMove(Player player) {
-    var moves = <Pos>[];
-    minimax(player, moves);
+    final moves = <Pos>[];
+    final score = minimax(player, moves);
+    if (score == 0) {
+      final selected = moves.fold<List<Pos>>([], (prev, e) {
+        if (edges.contains(e)) {
+          prev.add(e);
+        }
+        return prev;
+      });
+      if (selected.isNotEmpty) return selected[rand.nextInt(selected.length)];
+    }
     return moves[rand.nextInt(moves.length)];
   }
 

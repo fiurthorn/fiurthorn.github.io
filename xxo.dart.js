@@ -2764,6 +2764,9 @@
     _removeEventListener$3$x: function(receiver, a0, a1, a2) {
       return J.getInterceptor$x(receiver)._removeEventListener$3(receiver, a0, a1, a2);
     },
+    add$1$ax: function(receiver, a0) {
+      return J.getInterceptor$ax(receiver).add$1(receiver, a0);
+    },
     toString$0$: function(receiver) {
       return J.getInterceptor$(receiver).toString$0(receiver);
     },
@@ -3741,6 +3744,9 @@
     },
     Game: function Game() {
     },
+    Game_bestMove_closure: function Game_bestMove_closure(t0) {
+      this.$this = t0;
+    },
     NonEmptyFieldException: function NonEmptyFieldException() {
     },
     OutOfBoundException: function OutOfBoundException() {
@@ -3751,14 +3757,14 @@
       P.Future_Future$delayed($.$get$delay(), f, type$.dynamic).then$1$1(new R.delayed_closure(), type$.String);
     },
     main: function() {
-      var t5, game, i, _i,
+      var i, _i,
         t1 = P.List_List$filled(9, $.$get$Player__empty(), type$.Player),
         t2 = $.$get$Player__x(),
         t3 = $.$get$Player__o(),
-        t4 = type$.JSArray_Pos;
-      t4 = H.setRuntimeTypeInfo([H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(0, 1), new R.Pos(0, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(1, 0), new R.Pos(1, 1), new R.Pos(1, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(2, 0), new R.Pos(2, 1), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(1, 0), new R.Pos(2, 0)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 1), new R.Pos(1, 1), new R.Pos(2, 1)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 2), new R.Pos(1, 2), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(1, 1), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 2), new R.Pos(1, 1), new R.Pos(2, 0)], t4)], type$.JSArray_List_Pos);
-      t5 = $.$get$Game_rand().nextBool$0() ? t2 : t3;
-      game = new R.WebGame(t5, t4, new R.Board(t1), t2, t3);
+        t4 = type$.JSArray_Pos,
+        t5 = H.setRuntimeTypeInfo([H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(0, 1), new R.Pos(0, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(1, 0), new R.Pos(1, 1), new R.Pos(1, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(2, 0), new R.Pos(2, 1), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(1, 0), new R.Pos(2, 0)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 1), new R.Pos(1, 1), new R.Pos(2, 1)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 2), new R.Pos(1, 2), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 0), new R.Pos(1, 1), new R.Pos(2, 2)], t4), H.setRuntimeTypeInfo([new R.Pos(0, 2), new R.Pos(1, 1), new R.Pos(2, 0)], t4)], type$.JSArray_List_Pos),
+        t6 = $.$get$Game_rand().nextBool$0() ? t2 : t3,
+        game = new R.WebGame(t6, t5, new R.Board(t1), t2, t3, H.setRuntimeTypeInfo([new R.Pos(1, 1), new R.Pos(0, 0), new R.Pos(2, 0), new R.Pos(2, 2), new R.Pos(0, 2)], t4));
       game.initNewGame$0();
       for (i = 0; i < 9; ++i) {
         t1 = "#-cell-" + i;
@@ -3776,13 +3782,14 @@
           J.get$onChange$x(t3).forEach$1(0, new R.main_closure1(game));
       }
     },
-    WebGame: function WebGame(t0, t1, t2, t3, t4) {
+    WebGame: function WebGame(t0, t1, t2, t3, t4, t5) {
       var _ = this;
       _._currentPlayer = t0;
       _.lines = t1;
       _.board = t2;
       _.playerX = t3;
       _.playerO = t4;
+      _.edges = t5;
     },
     delayed_closure: function delayed_closure() {
     },
@@ -3866,6 +3873,18 @@
         this.$indexSet(list, i, H.S(receiver[i]));
       return list.join(separator);
     },
+    fold$1$2: function(receiver, initialValue, combine, $T) {
+      var $length, value, i;
+      $T._as(initialValue);
+      H._arrayInstanceType(receiver)._bind$1($T)._eval$1("1(1,2)")._as(combine);
+      $length = receiver.length;
+      for (value = initialValue, i = 0; i < $length; ++i) {
+        value = combine.call$2(value, receiver[i]);
+        if (receiver.length !== $length)
+          throw H.wrapException(P.ConcurrentModificationError$(receiver));
+      }
+      return value;
+    },
     sublist$2: function(receiver, start, end) {
       if (start < 0 || start > receiver.length)
         throw H.wrapException(P.RangeError$range(start, 0, receiver.length, "start", null));
@@ -3885,6 +3904,16 @@
       t1._precomputed1._as(fillValue);
       for (i = start; i < end; ++i)
         receiver[i] = fillValue;
+    },
+    contains$1: function(receiver, other) {
+      var i;
+      for (i = 0; i < receiver.length; ++i)
+        if (J.$eq$(receiver[i], other))
+          return true;
+      return false;
+    },
+    get$isNotEmpty: function(receiver) {
+      return receiver.length !== 0;
     },
     toString$0: function(receiver) {
       return P.IterableBase_iterableToFullString(receiver, "[", "]");
@@ -4130,7 +4159,15 @@
       return this._iterator.get$current();
     }
   };
-  H.FixedLengthListMixin.prototype = {};
+  H.FixedLengthListMixin.prototype = {
+    set$length: function(receiver, newLength) {
+      throw H.wrapException(P.UnsupportedError$("Cannot change the length of a fixed-length list"));
+    },
+    add$1: function(receiver, value) {
+      H.instanceType(receiver)._eval$1("FixedLengthListMixin.E")._as(value);
+      throw H.wrapException(P.UnsupportedError$("Cannot add to a fixed-length list"));
+    }
+  };
   H.TypeErrorDecoder.prototype = {
     matchTypeError$1: function(message) {
       var result, t1, _this = this,
@@ -4300,12 +4337,21 @@
     },
     $isJavaScriptIndexingBehavior: 1
   };
-  H.NativeTypedArrayOfInt.prototype = {$isIterable: 1, $isList: 1};
+  H.NativeTypedArrayOfInt.prototype = {
+    $indexSet: function(receiver, index, value) {
+      H._asInt(value);
+      H._checkValidIndex(index, receiver, receiver.length);
+      receiver[index] = value;
+    },
+    $isIterable: 1,
+    $isList: 1
+  };
   H.NativeUint8List.prototype = {
     get$length: function(receiver) {
       return receiver.length;
     },
     $index: function(receiver, index) {
+      H._asInt(index);
       H._checkValidIndex(index, receiver, receiver.length);
       return receiver[index];
     }
@@ -5022,6 +5068,16 @@
     elementAt$1: function(receiver, index) {
       return this.$index(receiver, index);
     },
+    get$isNotEmpty: function(receiver) {
+      return this.get$length(receiver) !== 0;
+    },
+    add$1: function(receiver, element) {
+      var t1;
+      H.instanceType(receiver)._eval$1("ListMixin.E")._as(element);
+      t1 = this.get$length(receiver);
+      this.set$length(receiver, t1 + 1);
+      this.$indexSet(receiver, t1, element);
+    },
     toString$0: function(receiver) {
       return P.IterableBase_iterableToFullString(receiver, "[", "]");
     }
@@ -5371,9 +5427,17 @@
       return receiver.length;
     },
     $index: function(receiver, index) {
+      H._asInt(index);
       if (index >>> 0 !== index || index >= receiver.length)
         throw H.wrapException(P.IndexError$(index, receiver, null, null, null));
       return receiver[index];
+    },
+    $indexSet: function(receiver, index, value) {
+      type$.Node._as(value);
+      throw H.wrapException(P.UnsupportedError$("Cannot assign element of immutable List."));
+    },
+    set$length: function(receiver, value) {
+      throw H.wrapException(P.UnsupportedError$("Cannot resize immutable List."));
     },
     elementAt$1: function(receiver, index) {
       if (index < 0 || index >= receiver.length)
@@ -5485,6 +5549,10 @@
   W.ImmutableListMixin.prototype = {
     get$iterator: function(receiver) {
       return new W.FixedSizeListIterator(receiver, receiver.length, H.instanceType(receiver)._eval$1("FixedSizeListIterator<ImmutableListMixin.E>"));
+    },
+    add$1: function(receiver, value) {
+      H.instanceType(receiver)._eval$1("ImmutableListMixin.E")._as(value);
+      throw H.wrapException(P.UnsupportedError$("Cannot add to immutable List."));
     }
   };
   W.FixedSizeListIterator.prototype = {
@@ -5783,6 +5851,18 @@
       var t1 = this.playerO;
       return t1.symbol === player.symbol ? this.playerX : t1;
     },
+    bestMove$1: function(player) {
+      var selected,
+        t1 = type$.JSArray_Pos,
+        moves = H.setRuntimeTypeInfo([], t1);
+      if (this.minimax$2(player, moves) === 0) {
+        selected = C.JSArray_methods.fold$1$2(moves, H.setRuntimeTypeInfo([], t1), new R.Game_bestMove_closure(this), type$.List_Pos);
+        t1 = J.getInterceptor$asx(selected);
+        if (t1.get$isNotEmpty(selected))
+          return t1.$index(selected, $.$get$Game_rand().nextInt$1(t1.get$length(selected)));
+      }
+      return C.JSArray_methods.$index(moves, $.$get$Game_rand().nextInt$1(moves.length));
+    },
     rating$1: function(player) {
       var t2,
         t1 = this.board;
@@ -5822,6 +5902,16 @@
       }
       return bestScore;
     }
+  };
+  R.Game_bestMove_closure.prototype = {
+    call$2: function(prev, e) {
+      type$.List_Pos._as(prev);
+      type$.Pos._as(e);
+      if (C.JSArray_methods.contains$1(this.$this.edges, e))
+        J.add$1$ax(prev, e);
+      return prev;
+    },
+    $signature: 19
   };
   R.NonEmptyFieldException.prototype = {$isException: 1};
   R.OutOfBoundException.prototype = {$isException: 1};
@@ -5937,17 +6027,14 @@
       }
     },
     checkAI$0: function() {
-      var moves, _this = this,
+      var _this = this,
         t1 = _this.board;
       if (t1.get$remaining() === 0 || !J.$eq$(t1.get$winner(), $.$get$Board_empty()))
         return;
       t1 = "#player" + _this._currentPlayer.symbol;
       t1 = type$.InputElement._as(document.querySelector(t1).querySelector("input")).checked;
       if (t1 === true) {
-        t1 = _this._currentPlayer;
-        moves = H.setRuntimeTypeInfo([], type$.JSArray_Pos);
-        _this.minimax$2(t1, moves);
-        t1 = C.JSArray_methods.$index(moves, $.$get$Game_rand().nextInt$1(moves.length));
+        t1 = _this.bestMove$1(_this._currentPlayer);
         _this.turn$2(t1.y * 3 + t1.x, true);
       }
     }
@@ -5958,7 +6045,7 @@
       t1.display = "none";
       return "none";
     },
-    $signature: 19
+    $signature: 20
   };
   R.main_closure.prototype = {
     call$1: function(_) {
@@ -6010,7 +6097,7 @@
     _inherit(J.JSUnmodifiableArray, J.JSArray);
     _inheritMany(J.JSNumber, [J.JSInt, J.JSNumNotInt]);
     _inheritMany(P.Error, [H.LateError, P.TypeError, H.JsNoSuchMethodError, H.UnknownJsTypeError, H.RuntimeError, P.AssertionError, H._Error, P.NullThrownError, P.ArgumentError, P.UnsupportedError, P.UnimplementedError, P.StateError, P.ConcurrentModificationError, P.CyclicInitializationError]);
-    _inheritMany(H.Closure, [H.nullFuture_closure, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P.Future_Future$delayed_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__asyncCompleteWithValue_closure, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach_closure0, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_length_closure, P.Stream_length_closure0, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.Duration_toString_sixDigits, P.Duration_toString_twoDigits, W._EventStreamSubscription_closure, W._EventStreamSubscription_onData_closure, P.CssClassSetImpl_add_closure, P.CssClassSetImpl_removeAll_closure, R.Board_remaining_closure, R.delayed_closure, R.main_closure, R.main_closure0, R.main_closure1]);
+    _inheritMany(H.Closure, [H.nullFuture_closure, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P.Future_Future$delayed_closure, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__asyncCompleteWithValue_closure, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_forEach_closure, P.Stream_forEach_closure0, P.Stream_forEach__closure, P.Stream_forEach__closure0, P.Stream_length_closure, P.Stream_length_closure0, P._cancelAndError_closure, P._cancelAndErrorClosure_closure, P._rootHandleUncaughtError_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, P.Duration_toString_sixDigits, P.Duration_toString_twoDigits, W._EventStreamSubscription_closure, W._EventStreamSubscription_onData_closure, P.CssClassSetImpl_add_closure, P.CssClassSetImpl_removeAll_closure, R.Board_remaining_closure, R.Game_bestMove_closure, R.delayed_closure, R.main_closure, R.main_closure0, R.main_closure1]);
     _inherit(H.WhereIterable, P.Iterable);
     _inherit(H.WhereIterator, P.Iterator);
     _inherit(H.NullError, P.TypeError);
@@ -6056,12 +6143,12 @@
     mangledNames: {},
     getTypeFromName: getGlobalFromName,
     metadata: [],
-    types: ["~()", "~(Event)", "~(~())", "Null(@)", "Null()", "String(int)", "~(MouseEvent)", "Future<Null>()", "@(@)", "@(@,String)", "@(String)", "Null(~())", "Null(Object,StackTrace)", "_Future<@>(@)", "Null(~)", "~(Object,StackTrace)", "bool(Set<String>)", "~(Set<String>)", "bool(Player)", "String(@)"],
+    types: ["~()", "~(Event)", "~(~())", "Null(@)", "Null()", "String(int)", "~(MouseEvent)", "Future<Null>()", "@(@)", "@(@,String)", "@(String)", "Null(~())", "Null(Object,StackTrace)", "_Future<@>(@)", "Null(~)", "~(Object,StackTrace)", "bool(Set<String>)", "~(Set<String>)", "bool(Player)", "List<Pos>(List<Pos>,Pos)", "String(@)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: typeof Symbol == "function" && typeof Symbol() == "symbol" ? Symbol("$ti") : "$ti"
   };
-  H._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"JavaScriptObject","UnknownJavaScriptObject":"JavaScriptObject","JavaScriptFunction":"JavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","AElement":"SvgElement","GraphicsElement":"SvgElement","AudioElement":"HtmlElement","MediaElement":"HtmlElement","HtmlDocument":"Node","Document":"Node","Window":"EventTarget","PointerEvent":"MouseEvent","CompositionEvent":"UIEvent","CDataSection":"CharacterData","Text":"CharacterData","JSBool":{"bool":[]},"JSNull":{"Null":[]},"JSArray":{"List":["1"],"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"Iterable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"num":[]},"JSInt":{"int":[],"num":[]},"JSNumNotInt":{"num":[]},"JSString":{"String":[]},"EfficientLengthIterable":{"Iterable":["1"]},"LateError":{"Error":[]},"ListIterator":{"Iterator":["1"]},"WhereIterable":{"Iterable":["1"]},"WhereIterator":{"Iterator":["1"]},"NullError":{"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"TearOffClosure":{"Function":[]},"StaticClosure":{"Function":[]},"BoundClosure":{"Function":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"NativeByteData":{"ByteData":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"]},"NativeTypedArrayOfInt":{"ListMixin":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeUint8List":{"ListMixin":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"ListMixin.E":"int"},"_Error":{"Error":[]},"_TypeError":{"Error":[]},"_Future":{"Future":["1"]},"AsyncError":{"Error":[]},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_LinkedHashSet":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"SetBase":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"_SetBase":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"int":{"num":[]},"List":{"Iterable":["1"]},"Set":{"Iterable":["1"]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"NullThrownError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"StackOverflowError":{"Error":[]},"CyclicInitializationError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"MouseEvent":{"Event":[]},"Node":{"EventTarget":[]},"UIEvent":{"Event":[]},"HtmlElement":{"Element":[],"Node":[],"EventTarget":[]},"AnchorElement":{"Element":[],"Node":[],"EventTarget":[]},"AreaElement":{"Element":[],"Node":[],"EventTarget":[]},"CharacterData":{"Node":[],"EventTarget":[]},"Element":{"Node":[],"EventTarget":[]},"FormElement":{"Element":[],"Node":[],"EventTarget":[]},"InputElement":{"Element":[],"Node":[],"EventTarget":[]},"SelectElement":{"Element":[],"Node":[],"EventTarget":[]},"_NamedNodeMap":{"ListMixin":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"Iterable":["Node"],"ImmutableListMixin.E":"Node","ListMixin.E":"Node"},"_ElementCssClassSet":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"_EventStream":{"Stream":["1"]},"_ElementEventStreamImpl":{"_EventStream":["1"],"Stream":["1"]},"_EventStreamSubscription":{"StreamSubscription":["1"]},"FixedSizeListIterator":{"Iterator":["1"]},"CssClassSetImpl":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"AttributeClassSet":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"SvgElement":{"Element":[],"Node":[],"EventTarget":[]},"NonEmptyFieldException":{"Exception":[]},"OutOfBoundException":{"Exception":[]}}'));
+  H._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"JavaScriptObject","UnknownJavaScriptObject":"JavaScriptObject","JavaScriptFunction":"JavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","AElement":"SvgElement","GraphicsElement":"SvgElement","AudioElement":"HtmlElement","MediaElement":"HtmlElement","HtmlDocument":"Node","Document":"Node","Window":"EventTarget","PointerEvent":"MouseEvent","CompositionEvent":"UIEvent","CDataSection":"CharacterData","Text":"CharacterData","JSBool":{"bool":[]},"JSNull":{"Null":[]},"JSArray":{"List":["1"],"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"Iterable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"num":[]},"JSInt":{"int":[],"num":[]},"JSNumNotInt":{"num":[]},"JSString":{"String":[]},"EfficientLengthIterable":{"Iterable":["1"]},"LateError":{"Error":[]},"ListIterator":{"Iterator":["1"]},"WhereIterable":{"Iterable":["1"]},"WhereIterator":{"Iterator":["1"]},"NullError":{"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"TearOffClosure":{"Function":[]},"StaticClosure":{"Function":[]},"BoundClosure":{"Function":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"NativeByteData":{"ByteData":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"]},"NativeTypedArrayOfInt":{"ListMixin":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeUint8List":{"ListMixin":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"ListMixin.E":"int","FixedLengthListMixin.E":"int"},"_Error":{"Error":[]},"_TypeError":{"Error":[]},"_Future":{"Future":["1"]},"AsyncError":{"Error":[]},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_LinkedHashSet":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"SetBase":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"_SetBase":{"SetMixin":["1"],"Set":["1"],"Iterable":["1"]},"int":{"num":[]},"List":{"Iterable":["1"]},"Set":{"Iterable":["1"]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"NullThrownError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"StackOverflowError":{"Error":[]},"CyclicInitializationError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"MouseEvent":{"Event":[]},"Node":{"EventTarget":[]},"UIEvent":{"Event":[]},"HtmlElement":{"Element":[],"Node":[],"EventTarget":[]},"AnchorElement":{"Element":[],"Node":[],"EventTarget":[]},"AreaElement":{"Element":[],"Node":[],"EventTarget":[]},"CharacterData":{"Node":[],"EventTarget":[]},"Element":{"Node":[],"EventTarget":[]},"FormElement":{"Element":[],"Node":[],"EventTarget":[]},"InputElement":{"Element":[],"Node":[],"EventTarget":[]},"SelectElement":{"Element":[],"Node":[],"EventTarget":[]},"_NamedNodeMap":{"ListMixin":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"Iterable":["Node"],"ImmutableListMixin.E":"Node","ListMixin.E":"Node"},"_ElementCssClassSet":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"_EventStream":{"Stream":["1"]},"_ElementEventStreamImpl":{"_EventStream":["1"],"Stream":["1"]},"_EventStreamSubscription":{"StreamSubscription":["1"]},"FixedSizeListIterator":{"Iterator":["1"]},"CssClassSetImpl":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"AttributeClassSet":{"SetMixin":["String"],"Set":["String"],"Iterable":["String"]},"SvgElement":{"Element":[],"Node":[],"EventTarget":[]},"NonEmptyFieldException":{"Exception":[]},"OutOfBoundException":{"Exception":[]}}'));
   H._Universe_addErasedTypes(init.typeUniverse, JSON.parse('{"EfficientLengthIterable":1,"NativeTypedArray":1,"SetBase":1,"_SetBase":1,"_SetBase_Object_SetMixin":1,"__SetBase_Object_SetMixin":1}'));
   0;
   var type$ = (function rtii() {
@@ -6084,6 +6171,7 @@
       JavaScriptIndexingBehavior_dynamic: findType("JavaScriptIndexingBehavior<@>"),
       List_Pos: findType("List<Pos>"),
       MouseEvent: findType("MouseEvent"),
+      Node: findType("Node"),
       Null: findType("Null"),
       Object: findType("Object"),
       Player: findType("Player"),
