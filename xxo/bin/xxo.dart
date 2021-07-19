@@ -100,7 +100,7 @@ class ConsoleGame extends Game {
           console.showCursor();
           var xy = (moves[player]!)(player);
           console.hideCursor();
-          board.set(player, xy);
+          board[xy] = player;
 
           console.cursorPosition = Coordinate(boardPostion.row + 4 - xy.y * 2, boardPostion.col + 5 + (xy.x * 4));
           console.setForegroundColor(player == playerX ? ConsoleColor.magenta : ConsoleColor.cyan);

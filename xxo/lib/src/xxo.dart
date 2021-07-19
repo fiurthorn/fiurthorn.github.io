@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:xxo/os.dart';
+
 T printit<T>(String prefix, T t) {
   // print('$prefix: $t');
   return t;
@@ -66,20 +68,20 @@ class Board {
   bool get won => winner != empty;
 
   Player get winner {
-    var a = get(Pos(x: 1, y: 1));
-    if (_inALine(get(Pos(x: 0, y: 0)), a, get(Pos(x: 2, y: 2)))) return a;
-    if (_inALine(get(Pos(x: 2, y: 0)), a, get(Pos(x: 0, y: 2)))) return a;
+    var a = this[Pos(x: 1, y: 1)];
+    if (_inALine(this[Pos(x: 0, y: 0)], a, this[Pos(x: 2, y: 2)])) return a;
+    if (_inALine(this[Pos(x: 2, y: 0)], a, this[Pos(x: 0, y: 2)])) return a;
     for (var i = 0; i < size; i++) {
-      var b = get(Pos(x: i, y: i));
-      if (_inALine(get(Pos(x: 0, y: i)), get(Pos(x: 1, y: i)), get(Pos(x: 2, y: i)))) return b;
-      if (_inALine(get(Pos(x: i, y: 0)), get(Pos(x: i, y: 1)), get(Pos(x: i, y: 2)))) return b;
+      var b = this[Pos(x: i, y: i)];
+      if (_inALine(this[Pos(x: 0, y: i)], this[Pos(x: 1, y: i)], this[Pos(x: 2, y: i)])) return b;
+      if (_inALine(this[Pos(x: i, y: 0)], this[Pos(x: i, y: 1)], this[Pos(x: i, y: 2)])) return b;
     }
     return empty;
   }
 
   int get remaining => _fields.where((e) => e == empty).length;
 
-  void set(Player p, Pos xy) {
+  void operator []=(Pos xy, Player p) {
     if (xy.x >= size || xy.x < 0 || xy.y >= size || xy.y < 0) {
       throw OutOfBoundException();
     }
@@ -89,12 +91,12 @@ class Board {
     _fields[index(xy)] = p;
   }
 
-  Player get(Pos xy) {
+  Player operator [](Pos xy) {
     return _fields[index(xy)];
   }
 
   bool isEmpty(Pos xy) {
-    return get(xy) == empty;
+    return this[xy] == empty;
   }
 
   int index(Pos xy) => xy.y * size + xy.x;
@@ -143,11 +145,15 @@ class Game {
   bool get stopped => board.remaining == 0 || board.won;
 
   Player initNewGame() {
+    print('${OperationSystem.name} (${OperationSystem.version})');
+    // print(Platform.operatingSystemVersion);
+    // print(Platform.environment);
+
     board.clear();
     return rand.nextBool() ? playerX : playerO;
   }
 
-  void set(Player player, Pos pos) => board.set(player, pos);
+  void set(Player player, Pos pos) => board[pos] = player;
 
   Player getNextPlayer(Player player) => _oppoite(player);
 
@@ -223,7 +229,7 @@ class Game {
 
   bool foldLinesToEmptyAndOwn(bool select, List<Pos> line, Player player) {
     if (select) return true;
-    final positions = line.map((pos) => board.get(pos));
+    final positions = line.map((pos) => board[pos]);
     final empties = positions.where((sym) => sym == Board.empty).length;
     final owns = positions.where((sym) => sym == player).length;
     return empties == 1 && owns == 1;
@@ -262,7 +268,7 @@ class Game {
     for (var i = 0, len = Board.length; i < len; i++) {
       var xy = board.pos(i);
       if (board.isEmpty(xy)) {
-        board.set(player, xy);
+        board[xy] = player;
         final score = -minimax(_oppoite(player), null);
         board.unset(xy);
         if (score > bestScore) {

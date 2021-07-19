@@ -75,12 +75,12 @@ class MockBoard extends _i1.Mock implements _i2.Board {
       (super.noSuchMethod(Invocation.getter(#remaining), returnValue: 0)
           as int);
   @override
-  void set(_i2.Player? p, _i2.Pos? xy) =>
-      super.noSuchMethod(Invocation.method(#set, [p, xy]),
+  void operator []=(_i2.Pos? xy, _i2.Player? p) =>
+      super.noSuchMethod(Invocation.method(#[]=, [xy, p]),
           returnValueForMissingStub: null);
   @override
-  _i2.Player get(_i2.Pos? xy) =>
-      (super.noSuchMethod(Invocation.method(#get, [xy]),
+  _i2.Player operator [](_i2.Pos? xy) =>
+      (super.noSuchMethod(Invocation.method(#[], [xy]),
           returnValue: _FakePlayer()) as _i2.Player);
   @override
   bool isEmpty(_i2.Pos? xy) =>

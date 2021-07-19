@@ -14,7 +14,7 @@ class WebGame extends Game {
     try {
       if (stopped || ai != checkAiFlag(_currentPlayer)) return;
 
-      board.set(_currentPlayer, board.pos(index));
+      board[board.pos(index)] = _currentPlayer;
       querySelector('#-cell-$index')?.text = _currentPlayer.symbol;
       _currentPlayer = getNextPlayer(_currentPlayer);
 
@@ -78,9 +78,9 @@ class WebGame extends Game {
   }
 
   bool aLine(List<Pos> line) {
-    final a = board.get(line[0]);
-    final b = board.get(line[1]);
-    final c = board.get(line[2]);
+    final a = board[line[0]];
+    final b = board[line[1]];
+    final c = board[line[2]];
     return a == b && b == c && !board.isEmpty(line[2]);
   }
 

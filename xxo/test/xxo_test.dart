@@ -38,7 +38,7 @@ void main() {
       test('cleared board have empty fields', () {
         expect(board, isA<Board>());
         expect(board.isEmpty(Pos(x: 0, y: 0)), isTrue);
-        board.set(playerX, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerX;
         expect(board.isEmpty(Pos(x: 0, y: 0)), isFalse);
         board.clear();
         expect(board.isEmpty(Pos(x: 0, y: 0)), isTrue);
@@ -46,7 +46,7 @@ void main() {
       });
 
       test('setted field not empty', () {
-        board.set(playerX, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerX;
         expect(board.isEmpty(Pos(x: 0, y: 0)), isFalse);
       });
 
@@ -55,73 +55,72 @@ void main() {
       });
 
       test('return next empty field 1', () {
-        board.set(playerX, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerX;
         expect(board.emptyField(), Pos(x: 1, y: 0));
       });
 
       test('return next empty field 2', () {
-        board.set(playerX, Pos(x: 0, y: 0));
-        board.set(playerX, Pos(x: 1, y: 0));
-        board.set(playerX, Pos(x: 2, y: 0));
+        board[Pos(x: 0, y: 0)] = playerX;
+        board[Pos(x: 1, y: 0)] = playerX;
+        board[Pos(x: 2, y: 0)] = playerX;
         expect(board.emptyField(), Pos(x: 0, y: 1));
       });
 
       test('empty field', () {
         expect(board.remaining, 9);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 8);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 7);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 6);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 5);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 4);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 3);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 2);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 1);
-        board.set(playerX, board.emptyField());
+        board[board.emptyField()] = playerX;
         expect(board.remaining, 0);
 
-        expect(() => board.set(playerX, board.emptyField()), throwsException);
-        ;
+        expect(() => board[board.emptyField()] = playerX, throwsException);
       });
 
       test('next empty field throws exception on full board', () {
-        board.set(playerX, Pos(x: 0, y: 0));
-        board.set(playerX, Pos(x: 1, y: 0));
-        board.set(playerX, Pos(x: 2, y: 0));
-        board.set(playerX, Pos(x: 0, y: 1));
-        board.set(playerX, Pos(x: 1, y: 1));
-        board.set(playerX, Pos(x: 2, y: 1));
-        board.set(playerX, Pos(x: 0, y: 2));
-        board.set(playerX, Pos(x: 1, y: 2));
-        board.set(playerX, Pos(x: 2, y: 2));
+        board[Pos(x: 0, y: 0)] = playerX;
+        board[Pos(x: 1, y: 0)] = playerX;
+        board[Pos(x: 2, y: 0)] = playerX;
+        board[Pos(x: 0, y: 1)] = playerX;
+        board[Pos(x: 1, y: 1)] = playerX;
+        board[Pos(x: 2, y: 1)] = playerX;
+        board[Pos(x: 0, y: 2)] = playerX;
+        board[Pos(x: 1, y: 2)] = playerX;
+        board[Pos(x: 2, y: 2)] = playerX;
         expect(() => board.emptyField(), throwsException);
       });
 
       test('player X set field to >=3||<0, y or x, >=3||<0 throws out of bound', () {
-        expect(() => board.set(playerX, Pos(x: -1, y: 0)), throwsA(isA<OutOfBoundException>()));
-        expect(() => board.set(playerX, Pos(x: 0, y: -1)), throwsA(isA<OutOfBoundException>()));
-        expect(() => board.set(playerX, Pos(x: 0, y: 3)), throwsA(isA<OutOfBoundException>()));
-        expect(() => board.set(playerX, Pos(x: 3, y: 0)), throwsA(isA<OutOfBoundException>()));
+        expect(() => board[Pos(x: -1, y: 0)] = playerX, throwsA(isA<OutOfBoundException>()));
+        expect(() => board[Pos(x: 0, y: -1)] = playerX, throwsA(isA<OutOfBoundException>()));
+        expect(() => board[Pos(x: 0, y: 3)] = playerX, throwsA(isA<OutOfBoundException>()));
+        expect(() => board[Pos(x: 3, y: 0)] = playerX, throwsA(isA<OutOfBoundException>()));
       });
 
       test('throw exception on reset field', () {
-        board.set(playerX, Pos(x: 0, y: 0));
-        expect(() => board.set(playerX, Pos(x: 0, y: 0)), throwsException);
+        board[Pos(x: 0, y: 0)] = playerX;
+        expect(() => board[Pos(x: 0, y: 0)] = playerX, throwsException);
       });
 
       test('setted x, y field returns player', () {
-        board.set(playerX, Pos(x: 0, y: 0));
-        expect(board.get(Pos(x: 0, y: 0)), equals(playerX));
+        board[Pos(x: 0, y: 0)] = playerX;
+        expect(board[Pos(x: 0, y: 0)], equals(playerX));
 
-        board.set(playerO, Pos(x: 1, y: 1));
-        expect(board.get(Pos(x: 1, y: 1)), equals(playerO));
+        board[Pos(x: 1, y: 1)] = playerO;
+        expect(board[Pos(x: 1, y: 1)], equals(playerO));
       });
 
       test('empty board nobody wins the game', () {
@@ -131,11 +130,11 @@ void main() {
 
       test('set 0,0; 1,1; 2,2 by player X wins the game', () {
         expect(board.won, isFalse);
-        board.set(playerX, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerX;
         expect(board.won, isFalse);
-        board.set(playerX, Pos(x: 1, y: 1));
+        board[Pos(x: 1, y: 1)] = playerX;
         expect(board.won, isFalse);
-        board.set(playerX, Pos(x: 2, y: 2));
+        board[Pos(x: 2, y: 2)] = playerX;
         expect(board.won, isTrue);
 
         expect(board.winner, playerX);
@@ -143,11 +142,11 @@ void main() {
 
       test('set 0,0; 0,1; 0,2 by player X wins the game', () {
         expect(board.won, isFalse);
-        board.set(playerO, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerO;
         expect(board.won, isFalse);
-        board.set(playerO, Pos(x: 0, y: 1));
+        board[Pos(x: 0, y: 1)] = playerO;
         expect(board.won, isFalse);
-        board.set(playerO, Pos(x: 0, y: 2));
+        board[Pos(x: 0, y: 2)] = playerO;
         expect(board.won, isTrue);
 
         expect(board.winner, playerO);
@@ -155,7 +154,7 @@ void main() {
 
       test('remaining step on empty board = 3*3 and 8 on setted one field', () {
         expect(board.remaining, equals(9));
-        board.set(playerO, Pos(x: 0, y: 0));
+        board[Pos(x: 0, y: 0)] = playerO;
         expect(board.remaining, equals(8));
       });
     });

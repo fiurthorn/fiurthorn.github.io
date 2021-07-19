@@ -5,9 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "xxo",
-            "request": "launch",
+            "name": "xxo-web",
+            "type": "chrome",
+            "request": "attach",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/xxo/web/"
+        },
+        {
+            "name": "xxo-console",
             "type": "dart",
+            "request": "launch",
             "program": "xxo/bin/xxo.dart",
             "console": "terminal"
         }
