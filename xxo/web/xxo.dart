@@ -1,14 +1,29 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:xxo/src/xxo.dart';
 
 class WebGame extends Game {
   Player _currentPlayer;
+  final queue = SyncQueue();
 
   WebGame(Board board, Player playerX, Player playerO)
       : _currentPlayer = Game.rand.nextBool() ? playerX : playerO,
-        super(board, playerX, playerO);
+        super(board, playerX, playerO) {
+    for (var i = 0; i < 9; i++) {
+      querySelector('#-cell-$i')?.onClick.forEach((_) => turn(i, false));
+    }
+
+    //? reminder setProperty(window, 'turn', allowInterop((int cell) => game.turn(cell)));
+    //? reminder setProperty(window, 'clear', allowInterop(() => game.initNewGame()));
+
+    querySelector('#clear')?.onClick.forEach((_) => printit('-- new game ---', initNewGame()));
+
+    for (var i in ['X', 'O']) {
+      querySelector('#player$i')?.onChange.forEach((_) => queue.queue(checkAI));
+    }
+  }
 
   void turn(int index, bool ai) {
     try {
@@ -21,7 +36,7 @@ class WebGame extends Game {
       if (stopped) {
         highlight();
       } else if (checkAiFlag(_currentPlayer)) {
-        delayed(checkAI);
+        queue.queue(checkAI);
       }
     } on Exception catch (e, t) {
       print('$e: $t');
@@ -41,7 +56,7 @@ class WebGame extends Game {
     _currentPlayer = getNextPlayer(_currentPlayer);
 
     querySelector('#nextPlayer')?.text = 'Next Player: ${_currentPlayer.symbol}';
-    delayed(checkAI);
+    queue.queue(checkAI);
     return _currentPlayer;
   }
 
@@ -95,25 +110,29 @@ class WebGame extends Game {
   bool checkAiFlag(Player player) => (querySelector('#player${player.symbol}')!.querySelector('input') as InputElement).checked ?? false;
 }
 
-final delay = Duration(milliseconds: 333);
-void delayed(FutureOr<dynamic> Function() f) {
-  querySelector('#-game-spinner')!.style.display = 'inline-block';
-  Future.delayed(delay, f).then((_) => querySelector('#-game-spinner')!.style.display = 'none');
-}
+class SyncQueue {
+  static final _delay = Duration(milliseconds: 333);
+  final _queue = Queue<Function>();
+  late final Stream<int> _timer = Stream.periodic(_delay, _period);
+  late final _listener = _timer.listen(_OnData);
 
-void main() {
-  var game = WebGame(Board(), Player.X(), Player.O())..initNewGame();
-
-  for (var i = 0; i < 9; i++) {
-    querySelector('#-cell-$i')?.onClick.forEach((_) => game.turn(i, false));
+  void queue(FutureOr<dynamic> Function() f) {
+    querySelector('#-game-spinner')!.style.display = 'inline-block';
+    _queue.add(f);
+    _listener.resume();
   }
 
-  //? reminder setProperty(window, 'turn', allowInterop((int cell) => game.turn(cell)));
-  //? reminder setProperty(window, 'clear', allowInterop(() => game.initNewGame()));
-
-  querySelector('#clear')?.onClick.forEach((_) => printit('-- new game ---', game.initNewGame()));
-
-  for (var i in ['X', 'O']) {
-    querySelector('#player$i')?.onChange.forEach((_) => delayed(game.checkAI));
+  int _period(int x) {
+    if (_queue.isNotEmpty) {
+      (_queue.removeFirst())();
+    } else {
+      querySelector('#-game-spinner')!.style.display = 'none';
+      _listener.pause();
+    }
+    return x;
   }
+
+  void _OnData(int event) => null;
 }
+
+void main() => WebGame(Board(), Player.X(), Player.O())..initNewGame();
