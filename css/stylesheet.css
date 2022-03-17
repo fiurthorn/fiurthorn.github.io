@@ -2,10 +2,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+:root {
+  --onyx: #353c3eff;
+  --blue-sapphire: #106989ff;
+  --blue-munsell: #548ca0ff;
+  --dark-sky-blue: #95b8c6ff;
+  --gainsboro: #dce3e5ff;
+  --cultured: #f3f6f7ff;
+  --tumbleweed: #edb28aff;
+  --spanish-orange: #e76d1cff;
+}
+
 body {
   font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
   color: #555;
-  background-color: #8694A8;
+  background-color: var(--gainsboro);
 }
 
 a {
@@ -89,11 +101,11 @@ span.unbreakable {
 }
 
 input:checked+.slider {
-  background-color: #2C4870;
+  background-color: var(--blue-sapphire);
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 1px #2C4870;
+  box-shadow: 0 0 1px var(--blue-sapphire);
 }
 
 input:checked+.slider:before {
@@ -178,7 +190,7 @@ input:checked+.slider:before {
 .player-ai .knobs:before {
   content: '';
   left: 4px;
-  background-color: #2C4870;
+  background-color: var(--blue-sapphire);
 }
 
 .player-ai .knobs:after {
@@ -200,7 +212,7 @@ input:checked+.slider:before {
 
 .player-ai .checkbox:checked+.knobs:before {
   left: 42px;
-  background-color: #3b5d8b;
+  background-color: var(--onyx);
 }
 
 .player-ai .checkbox:checked+.knobs:after {
@@ -226,8 +238,8 @@ input:checked+.slider:before {
   height: 40px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #2C4870;
-  border-color: #2C4870 transparent #2C4870 transparent;
+  border: 6px solid var(--blue-sapphire);
+  border-color: var(--blue-sapphire) transparent var(--blue-sapphire) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -235,6 +247,7 @@ input:checked+.slider:before {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -255,7 +268,7 @@ h2, h3 {
   margin-bottom: 30px;
   padding: 10px 0 10px 10px;
   border-bottom: 1px solid #eee;
-  border-left: 3px solid #2C4870;
+  border-left: 3px solid var(--blue-sapphire);
 }
 
 body {
@@ -266,7 +279,7 @@ body {
 footer {
   position: sticky;
   color: #cecece;
-  background-color: #2C4870;
+  background-color: var(--blue-sapphire);
   text-align: center;
   vertical-align: middle;
   height: 50px;
@@ -278,7 +291,7 @@ ul.topnav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #2C4870;
+  background-color: var(--blue-sapphire);
 }
 
 body>ul.topnav {
@@ -304,11 +317,11 @@ ul.topnav li label span {
 }
 
 ul.topnav li:hover, ul.topnav li a:hover:not(.active), ul.topnav li span:hover:not(.active), ul.topnav li label:hover:not(.active) {
-  background-color: #3b5d8b !important;
+  background-color: var(--tumbleweed) !important;
 }
 
 ul.topnav li a.active {
-  background-color: #3b5d8b;
+  background-color: var(--blue-munsell);
 }
 
 ul.topnav li.right {
@@ -353,7 +366,7 @@ input#playerO, input#playerX {
 
 #playerO:checked+.switch, #playerX:checked+.switch {
   color: goldenrod;
-  text-shadow: #8694A8;
+  text-shadow: var(--blue-munsell);
   font-weight: bold;
 }
 
@@ -361,7 +374,7 @@ input#playerO, input#playerX {
 
 label.hamburg {
   display: none;
-  background: #2C4870;
+  background: var(--blue-sapphire);
   width: 60px;
   height: 50px;
   position: relative;
@@ -411,30 +424,39 @@ input#hamburg {
   a.hreflink:after {
     content: " [fiurthorn.github.io"attr(href) "]";
   }
+
   a.maillink:after {
     content: " ["attr(href) "]";
   }
+
   #solution {
     display: inline
   }
+
   ul.topnav {
     display: none;
   }
+
   h2 {
     page-break-before: always;
   }
+
   .page-break {
     page-break-after: always;
   }
+
   h3, h4, h5, h6 {
     page-break-after: avoid;
   }
+
   pre, blockquote {
     page-break-inside: avoid;
   }
+
   .cv-section {
     page-break-inside: avoid;
   }
+
   .cv-newpage {
     page-break-before: always;
     page-break-inside: avoid;
@@ -443,7 +465,7 @@ input#hamburg {
 
 @media screen {
   .letter {
-    background: #f7f7f7;
+    background: var(--cultured);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin: 26px auto 26px;
     max-width: 1000px;
@@ -452,6 +474,7 @@ input#hamburg {
     width: 80%;
     min-height: calc(100vh - 304px);
   }
+
   h2 {
     border-bottom: 1px solid rgba(102, 102, 102, 0.678);
     /* padding-top: 20px; */
@@ -470,12 +493,15 @@ input#hamburg {
   ul.topnav li.right, ul.topnav li {
     float: none;
   }
+
   body>ul.topnav li {
     display: none;
   }
+
   #hamburg:checked~li {
     display: block;
   }
+
   label.hamburg {
     display: block;
   }
