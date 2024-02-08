@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>xxo | fiurthorn</title>
+
+  <!-- <link rel="stylesheet" href="xxo.css"> -->
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <style>
+    .container {
+      position: relative;
+    }
+
+    .loading {
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      height: 100%;
+      width: 100%;
+
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+  <script>
+    function loaded() {
+      const loading = document.getElementById('loading');
+      const iframe = document.getElementById('iframe');
+
+      loading.style.display = 'none';
+      iframe.style.opacity = 1;
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <ul class="topnav">
+    <input type="checkbox" id="hamburg">
+    <label for="hamburg" class="hamburg">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </label>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="8-queens.html">8-queens</a></li>
+    <li><a href="xxo.html">XXO</a></li>
+    <li><a class="active" href="xxgo.html">XXGo</a></li>
+    <li><a href="jobInterview.html">job interview</a></li>
+    <li class="right"><a target="_blank" href="https://github.com/fiurthorn">github</a></li>
+    <li class="right"><a target="_blank" href="https://gist.github.com/fiurthorn">gist</a></li>
+  </ul>
+
+  <div class="letter">
+
+    <div class="container" style="text-align: center;">
+      <div id="loading">Loading</div>
+      <iframe id="iframe" src="xxgo/index.html" width="300px" height="300px" title="xxgo"
+        style="opacity:0; border:0; box-shadow:0 0 3px rgba(0, 0, 0, 0.3);" scrolling="no" onload="loaded();"></iframe>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; fiurthorn 2024 &dash; All rights reserved.</p>
+  </footer>
+
+</body>
+
+
+</html>

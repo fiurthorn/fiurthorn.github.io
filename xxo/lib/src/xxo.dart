@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:xxo/os.dart';
+import './os/os.dart';
 
 T printit<T>(String prefix, T t) {
   // print('$prefix: $t');
@@ -212,7 +212,8 @@ class Game {
     ],
   }.map(convert));
 
-  static MapEntry<Pos, Iterable<List<Pos>>> convert(int key, List<List<int>> value) => MapEntry(Pos.index(key), value.map(listToPos));
+  static MapEntry<Pos, Iterable<List<Pos>>> convert(int key, List<List<int>> value) =>
+      MapEntry(Pos.index(key), value.map(listToPos));
 
   static List<Pos> listToPos(List<int> e) => [Pos.index(e[0]), Pos.index(e[1])];
 
@@ -239,14 +240,17 @@ class Game {
     final moves = <Pos>[];
     final score = minimax(player, moves);
     if (score == 0 && moves.length > 1) {
-      final selected = printit('$player selected (1)', (printit('$player moves', List<Pos>.from(moves))..retainWhere((e) => edges.contains(e))));
+      final selected = printit('$player selected (1)',
+          (printit('$player moves', List<Pos>.from(moves))..retainWhere((e) => edges.contains(e))));
       if (selected.length > 1) {
         if (board.remaining > 6) {
-          return printit('$player turn (2) [${board.remaining}]', printit('$player selected (2)', selected)[rand.nextInt(selected.length)]);
+          return printit('$player turn (2) [${board.remaining}]',
+              printit('$player selected (2)', selected)[rand.nextInt(selected.length)]);
         }
 
         final adjusted = adjust(selected, player);
-        return printit('$player turn (3)', printit('$player adjusted $selected vs', adjusted)[rand.nextInt(adjusted.length)]);
+        return printit(
+            '$player turn (3)', printit('$player adjusted $selected vs', adjusted)[rand.nextInt(adjusted.length)]);
       }
     }
     return printit('$player turn (1)', moves[rand.nextInt(moves.length)]);

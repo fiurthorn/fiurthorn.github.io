@@ -1,0 +1,3 @@
+#! /bin/sh
+
+(cd xxo; dart compile js web/xxo.dart -o ../xxo.dart.js)
