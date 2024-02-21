@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import './os/os.dart';
-
 T printit<T>(String prefix, T t) {
   // print('$prefix: $t');
   return t;
@@ -145,19 +143,15 @@ class Game {
   bool get stopped => board.remaining == 0 || board.won;
 
   Player initNewGame() {
-    print('${OperationSystem.name} (${OperationSystem.version})');
-    // print(Platform.operatingSystemVersion);
-    // print(Platform.environment);
-
     board.clear();
     return rand.nextBool() ? playerX : playerO;
   }
 
   void set(Player player, Pos pos) => board[pos] = player;
 
-  Player getNextPlayer(Player player) => _oppoite(player);
+  Player getNextPlayer(Player player) => _opposite(player);
 
-  Player _oppoite(Player p) => p == playerO ? playerX : playerO;
+  Player _opposite(Player p) => p == playerO ? playerX : playerO;
 
   static const edges = [
     Pos.xy(2, 2),
@@ -273,7 +267,7 @@ class Game {
       var xy = board.pos(i);
       if (board.isEmpty(xy)) {
         board[xy] = player;
-        final score = -minimax(_oppoite(player), null);
+        final score = -minimax(_opposite(player), null);
         board.unset(xy);
         if (score > bestScore) {
           if (move != null) move.clear();

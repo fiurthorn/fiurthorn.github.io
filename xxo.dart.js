@@ -4003,9 +4003,6 @@
       B.JSArray_methods.add$1(parts, penultimateString);
       B.JSArray_methods.add$1(parts, ultimateString);
     },
-    print(object) {
-      A.printString(object);
-    },
     Duration: function Duration(t0) {
       this._duration = t0;
     },
@@ -7447,9 +7444,6 @@
   };
   A.Game.prototype = {
     initNewGame$0() {
-      var t1 = window.navigator.appVersion;
-      t1.toString;
-      A.print("Browser (" + t1 + ")");
       B.JSArray_methods.fillRange$3(this.board._fields, 0, 9, $.$get$Board_empty());
       return $.$get$Game_rand().nextBool$0() ? this.playerX : this.playerO;
     },
@@ -7664,7 +7658,7 @@
         if (type$.Exception._is(t1)) {
           e = t1;
           t = A.getTraceFromException(exception);
-          A.print(A.S(e) + ": " + A.S(t));
+          A.printString(A.S(e) + ": " + A.S(t));
         } else
           throw exception;
       }
