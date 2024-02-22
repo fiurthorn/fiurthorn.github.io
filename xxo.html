@@ -8,65 +8,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
   <link rel="stylesheet" href="css/stylesheet.css">
   <title>xxo | fiurthorn</title>
-
-  <style>
-    table#xxo_board {
-      margin: 0 auto;
-      text-align: center;
-      aspect-ratio: 1 / 1;
-      table-layout: fixed;
-    }
-
-    #xxo_board td {
-      background: #fff;
-      max-height: 10vmin;
-      min-height: 10vmin;
-      height: 10vmin;
-      max-width: 10vmin;
-      min-width: 10vmin;
-      width: 10vmin;
-      aspect-ratio: 1 / 1;
-      vertical-align: middle;
-      border-width: 1px !important;
-      border-style: solid !important;
-      border-color: #777 !important;
-      font-size: 5vmin;
-    }
-
-    @media screen and (max-width: 600px) {
-      #xxo_board td {
-        max-height: 15vmin;
-        min-height: 15vmin;
-        height: 15vmin;
-        max-width: 15vmin;
-        min-width: 15vmin;
-        width: 15vmin;
-        font-size: 7.5vmin;
-      }
-    }
-
-    #xxo_board td span {
-      margin-left: -4px !important;
-      margin-top: 4px !important;
-    }
-
-    #xxo_board tr:nth-child(odd) td:nth-child(odd),
-    #xxo_board tr:nth-child(even) td:nth-child(even) {
-      background: #eee;
-    }
-
-    #xxo_board td:hover {
-      background: #ddd !important;
-    }
-
-    #xxo_board td.won {
-      background: rgb(178, 218, 255) !important;
-    }
-
-    #xxo_board td.draw {
-      background: rgb(255, 190, 160) !important;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="appicon.png">
 
   <script defer src="xxo.dart.js"></script>
 </head>
@@ -91,7 +33,7 @@
 
   <div class="letter">
 
-    <ul class="topnav" style="background-color: #8694A8;">
+    <ul class="topnav">
       <li id="start_button"><a id="clear">New Game</a></li>
       <li id="start_button" style="padding: 7px;">
         <div class="button b2 player-ai" id="playerX">

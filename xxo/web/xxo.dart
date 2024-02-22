@@ -107,11 +107,12 @@ class WebGame extends Game {
     }
   }
 
-  bool checkAiFlag(Player player) => (querySelector('#player${player.symbol}')!.querySelector('input') as InputElement).checked ?? false;
+  bool checkAiFlag(Player player) =>
+      (querySelector('#player${player.symbol}')!.querySelector('input') as InputElement).checked ?? false;
 }
 
 class SyncQueue {
-  static final _delay = Duration(milliseconds: 333);
+  static final _delay = Duration(milliseconds: 100);
   final _queue = Queue<Function>();
   late final Stream<int> _timer = Stream.periodic(_delay, _period);
   late final _listener = _timer.listen(_OnData);

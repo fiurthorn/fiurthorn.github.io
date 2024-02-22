@@ -1,5 +1,5 @@
-file:///home/weinmann/.local/flutter-3.13/bin/cache/dart-sdk/lib/_internal/dart2js_platform.dill
-file:///home/weinmann/.local/flutter-3.13/bin/cache/dart-sdk/lib/libraries.json
+file:///home/weinmann/.local/flutter/bin/cache/dart-sdk/lib/_internal/dart2js_platform.dill
+file:///home/weinmann/.local/flutter/bin/cache/dart-sdk/lib/libraries.json
 file:///home/weinmann/workspace/fiurthorn.github.io/xxo/.dart_tool/package_config.json
 file:///home/weinmann/workspace/fiurthorn.github.io/xxo/lib/src/xxo.dart
 file:///home/weinmann/workspace/fiurthorn.github.io/xxo/web/xxo.dart
@@ -50,6 +50,7 @@ org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/async_status_codes.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/embedded_names.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/load_library_priority.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/typed_data_patch.dart
+org-dartlang-sdk:///lib/_internal/js_shared/lib/convert_utf_patch.dart
 org-dartlang-sdk:///lib/_internal/js_shared/lib/js_interop_patch.dart
 org-dartlang-sdk:///lib/_internal/js_shared/lib/js_interop_unsafe_patch.dart
 org-dartlang-sdk:///lib/_internal/js_shared/lib/js_types.dart
