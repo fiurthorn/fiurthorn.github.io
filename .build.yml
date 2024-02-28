@@ -1,0 +1,15 @@
+image: alpine/edge
+oauth: pages.sr.ht/PAGES:RW
+secrets:
+  - 2656cbc1-eb7d-4280-888a-3d8cca3af677
+sources:
+  - git@git.sr.ht:~fiurthorn/pages
+packages:
+  - hut
+environment:
+  site: fiurthorn.srht.site
+tasks:
+  - package: |
+      tar -C pages --exclude .git --exclude .vscode --exclude xxo -cvz . > site.tar.gz
+  - upload: |
+      hut pages publish -d $site site.tar.gz
