@@ -1,7 +1,17 @@
 /*** stylesheet.css ***/
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
+@import url("../fonts/Go-Bold-Italic.ttf");
+@import url("../fonts/Go-Bold.ttf");
+@import url("../fonts/Go-Italic.ttf");
+@import url("../fonts/Go-Medium-Italic.ttf");
+@import url("../fonts/Go-Medium.ttf");
+@import url("../fonts/Go-Mono-Bold-Italic.ttf");
+@import url("../fonts/Go-Mono-Bold.ttf");
+@import url("../fonts/Go-Mono-Italic.ttf");
+@import url("../fonts/Go-Mono.ttf");
+@import url("../fonts/Go-Regular.ttf");
+@import url("../fonts/Go-Smallcaps-Italic.ttf");
+@import url("../fonts/Go-Smallcaps.ttf");
 
 :root {
   --fiurthorn-onyx: #353c3eff;
@@ -33,7 +43,7 @@
 }
 
 body {
-  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+  font-family: "Go Medium", Arial, Helvetica, sans-serif;
   color: var(--nord-1-polar-night);
   background-color: var(--nord-4-snow-storm);
 }
@@ -45,7 +55,7 @@ a {
 
 pre,
 code {
-  font-family: "PT Mono", monospace;
+  font-family: "Go Mono", monospace;
 }
 
 section {
@@ -372,6 +382,7 @@ body {
 }
 
 footer {
+  font-family: "Go Smallcaps", monospace;
   position: sticky;
   color: var(--nord-4-snow-storm);
   background-color: var(--nord-10-frost);
@@ -382,6 +393,7 @@ footer {
 }
 
 ul.topnav {
+  font-family: "Go Smallcaps", monospace;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -576,7 +588,7 @@ input#hamburg {
     padding: 50px 100px 100px 100px;
     position: relative;
     width: 80%;
-    min-height: calc(100vh - 304px);
+    min-height: calc(100vh - 300px);
   }
 
   h2 {
@@ -593,7 +605,7 @@ input#hamburg {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 820px) {
   ul.topnav li.right,
   ul.topnav li {
     float: none;
