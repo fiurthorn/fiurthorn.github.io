@@ -32,7 +32,7 @@
   <script>
     function loaded() {
       const loading = document.getElementById('loading');
-      const iframe = document.getElementById('iframe');
+      const iframe = document.getElementById('xxgo');
 
       loading.style.display = 'none';
       iframe.style.opacity = 1;
@@ -63,7 +63,7 @@
 
     <div class="container" style="text-align: center;">
       <div id="loading">Loading</div>
-      <iframe id="iframe" src="xxgo/index.html" width="400px" height="600px" title="xxgo"
+      <iframe id="xxgo" class="wasm-frame" src="xxgo/index.html" width="400px" height="600px" title="xxgo"
         style="opacity:0; border:0; box-shadow:0 0 3px rgba(0, 0, 0, 0.3);" scrolling="no" onload="loaded();"></iframe>
     </div>
 

@@ -7,7 +7,7 @@ sources:
 packages:
   - hut
 environment:
-  site: fiurthorn.srht.site
+  site: fiurthorn.de
 tasks:
   - package: |
       tar -C pages --exclude .git --exclude .vscode --exclude xxo -cvz . > site.tar.gz
