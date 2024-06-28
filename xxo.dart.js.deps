@@ -1,8 +1,8 @@
 file:///home/weinmann/.local/flutter/bin/cache/dart-sdk/lib/_internal/dart2js_platform.dill
 file:///home/weinmann/.local/flutter/bin/cache/dart-sdk/lib/libraries.json
-file:///home/weinmann/workspace/fiurthorn.github.io/xxo/.dart_tool/package_config.json
-file:///home/weinmann/workspace/fiurthorn.github.io/xxo/lib/src/xxo.dart
-file:///home/weinmann/workspace/fiurthorn.github.io/xxo/web/xxo.dart
+file:///home/weinmann/workspace/fiurthorn/fiurthorn.github.io/xxo/.dart_tool/package_config.json
+file:///home/weinmann/workspace/fiurthorn/fiurthorn.github.io/xxo/lib/src/xxo.dart
+file:///home/weinmann/workspace/fiurthorn/fiurthorn.github.io/xxo/web/xxo.dart
 org-dartlang-sdk:///lib/_http/crypto.dart
 org-dartlang-sdk:///lib/_http/embedder_config.dart
 org-dartlang-sdk:///lib/_http/http.dart
@@ -22,6 +22,7 @@ org-dartlang-sdk:///lib/_internal/js_runtime/lib/collection_patch.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/constant_map.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/convert_patch.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/core_patch.dart
+org-dartlang-sdk:///lib/_internal/js_runtime/lib/dart2js_only.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/dart2js_runtime_metrics.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/developer_patch.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/foreign_helper.dart
@@ -48,6 +49,7 @@ org-dartlang-sdk:///lib/_internal/js_runtime/lib/regexp_helper.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/string_helper.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/async_status_codes.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/embedded_names.dart
+org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/invocation_mirror_constants.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/synced/load_library_priority.dart
 org-dartlang-sdk:///lib/_internal/js_runtime/lib/typed_data_patch.dart
 org-dartlang-sdk:///lib/_internal/js_shared/lib/convert_utf_patch.dart
@@ -140,6 +142,7 @@ org-dartlang-sdk:///lib/core/uri.dart
 org-dartlang-sdk:///lib/core/weak.dart
 org-dartlang-sdk:///lib/developer/developer.dart
 org-dartlang-sdk:///lib/developer/extension.dart
+org-dartlang-sdk:///lib/developer/http_profiling.dart
 org-dartlang-sdk:///lib/developer/profiler.dart
 org-dartlang-sdk:///lib/developer/service.dart
 org-dartlang-sdk:///lib/developer/timeline.dart
